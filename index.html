@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>BestDeals - Fashion & Beauty + Wallet</title>
+<title>BestDeals - Fashion & Beauty</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
 <script src="https://libtl.com/sdk.js" data-zone="11968926" data-sdk="show_11968926"></script>
@@ -17,7 +17,7 @@ body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-w
 .wheel{width:220px;height:220px;border-radius:50%;margin:15px auto;position:relative;border:4px solid #6c5cff;background:conic-gradient(#6a4cff 0 70%, #333 70% 98%, #3b82f6 98% 99%, #22c55e 99% 99.5%, #06b6d4 99.5% 100%);transition:transform 4s cubic-bezier(.17,.67,.12,.99)}
 .center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;background:#000;border-radius:50%;border:3px solid #fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:bold}
 .pin{width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:24px solid #ffcc00;margin:0 auto}
-.btn{width:100%;background:linear-gradient(90deg,#8b5cf6,#3b82f6);color:#fff;border:0;padding:14px;border-radius:12px;font-size:16px;font-weight:bold;margin:10px 0;cursor:pointer}
+.btn{width:100%;background:linear-gradient(90deg,#8b5cf6,#3b82f6);color:#fff;border:0;padding:14px;border-radius:12px;font-size:16px;font-weight:bold;margin:10px 0}
 .btn-wallet{background:linear-gradient(90deg,#f59e0b,#ffcc00);color:#000}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
 .prod{background:#1e1e1e;border-radius:12px;padding:8px;border:1px solid #333;position:relative}
@@ -35,31 +35,19 @@ body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-w
 </head>
 <body>
 <h2 style="text-align:center">BestDeals Store</h2>
-
-<!-- ====== WALLET SECTION - NAYA ADDED ====== -->
 <div class="wallet-card">
   <div style="display:flex;justify-content:space-between;align-items:center">
-    <div>
-      <div style="font-size:11px;color:#94a3b8">RECHARGE WALLET</div>
-      <div class="balance" id="walletBal">₹0</div>
-      <div style="font-size:10px;color:#aaa" id="profitText">Profit: ₹0</div>
-    </div>
+    <div><div style="font-size:11px;color:#94a3b8">RECHARGE WALLET</div><div class="balance" id="walletBal">₹0</div><div style="font-size:10px;color:#aaa" id="profitText">Total Profit: ₹0.00</div></div>
     <button onclick="addMoney()" style="background:#00ff88;color:#000;border:0;padding:10px 16px;border-radius:20px;font-weight:bold;font-size:12px">+ Add Money</button>
   </div>
-
-  <!-- Recharge Form -->
   <div style="margin-top:12px;border-top:1px dashed #334155;padding-top:10px">
     <div style="font-size:12px;margin-bottom:6px;font-weight:bold">📱 Auto Recharge</div>
     <input id="rcNum" class="input-dark" placeholder="Mobile Number" type="number">
-    <div style="display:flex;gap:6px">
-      <select id="rcOp" class="input-dark" style="flex:1"><option>Jio</option><option>Airtel</option><option>Vi</option><option>BSNL</option></select>
-      <input id="rcAmt" class="input-dark" placeholder="Amount" type="number" style="flex:1">
-    </div>
+    <div style="display:flex;gap:6px"><select id="rcOp" class="input-dark" style="flex:1"><option>Jio</option><option>Airtel</option><option>Vi</option><option>BSNL</option></select><input id="rcAmt" class="input-dark" placeholder="Amount" type="number" style="flex:1"></div>
     <button class="btn btn-wallet" onclick="doWalletRecharge()">⚡ Recharge Now - Auto</button>
     <div id="rcStatus" style="font-size:11px;color:#38bdf8;text-align:center;margin-top:6px"></div>
   </div>
 </div>
-
 <div class="info">Products ≤ ₹1000 • Max ₹5 Discount<br>Auto Ads: Monetag + Adsgram</div>
 <div class="pin"></div>
 <div style="position:relative"><div class="wheel" id="wheel"><div class="center">SPIN</div></div></div>
@@ -73,16 +61,11 @@ body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-w
 </div>
 <div id="productContainer"></div>
 <div class="loader" id="loader">↓ Niche scroll karo aur products load honge...</div>
-
 <div id="pdfTool" style="margin:28px 0 16px;background:#1e293b;border:1px solid #334155;border-radius:16px;padding:16px">
   <h3 style="color:#f8fafc;margin-bottom:4px">📄 PDF Compressor - 50% Mode</h3>
   <p style="color:#94a3b8;font-size:11px;margin-bottom:10px">50% Compress + Gallery Save + Double Ads</p>
   <input type="file" id="pdfInput" accept="application/pdf" style="width:100%;padding:10px;background:#0f172a;border:1px dashed #334155;border-radius:10px;color:#fff" />
-  <select id="qualitySelect" style="flex:1;padding:10px;background:#0f172a;border:1px solid #334155;border-radius:10px;color:#fff;margin-top:10px;width:100%">
-      <option value="0.5">50% Compress (Recommended)</option>
-      <option value="0.7">30% Compress (Good Quality)</option>
-      <option value="0.3">70% Compress (Max Save)</option>
-  </select>
+  <select id="qualitySelect" style="flex:1;padding:10px;background:#0f172a;border:1px solid #334155;border-radius:10px;color:#fff;margin-top:10px;width:100%"><option value="0.5">50% Compress (Recommended)</option><option value="0.7">30% Compress (Good Quality)</option><option value="0.3">70% Compress (Max Save)</option></select>
   <button id="compressBtn" style="margin-top:12px;width:100%;background:#f59e0b;border:0;border-radius:10px;padding:12px;font-weight:800;color:#000;cursor:pointer">⚡ Compress Now</button>
   <div id="pdfStatus" style="margin-top:10px;color:#38bdf8;font-size:13px;line-height:1.5"></div>
   <div style="width:100%;background:#0f172a;border-radius:10px;height:6px;margin-top:10px;display:none" id="progressWrap"><div id="progressBar" style="height:6px;background:#38bdf8;border-radius:10px;width:0%"></div></div>
@@ -90,120 +73,47 @@ body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-w
 </div>
 
 <script>
-// ====== CONFIG - YAHAN APNA DATA DALO ======
+// ===== CONFIG - YAHAN APNA DATA DALO =====
 const CONFIG = {
-  UPI_ID: "YAHAN APNI UPI DALO - jaise 98765@oksbi", // <-- YAHAN UPI DALO
+  UPI_ID: "YAHAN APNI UPI DALO jaise 9876543210@oksbi",
   OWNER_NAME: "YAHAN APNA NAAM DALO",
-  API_KEY: "YAHAN PAYSPRINT API KEY DALO - abhi khali chhod do", // <-- BAAD ME API KEY YAHAN
-  MODE: "MANUAL", // MANUAL rakho, API aane pe "AUTO" likh dena
+  API_KEY: "YAHAN PAYSPRINT API KEY DALO",
+  MODE: "MANUAL",
   PROFIT_PERCENT: 3,
-  TELEGRAM_BOT_TOKEN: "YAHAN TELEGRAM BOT TOKEN DALO - optional",
-  TELEGRAM_CHAT_ID: "YAHAN APNI TELEGRAM CHAT ID DALO"
+  TELEGRAM_BOT_TOKEN: "",
+  TELEGRAM_CHAT_ID: ""
 };
-// ====== END CONFIG ======
+// PWA SINGLE FILE MEIN - MANIFEST + SW BLOB SE
+(function(){
+  const manifestData = {"name":"BestDeals Store","short_name":"BestDeals","start_url":"./","display":"standalone","background_color":"#0f0f12","theme_color":"#ffcc00","icons":[{"src":"https://cdn-icons-png.flaticon.com/512/3081/3081559.png","sizes":"512x512","type":"image/png"}]};
+  const blob = new Blob([JSON.stringify(manifestData)], {type:'application/json'});
+  const manifestURL = URL.createObjectURL(blob);
+  const link = document.createElement('link'); link.rel='manifest'; link.href=manifestURL; document.head.appendChild(link);
+  const swCode = `self.addEventListener('install', e => self.skipWaiting()); self.addEventListener('activate', e => self.clients.claim()); self.addEventListener('fetch', e => { e.respondWith(fetch(e.request).catch(()=> caches.match(e.request))); });`;
+  const swBlob = new Blob([swCode], {type:'text/javascript'});
+  const swURL = URL.createObjectURL(swBlob);
+  if('serviceWorker' in navigator){ navigator.serviceWorker.register(swURL); }
+})();
 
 const MY_AMAZON_TAG = "earningtadka8-21";
-let AdsBlock = null;
-try{ AdsBlock = window.Adsgram? window.Adsgram.init({blockId:"int-52779"}) : null; }catch(e){}
-let isSpinning=false, lastAd="adsgram", spinExtra=0, visibleCount=8, currentFilter='all';
-let monetagReady = false;
-
-function initMonetag(){
-  return new Promise((resolve)=>{
-    if(typeof show_11968926 === 'function'){ monetagReady=true; resolve(true); return; }
-    let s = document.createElement('script'); s.src="https://libtl.com/sdk.js"; s.dataset.zone="11968926"; s.dataset.sdk="show_11968926";
-    s.onload=()=>{ setTimeout(()=>{ monetagReady = typeof show_11968926 === 'function'; resolve(monetagReady); },1500); };
-    s.onerror=()=>resolve(false); document.head.appendChild(s);
-  });
-}
+let AdsBlock = null; try{ AdsBlock = window.Adsgram? window.Adsgram.init({blockId:"int-52779"}) : null; }catch(e){}
+let isSpinning=false, lastAd="adsgram", spinExtra=0, visibleCount=8, currentFilter='all'; let monetagReady = false;
+function initMonetag(){ return new Promise((resolve)=>{ if(typeof show_11968926 === 'function'){ monetagReady=true; resolve(true); return; } let s = document.createElement('script'); s.src="https://libtl.com/sdk.js"; s.dataset.zone="11968926"; s.dataset.sdk="show_11968926"; s.onload=()=>{ setTimeout(()=>{ monetagReady = typeof show_11968926 === 'function'; resolve(monetagReady); },1500); }; s.onerror=()=>resolve(false); document.head.appendChild(s); }); }
 initMonetag();
 async function showMonetag(){ try{ if(!monetagReady) await initMonetag(); if(typeof show_11968926 === 'function'){ await show_11968926(); return true; } return false; }catch(e){ return false; } }
 async function showAdsgram(){ try{ if(AdsBlock){ await AdsBlock.show(); return true; } }catch(e){} return false; }
 setTimeout(async()=>{ await showMonetag(); }, 3000);
 setInterval(async()=>{ if(isSpinning) return; if(lastAd==="adsgram"){ let ok = await showMonetag(); if(!ok) await showAdsgram(); lastAd="monetag"; } else { await showAdsgram(); lastAd="adsgram"; } }, 25000);
 
-// ====== WALLET LOGIC - NAYA ======
-let walletBal = parseInt(localStorage.getItem('wallet_bal') || '0');
-let totalProfit = parseFloat(localStorage.getItem('wallet_profit') || '0');
+let walletBal = parseInt(localStorage.getItem('wallet_bal') || '0'); let totalProfit = parseFloat(localStorage.getItem('wallet_profit') || '0');
 function updateWalletUI(){ document.getElementById('walletBal').innerText = '₹' + walletBal; document.getElementById('profitText').innerText = 'Total Profit: ₹' + totalProfit.toFixed(2); }
 updateWalletUI();
+async function addMoney(){ let amt = prompt("Kitna Add karna hai? Ex: 100"); if(!amt) return; if(CONFIG.UPI_ID.includes("YAHAN")){ alert("Pehle CONFIG me apni UPI ID dalo!"); return; } await showMonetag(); let upiLink = `upi://pay?pa=${CONFIG.UPI_ID}&pn=${CONFIG.OWNER_NAME}&am=${amt}&cu=INR&tn=Wallet Add`; window.location.href = upiLink; setTimeout(()=>{ if(confirm("Payment ho gaya? OK dabao to wallet me add ho jayega")){ walletBal += parseInt(amt); localStorage.setItem('wallet_bal', walletBal); updateWalletUI(); showAdsgram(); } }, 2500); }
+async function doWalletRecharge(){ let num = document.getElementById('rcNum').value; let amt = parseInt(document.getElementById('rcAmt').value); let op = document.getElementById('rcOp').value; let status = document.getElementById('rcStatus'); if(num.length!=10 ||!amt){ alert("Number / Amount sahi dalo"); return; } if(walletBal < amt){ alert("Wallet me balance kam hai. Add Money karo"); return; } status.innerText = "⏳ Loading Ad..."; await showMonetag(); status.innerText = "Processing Recharge..."; let profit = (amt * CONFIG.PROFIT_PERCENT / 100); if(CONFIG.MODE === "MANUAL"){ status.innerHTML = `✅ Order Sent! ${num} pe ₹${amt} 2 min me hoga. Profit ₹${profit.toFixed(2)}`; } else { if(CONFIG.API_KEY.includes("YAHAN") ||!CONFIG.API_KEY){ alert("CONFIG me API_KEY dalo!"); return; } try{ let res = await fetch("https://api.paysprint.in/api/recharge/do",{ method:"POST", headers:{"Content-Type":"application/json", "apikey": CONFIG.API_KEY}, body: JSON.stringify({operator:op, canumber:num, amount:amt}) }); let data = await res.json(); status.innerHTML = `✅ Auto Success! Txn: ${data.txn || 'Done'}`; }catch(e){ status.innerText = "API Error: "+e.message; } } walletBal = walletBal - amt + profit; totalProfit += profit; localStorage.setItem('wallet_bal', walletBal); localStorage.setItem('wallet_profit', totalProfit); updateWalletUI(); await showAdsgram(); setTimeout(async()=>{ await showMonetag(); }, 2000); }
 
-function addMoney(){
-  let amt = prompt("Kitna Add karna hai? Ex: 100");
-  if(!amt) return;
-  if(CONFIG.UPI_ID.includes("YAHAN")){ alert("Pehle CONFIG me apni UPI ID dalo!"); return; }
-  let upiLink = `upi://pay?pa=${CONFIG.UPI_ID}&pn=${CONFIG.OWNER_NAME}&am=${amt}&cu=INR&tn=Wallet Add`;
-  window.location.href = upiLink;
-  setTimeout(()=>{ if(confirm("Payment ho gaya? OK dabao to wallet me add ho jayega")){ walletBal += parseInt(amt); localStorage.setItem('wallet_bal', walletBal); updateWalletUI(); } }, 2500);
-}
-
-async function doWalletRecharge(){
-  let num = document.getElementById('rcNum').value;
-  let amt = parseInt(document.getElementById('rcAmt').value);
-  let op = document.getElementById('rcOp').value;
-  let status = document.getElementById('rcStatus');
-  if(num.length!=10 ||!amt){ alert("Number / Amount sahi dalo"); return; }
-  if(walletBal < amt){ alert("Wallet me balance kam hai. Add Money karo"); return; }
-  status.innerText = "Processing...";
-  await showMonetag(); // Ad before recharge
-
-  let profit = (amt * CONFIG.PROFIT_PERCENT / 100);
-
-  if(CONFIG.MODE === "MANUAL"){
-    // MANUAL MODE - Telegram pe jayega
-    if(CONFIG.TELEGRAM_BOT_TOKEN &&!CONFIG.TELEGRAM_BOT_TOKEN.includes("YAHAN")){
-      let msg = `NEW RECHARGE%0ANum: ${num}%0AOp: ${op}%0AAmt: ${amt}%0AProfit: ${profit}`;
-      fetch(`https://api.telegram.org/bot${CONFIG.TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${CONFIG.TELEGRAM_CHAT_ID}&text=${msg}`);
-    }
-    status.innerHTML = `✅ Order Sent! ${num} pe ₹${amt} 2 min me hoga. Profit ₹${profit.toFixed(2)}`;
-  } else {
-    // AUTO MODE - API SE DIRECT RECHARGE
-    if(CONFIG.API_KEY.includes("YAHAN") ||!CONFIG.API_KEY){ alert("CONFIG me API_KEY dalo!"); return; }
-    status.innerText = "Auto Recharge API se ho raha hai...";
-    try{
-      let res = await fetch("https://api.paysprint.in/api/recharge/do",{
-        method:"POST",
-        headers:{"Content-Type":"application/json", "apikey": CONFIG.API_KEY},
-        body: JSON.stringify({operator:op, canumber:num, amount:amt})
-      });
-      let data = await res.json();
-      status.innerHTML = `✅ Auto Success! Txn: ${data.txn || 'Done'}`;
-    }catch(e){ status.innerText = "API Error: Manual kar do. "+e.message; }
-  }
-
-  walletBal = walletBal - amt + profit;
-  totalProfit += profit;
-  localStorage.setItem('wallet_bal', walletBal);
-  localStorage.setItem('wallet_profit', totalProfit);
-  updateWalletUI();
-  await showAdsgram();
-}
-
-// ====== TERA PURANA PRODUCT CODE ======
-let allProducts=[
- {name:"Scott International Pack of 3 T-Shirt", price:399, old:1049, myCommission:10, cat:"mens", platform:"amazon", img:"https://m.media-amazon.com/images/I/41aQCWMtgdL._AC_.jpg", link:"https://www.amazon.in/s?k=Scott+International+Men+Tshirt&tag=earningtadka8-21"},
- {name:"Symbol Men Polo Shirt Solid Regular", price:399, old:1049, myCommission:8, cat:"mens", platform:"amazon", img:"https://m.media-amazon.com/images/I/31I80jMir0L._AC_.jpg", link:"https://www.amazon.in/s?k=Symbol+Men+Polo&tag=earningtadka8-21"},
- {name:"LEOTUDE Oversized Graphic Tshirt", price:299, old:1099, myCommission:10, cat:"mens", platform:"amazon", img:"https://m.media-amazon.com/images/I/61bDoqhvEPL._SY879_.jpg", link:"https://www.amazon.in/s?k=LEOTUDE+oversized+tshirt&tag=earningtadka8-21"},
- {name:"BULLMER Pack of 3 Cotton Blend Tshirt", price:519, old:2997, myCommission:12, cat:"mens", platform:"amazon", img:"https://m.media-amazon.com/images/I/51S+0sXy-CL._SY879_.jpg", link:"https://www.amazon.in/s?k=BULLMER+men+tshirt+pack+3&tag=earningtadka8-21"},
- {name:"Men Denim Jeans Slim Fit Flipkart", price:799, old:1999, myCommission:10, cat:"mens", platform:"flipkart", img:"https://rukminim2.flixcart.com/image/612/612/xif0q/jean/n/q/h/-original-imaghz9qng3xuhha.jpeg?q=70", link:"https://www.flipkart.com/search?q=men+jeans+slim+fit"},
- {name:"Men Sports Running Shoes", price:899, old:2499, myCommission:10, cat:"mens", platform:"flipkart", img:"https://rukminim2.flixcart.com/image/612/612/xif0q/shoe/7/r/5/-original-imaggcb4chjkhpge.jpeg?q=70", link:"https://www.flipkart.com/search?q=men+sports+shoes"},
- {name:"Women Pink Cotton Kurta Set", price:499, old:1299, myCommission:10, cat:"womens", platform:"amazon", img:"https://m.media-amazon.com/images/I/61I4Q+2Q+FL._SL1500_.jpg", link:"https://www.amazon.in/s?k=women+kurta+set&tag=earningtadka8-21"},
- {name:"Women Georgette Saree Party Wear", price:699, old:1999, myCommission:10, cat:"womens", platform:"flipkart", img:"https://rukminim2.flixcart.com/image/612/612/xif0q/sari/3/9/5/-original-imaghx9qng3xuhha.jpeg?q=70", link:"https://www.flipkart.com/search?q=saree+georgette"},
- {name:"Women Western Top Stylish", price:399, old:999, myCommission:8, cat:"womens", platform:"amazon", img:"https://m.media-amazon.com/images/I/71e+4uY6+ZL._SL1500_.jpg", link:"https://www.amazon.in/s?k=women+western+top&tag=earningtadka8-21"},
- {name:"Women Handbag Brown Leather", price:599, old:1499, myCommission:10, cat:"womens", platform:"flipkart", img:"https://rukminim2.flixcart.com/image/612/612/xif0q/hand-messenger-bag/e/a/9/-original-imaghx9qng3xuhha.jpeg?q=70", link:"https://www.flipkart.com/search?q=handbag+women"},
- {name:"Lipstick Matte Red 5pc Set", price:299, old:699, myCommission:10, cat:"makeup", platform:"amazon", img:"https://m.media-amazon.com/images/I/61+Qv2KhM5L._SL1500_.jpg", link:"https://www.amazon.in/s?k=lipstick+matte+red+5pc&tag=earningtadka8-21"},
- {name:"Makeup Brush Set 12pc Professional", price:349, old:799, myCommission:10, cat:"makeup", platform:"flipkart", img:"https://rukminim2.flixcart.com/image/612/612/xif0q/makeup-kit/3/9/5/-original-imaghx9qng3xuhha.jpeg?q=70", link:"https://www.flipkart.com/search?q=makeup+brush+set"},
-];
+let allProducts=[ {name:"Scott International Pack of 3 T-Shirt", price:399, old:1049, myCommission:10, cat:"mens", platform:"amazon", img:"https://m.media-amazon.com/images/I/41aQCWMtgdL._AC_.jpg", link:"https://www.amazon.in/s?k=Scott+International+Men+Tshirt&tag=earningtadka8-21"}, {name:"Symbol Men Polo Shirt Solid Regular", price:399, old:1049, myCommission:8, cat:"mens", platform:"amazon", img:"https://m.media-amazon.com/images/I/31I80jMir0L._AC_.jpg", link:"https://www.amazon.in/s?k=Symbol+Men+Polo&tag=earningtadka8-21"}, {name:"LEOTUDE Oversized Graphic Tshirt", price:299, old:1099, myCommission:10, cat:"mens", platform:"amazon", img:"https://m.media-amazon.com/images/I/61bDoqhvEPL._SY879_.jpg", link:"https://www.amazon.in/s?k=LEOTUDE+oversized+tshirt&tag=earningtadka8-21"}, {name:"BULLMER Pack of 3 Cotton Blend Tshirt", price:519, old:2997, myCommission:12, cat:"mens", platform:"amazon", img:"https://m.media-amazon.com/images/I/51S+0sXy-CL._SY879_.jpg", link:"https://www.amazon.in/s?k=BULLMER+men+tshirt+pack+3&tag=earningtadka8-21"}, {name:"Men Denim Jeans Slim Fit Flipkart", price:799, old:1999, myCommission:10, cat:"mens", platform:"flipkart", img:"https://rukminim2.flixcart.com/image/612/612/xif0q/jean/n/q/h/-original-imaghz9qng3xuhha.jpeg?q=70", link:"https://www.flipkart.com/search?q=men+jeans+slim+fit"}, {name:"Men Sports Running Shoes", price:899, old:2499, myCommission:10, cat:"mens", platform:"flipkart", img:"https://rukminim2.flixcart.com/image/612/612/xif0q/shoe/7/r/5/-original-imaggcb4chjkhpge.jpeg?q=70", link:"https://www.flipkart.com/search?q=men+sports+shoes"}, {name:"Women Pink Cotton Kurta Set", price:499, old:1299, myCommission:10, cat:"womens", platform:"amazon", img:"https://m.media-amazon.com/images/I/61I4Q+2Q+FL._SL1500_.jpg", link:"https://www.amazon.in/s?k=women+kurta+set&tag=earningtadka8-21"}, {name:"Women Georgette Saree Party Wear", price:699, old:1999, myCommission:10, cat:"womens", platform:"flipkart", img:"https://rukminim2.flixcart.com/image/612/612/xif0q/sari/3/9/5/-original-imaghx9qng3xuhha.jpeg?q=70", link:"https://www.flipkart.com/search?q=saree+georgette"}, {name:"Women Western Top Stylish", price:399, old:999, myCommission:8, cat:"womens", platform:"amazon", img:"https://m.media-amazon.com/images/I/71e+4uY6+ZL._SL1500_.jpg", link:"https://www.amazon.in/s?k=women+western+top&tag=earningtadka8-21"}, {name:"Women Handbag Brown Leather", price:599, old:1499, myCommission:10, cat:"womens", platform:"flipkart", img:"https://rukminim2.flixcart.com/image/612/612/xif0q/hand-messenger-bag/e/a/9/-original-imaghx9qng3xuhha.jpeg?q=70", link:"https://www.flipkart.com/search?q=handbag+women"}, {name:"Lipstick Matte Red 5pc Set", price:299, old:699, myCommission:10, cat:"makeup", platform:"amazon", img:"https://m.media-amazon.com/images/I/61+Qv2KhM5L._SL1500_.jpg", link:"https://www.amazon.in/s?k=lipstick+matte+red+5pc&tag=earningtadka8-21"}, {name:"Makeup Brush Set 12pc Professional", price:349, old:799, myCommission:10, cat:"makeup", platform:"flipkart", img:"https://rukminim2.flixcart.com/image/612/612/xif0q/makeup-kit/3/9/5/-original-imaghx9qng3xuhha.jpeg?q=70", link:"https://www.flipkart.com/search?q=makeup+brush+set"},];
 function getFiltered(){ return currentFilter==='all'? allProducts : allProducts.filter(p=>p.cat===currentFilter); }
-function renderProducts(){
-  let filtered=getFiltered(); let toShow=filtered.slice(0, visibleCount);
-  if(toShow.length===0){ document.getElementById("productContainer").innerHTML=`<div style="text-align:center;padding:20px;color:#888">No products</div>`; return; }
-  document.getElementById("productContainer").innerHTML=`<div class="grid">`+toShow.map(p=>{
-    let autoDisc=(p.myCommission*1)/100; let finalPrice=p.price-autoDisc-spinExtra; if(finalPrice < p.price-5) finalPrice=p.price-5; let idx = allProducts.indexOf(p);
-    return `<div class="prod"><span class="badge ${p.platform}">${p.platform.toUpperCase()}</span><img src="${p.img}" loading="lazy" onerror="this.src='https://via.placeholder.com/300?text=Product'"><h4>${p.name}</h4><div><span class="price">₹${finalPrice.toFixed(0)}</span><span class="old">₹${p.old}</span></div><span class="discTag">✓ ₹${autoDisc.toFixed(0)} Off Auto ${spinExtra>0?`+ ₹${spinExtra} Spin`:''}</span><button class="buy" onclick="buyProduct(${idx})">Get Offer - ${p.platform}</button></div>`;
-  }).join('')+`</div>`;
-  document.getElementById("loader").innerText=visibleCount<filtered.length?"↓ Scroll for more...":"✓ All products loaded";
-}
+function renderProducts(){ let filtered=getFiltered(); let toShow=filtered.slice(0, visibleCount); if(toShow.length===0){ document.getElementById("productContainer").innerHTML=`<div style="text-align:center;padding:20px;color:#888">No products</div>`; return; } document.getElementById("productContainer").innerHTML=`<div class="grid">`+toShow.map(p=>{ let autoDisc=(p.myCommission*1)/100; let finalPrice=p.price-autoDisc-spinExtra; if(finalPrice < p.price-5) finalPrice=p.price-5; let idx = allProducts.indexOf(p); return `<div class="prod"><span class="badge ${p.platform}">${p.platform.toUpperCase()}</span><img src="${p.img}" loading="lazy" onerror="this.src='https://via.placeholder.com/300?text=Product'"><h4>${p.name}</h4><div><span class="price">₹${finalPrice.toFixed(0)}</span><span class="old">₹${p.old}</span></div><span class="discTag">✓ ₹${autoDisc.toFixed(0)} Off Auto ${spinExtra>0?`+ ₹${spinExtra} Spin`:''}</span><button class="buy" onclick="buyProduct(${idx})">Get Offer - ${p.platform}</button></div>`; }).join('')+`</div>`; document.getElementById("loader").innerText=visibleCount<filtered.length?"↓ Scroll for more...":"✓ All products loaded"; }
 function filterCat(cat, el){ currentFilter=cat; visibleCount=8; document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active')); el.classList.add('active'); renderProducts(); }
 window.addEventListener('scroll', async()=>{ if(window.innerHeight + window.scrollY >= document.body.offsetHeight - 400){ if(visibleCount < getFiltered().length){ visibleCount+=4; renderProducts(); if(visibleCount % 8 === 0){ await showMonetag(); } } } });
 function getSpinDiscount(){ let r=Math.random()*100; if(r<70) return {label:"Try Again", value:0}; if(r<98) return {label:"0% Extra", value:0}; if(r<98.5) return {label:"5% Extra", value:1}; if(r<99) return {label:"10% Extra", value:2}; if(r<99.5) return {label:"15% Extra", value:3}; return {label:"20% Extra", value:4}; }
@@ -225,4 +135,4 @@ document.getElementById('compressBtn').addEventListener('click', async ()=>{
   dlBtn.style.display='none'; progressWrap.style.display='block'; progressBar.style.width='5%'; status.textContent = "⏳ Monetag Ad (1/2)..."; await showMonetagAdForPdf(); progressBar.style.width='15%'; status.textContent = "⚙️ 50% Compression start...";
   try{
     const arrayBuffer = await selectedFile.arrayBuffer(); const pdf = await pdfjsLib.getDocument({data: arrayBuffer}).promise; const pdfDoc = await PDFLib.PDFDocument.create();
-    for(let i=1;i<=pdf.numPages;i++){ status.textContent = `⚙️ Compressing page ${i}/${pdf.numPages} - 50% quality...`; progressBar.style.width = `${15 + (i/pdf.numPages)*70}%`; const page = await pdf.getPage(i); const viewport = page.getViewport({scale: 1.2}); const canvas = document.createElement('canvas'); const context = canvas.getContext('2d'); canvas.width = viewport.width; canvas.height = viewport.height; await page.render({canvasContext: con
+    for(let i=1;i<=pdf.numPages;i++){ status.textContent = `⚙️ Compressing page ${i}/${pdf.numPages} - 50% quality...`; progressBar.style.width = `${15 + (i/pdf.numPages)*70}%`; const page = await pdf.getPage(i); const viewport = page.getViewport({scale: 1.2}); const canvas = document.createElement('canvas'); const context = canvas.getContext('2d'); canvas.width = viewport.width; canvas
