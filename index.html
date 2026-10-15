@@ -8,7 +8,8 @@
 <script src="https://libtl.com/sdk.js" data-zone="11968926" data-sdk="show_11968926"></script>
 <style>
 body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-width:480px;margin:0 auto}
-.tabs{display:flex;gap:8px;overflow-x:auto;padding:8px 0;position:sticky;top:0;background:#0f0f12;z-index:10}
+.app-bar{background:linear-gradient(90deg,#ffcc00,#f59e0b);border-radius:12px;padding:14px;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;position:sticky;top:0;z-index:99;border:1px solid #ffcc00}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:8px 0;position:sticky;top:70px;background:#0f0f12;z-index:10}
 .tab{background:#1e1e1e;border:1px solid #333;padding:8px 14px;border-radius:20px;font-size:12px;white-space:nowrap;cursor:pointer}
 .tab.active{background:#ffcc00;color:#000;font-weight:bold}
 .info{background:#1f1f3a;border:1px solid #6c5cff;border-radius:10px;padding:10px;font-size:12px;text-align:center;margin-bottom:10px}
@@ -34,15 +35,15 @@ body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-w
 </style>
 </head>
 <body>
-<h2 style="text-align:center">BestDeals Store</h2>
 
-<!-- APP DOWNLOAD + TELEGRAM - ADDED -->
-<div style="background:linear-gradient(90deg,#ffcc00,#f59e0b);border-radius:12px;padding:12px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center">
-  <div style="color:#000;font-weight:bold;font-size:14px">📱 BestDeals App<br><span style="font-size:11px;font-weight:normal">Fast + No Ads - 33MB</span></div>
-  <a href="https://drive.usercontent.google.com/download?id=1Bs4NtACIWBHTBP1BVMjILhNKDwvy2F6K&export=download&confirm=t" style="background:#000;color:#ffcc00;padding:10px 16px;border-radius:20px;font-weight:bold;text-decoration:none;font-size:13px">📥 DOWNLOAD</a>
+<!-- APP DOWNLOAD - 33MB - ADDED HERE -->
+<div class="app-bar">
+  <div style="color:#000;font-weight:bold;font-size:14px">📱 BestDeals App<br><span style="font-size:11px;font-weight:normal">33MB - Fast Download</span></div>
+  <a href="https://drive.usercontent.google.com/download?id=1Bs4NtACIWBHTBP1BVMjILhNKDwvy2F6K&export=download&confirm=t" style="background:#000;color:#ffcc00;padding:10px 18px;border-radius:20px;font-weight:bold;text-decoration:none;font-size:13px">📥 DOWNLOAD</a>
 </div>
-<a href="https://t.me/earningtadka" target="_blank" style="display:block;background:#229ED9;color:#fff;text-align:center;padding:12px;border-radius:12px;font-weight:bold;margin-bottom:12px;text-decoration:none;font-size:14px">✈️ Telegram Join Karo - Daily Loot</a>
+<a href="https://t.me/earningtadka" target="_blank" style="display:block;background:#229ED9;color:#fff;text-align:center;padding:12px;border-radius:12px;font-weight:bold;margin-bottom:12px;text-decoration:none;font-size:14px">✈️ Telegram Join Karo</a>
 
+<h2 style="text-align:center">BestDeals Store</h2>
 <div class="wallet-card">
   <div style="display:flex;justify-content:space-between;align-items:center">
     <div><div style="font-size:11px;color:#94a3b8">RECHARGE WALLET</div><div class="balance" id="walletBal">₹0</div><div style="font-size:10px;color:#aaa" id="profitText">Total Profit: ₹0.00</div></div>
@@ -56,7 +57,7 @@ body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-w
     <div id="rcStatus" style="font-size:11px;color:#38bdf8;text-align:center;margin-top:6px"></div>
   </div>
 </div>
-<div class="info">Products ≤ ₹1000 • Max ₹5 Discount<br>Auto Ads: Monetag + Adsgram + OnClicka</div>
+<div class="info">Products ≤ ₹1000 • Max ₹5 Discount<br>Auto Ads: Monetag + Adsgram</div>
 <div class="pin"></div>
 <div style="position:relative"><div class="wheel" id="wheel"><div class="center">SPIN</div></div></div>
 <button class="btn" id="spinBtn" onclick="startSpin()">✨ Spin and Get More Discount</button>
@@ -69,7 +70,6 @@ body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-w
 </div>
 <div id="productContainer"></div>
 <div class="loader" id="loader">↓ Niche scroll karo aur products load honge...</div>
-
 <div id="pdfTool" style="margin:28px 0 16px;background:#1e293b;border:1px solid #334155;border-radius:16px;padding:16px">
   <h3 style="color:#f8fafc;margin-bottom:4px">📄 PDF Compressor - 50% Mode</h3>
   <p style="color:#94a3b8;font-size:11px;margin-bottom:10px">50% Compress + Gallery Save + Double Ads</p>
@@ -79,10 +79,13 @@ body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-w
   <div id="pdfStatus" style="margin-top:10px;color:#38bdf8;font-size:13px;line-height:1.5"></div>
   <div style="width:100%;background:#0f172a;border-radius:10px;height:6px;margin-top:10px;display:none" id="progressWrap"><div id="progressBar" style="height:6px;background:#38bdf8;border-radius:10px;width:0%"></div></div>
   <button id="pdfDownload" style="display:none;margin-top:12px;width:100%;background:#22c55e;border:0;border-radius:10px;padding:12px;font-weight:800;color:#000;cursor:pointer">⬇️ Download / Save to Gallery</button>
+  <a href="https://drive.usercontent.google.com/download?id=1Bs4NtACIWBHTBP1BVMjILhNKDwvy2F6K&export=download&confirm=t" style="display:block;background:#ffcc00;color:#000;text-align:center;padding:12px;border-radius:10px;font-weight:bold;margin-top:12px;text-decoration:none">📥 Download BestDeals App - 33MB</a>
 </div>
 
 <script>
-const CONFIG = { UPI_ID: "YAHAN APNI UPI DALO", OWNER_NAME: "BestDeals", API_KEY: "YAHAN PAYSPRINT API KEY DALO", MODE: "MANUAL", PROFIT_PERCENT: 3 };
+const CONFIG = { UPI_ID: "YAHAN APNI UPI DALO jaise 9876543210@oksbi", OWNER_NAME: "YAHAN APNA NAAM DALO", API_KEY: "YAHAN PAYSPRINT API KEY DALO", MODE: "MANUAL", PROFIT_PERCENT: 3 };
+(function(){ const manifestData = {"name":"BestDeals Store","short_name":"BestDeals","start_url":"./","display":"standalone","background_color":"#0f0f12","theme_color":"#ffcc00","icons":[{"src":"https://cdn-icons-png.flaticon.com/512/3081/3081559.png","sizes":"512x512","type":"image/png"}]}; const blob = new Blob([JSON.stringify(manifestData)], {type:'application/json'}); const manifestURL = URL.createObjectURL(blob); const link = document.createElement('link'); link.rel='manifest'; link.href=manifestURL; document.head.appendChild(link); })();
+const MY_AMAZON_TAG = "earningtadka8-21";
 let AdsBlock = null; try{ AdsBlock = window.Adsgram? window.Adsgram.init({blockId:"int-52779"}) : null; }catch(e){}
 let isSpinning=false, lastAd="adsgram", spinExtra=0, visibleCount=8, currentFilter='all'; let monetagReady = false;
 function initMonetag(){ return new Promise((resolve)=>{ if(typeof show_11968926 === 'function'){ monetagReady=true; resolve(true); return; } let s = document.createElement('script'); s.src="https://libtl.com/sdk.js"; s.dataset.zone="11968926"; s.dataset.sdk="show_11968926"; s.onload=()=>{ setTimeout(()=>{ monetagReady = typeof show_11968926 === 'function'; resolve(monetagReady); },1500); }; s.onerror=()=>resolve(false); document.head.appendChild(s); }); }
@@ -96,7 +99,7 @@ function updateWalletUI(){ document.getElementById('walletBal').innerText = '₹
 updateWalletUI();
 async function addMoney(){ let amt = prompt("Kitna Add karna hai? Ex: 100"); if(!amt) return; if(CONFIG.UPI_ID.includes("YAHAN")){ alert("Pehle CONFIG me apni UPI ID dalo!"); return; } await showMonetag(); let upiLink = `upi://pay?pa=${CONFIG.UPI_ID}&pn=${CONFIG.OWNER_NAME}&am=${amt}&cu=INR&tn=Wallet Add`; window.location.href = upiLink; setTimeout(()=>{ if(confirm("Payment ho gaya? OK dabao to wallet me add ho jayega")){ walletBal += parseInt(amt); localStorage.setItem('wallet_bal', walletBal); updateWalletUI(); showAdsgram(); } }, 2500); }
 async function doWalletRecharge(){ let num = document.getElementById('rcNum').value; let amt = parseInt(document.getElementById('rcAmt').value); let op = document.getElementById('rcOp').value; let status = document.getElementById('rcStatus'); if(num.length!=10 ||!amt){ alert("Number / Amount sahi dalo"); return; } if(walletBal < amt){ alert("Wallet me balance kam hai. Add Money karo"); return; } status.innerText = "⏳ Loading Ad..."; await showMonetag(); status.innerText = "Processing Recharge..."; let profit = (amt * CONFIG.PROFIT_PERCENT / 100); status.innerHTML = `✅ Order Sent! ${num} pe ₹${amt} 2 min me hoga. Profit ₹${profit.toFixed(2)}`; walletBal = walletBal - amt + profit; totalProfit += profit; localStorage.setItem('wallet_bal', walletBal); localStorage.setItem('wallet_profit', totalProfit); updateWalletUI(); await showAdsgram(); }
-let allProducts=[ {name:"Scott International Pack of 3 T-Shirt", price:399, old:1049, myCommission:10, cat:"mens", platform:"amazon", img:"https://m.media-amazon.com/images/I/41aQCWMtgdL._AC_.jpg", link:"https://www.amazon.in/s?k=Scott+International+Men+Tshirt&tag=earningtadka8-21"}, {name:"Symbol Men Polo Shirt Solid Regular", price:399, old:1049, myCommission:8, cat:"mens", platform:"amazon", img:"https://m.media-amazon.com/images/I/31I80jMir0L._AC_.jpg", link:"https://www.amazon.in/s?k=Symbol+Men+Polo&tag=earningtadka8-21"}, {name:"LEOTUDE Oversized Graphic Tshirt", price:299, old:1099, myCommission:10, cat:"mens", platform:"amazon", img:"https://m.media-amazon.com/images/I/61bDoqhvEPL._SY879_.jpg", link:"https://www.amazon.in/s?k=LEOTUDE+oversized+tshirt&tag=earningtadka8-21"}, {name:"BULLMER Pack of 3 Cotton Blend Tshirt", price:519, old:2997, myCommission:12, cat:"mens", platform:"amazon", img:"https://m.media-amazon.com/images/I/51S+0sXy-CL._SY879_.jpg", link:"https://www.amazon.in/s?k=BULLMER+men+tshirt+pack+3&tag=earningtadka8-21"}, {name:"Men Denim Jeans Slim Fit", price:799, old:1999, myCommission:10, cat:"mens", platform:"flipkart", img:"https://rukminim2.flixcart.com/image/612/612/xif0q/jean/n/q/h/-original-imaghz9qng3xuhha.jpeg?q=70", link:"https://www.flipkart.com/search?q=men+jeans+slim+fit"}, {name:"Women Pink Cotton Kurta Set", price:499, old:1299, myCommission:10, cat:"womens", platform:"amazon", img:"https://m.media-amazon.com/images/I/61I4Q+2Q+FL._SL1500_.jpg", link:"https://www.amazon.in/s?k=women+kurta+set&tag=earningtadka8-21"}, {name:"Lipstick Matte Red 5pc Set", price:299, old:699, myCommission:10, cat:"makeup", platform:"amazon", img:"https://m.media-amazon.com/images/I/61+Qv2KhM5L._SL1500_.jpg", link:"https://www.amazon.in/s?k=lipstick+matte+red+5pc&tag=earningtadka8-21"}];
+let allProducts=[ {name:"Scott International Pack of 3 T-Shirt", price:399, old:1049, myCommission:10, cat:"mens", platform:"amazon", img:"https://m.media-amazon.com/images/I/41aQCWMtgdL._AC_.jpg", link:"https://www.amazon.in/s?k=Scott+International+Men+Tshirt&tag=earningtadka8-21"}, {name:"Symbol Men Polo Shirt Solid Regular", price:399, old:1049, myCommission:8, cat:"mens", platform:"amazon", img:"https://m.media-amazon.com/images/I/31I80jMir0L._AC_.jpg", link:"https://www.amazon.in/s?k=Symbol+Men+Polo&tag=earningtadka8-21"}, {name:"LEOTUDE Oversized Graphic Tshirt", price:299, old:1099, myCommission:10, cat:"mens", platform:"amazon", img:"https://m.media-amazon.com/images/I/61bDoqhvEPL._SY879_.jpg", link:"https://www.amazon.in/s?k=LEOTUDE+oversized+tshirt&tag=earningtadka8-21"}, {name:"BULLMER Pack of 3 Cotton Blend Tshirt", price:519, old:2997, myCommission:12, cat:"mens", platform:"amazon", img:"https://m.media-amazon.com/images/I/51S+0sXy-CL._SY879_.jpg", link:"https://www.amazon.in/s?k=BULLMER+men+tshirt+pack+3&tag=earningtadka8-21"}, {name:"Men Denim Jeans Slim Fit Flipkart", price:799, old:1999, myCommission:10, cat:"mens", platform:"flipkart", img:"https://rukminim2.flixcart.com/image/612/612/xif0q/jean/n/q/h/-original-imaghz9qng3xuhha.jpeg?q=70", link:"https://www.flipkart.com/search?q=men+jeans+slim+fit"}, {name:"Men Sports Running Shoes", price:899, old:2499, myCommission:10, cat:"mens", platform:"flipkart", img:"https://rukminim2.flixcart.com/image/612/612/xif0q/shoe/7/r/5/-original-imaggcb4chjkhpge.jpeg?q=70", link:"https://www.flipkart.com/search?q=men+sports+shoes"}];
 function getFiltered(){ return currentFilter==='all'? allProducts : allProducts.filter(p=>p.cat===currentFilter); }
 function renderProducts(){ let filtered=getFiltered(); let toShow=filtered.slice(0, visibleCount); if(toShow.length===0){ document.getElementById("productContainer").innerHTML=`<div style="text-align:center;padding:20px;color:#888">No products</div>`; return; } document.getElementById("productContainer").innerHTML=`<div class="grid">`+toShow.map(p=>{ let autoDisc=(p.myCommission*1)/100; let finalPrice=p.price-autoDisc-spinExtra; if(finalPrice < p.price-5) finalPrice=p.price-5; let idx = allProducts.indexOf(p); return `<div class="prod"><span class="badge ${p.platform}">${p.platform.toUpperCase()}</span><img src="${p.img}" loading="lazy" onerror="this.src='https://via.placeholder.com/300?text=Product'"><h4>${p.name}</h4><div><span class="price">₹${finalPrice.toFixed(0)}</span><span class="old">₹${p.old}</span></div><span class="discTag">✓ ₹${autoDisc.toFixed(0)} Off Auto ${spinExtra>0?`+ ₹${spinExtra} Spin`:''}</span><button class="buy" onclick="buyProduct(${idx})">Get Offer - ${p.platform}</button></div>`; }).join('')+`</div>`; document.getElementById("loader").innerText=visibleCount<filtered.length?"↓ Scroll for more...":"✓ All products loaded"; }
 function filterCat(cat, el){ currentFilter=cat; visibleCount=8; document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active')); el.classList.add('active'); renderProducts(); }
@@ -118,11 +121,33 @@ document.getElementById('compressBtn').addEventListener('click', async ()=>{
   dlBtn.style.display='none'; progressWrap.style.display='block'; progressBar.style.width='5%'; status.textContent = "⏳ Monetag Ad (1/2)..."; await showMonetag(); progressBar.style.width='15%'; status.textContent = "⚙️ 50% Compression start...";
   try{
     const arrayBuffer = await selectedFile.arrayBuffer(); const pdf = await pdfjsLib.getDocument({data: arrayBuffer}).promise; const pdfDoc = await PDFLib.PDFDocument.create();
-    for(let i=1;i<=pdf.numPages;i++){ status.textContent = `⚙️ Compressing page ${i}/${pdf.numPages} - 50% quality...`; progressBar.style.width = `${15 + (i/pdf.numPages)*70}%`; const page = await pdf.getPage(i); const viewport = page.getViewport({scale: 1.5}); const canvas = document.createElement('canvas'); const context = canvas.getContext('2d'); canvas.width = viewport.width; canvas.height = viewport.height; await page.render({canvasContext: context, viewport: viewport}).promise; const imgData = canvas.toDataURL('image/jpeg', quality); const img = await pdfDoc.embedJpg(imgData); const newPage = pdfDoc.addPage([viewport.width, viewport.height]); newPage.drawImage(img, {x:0,y:0,width:viewport.width,height:viewport.height}); }
-    status.textContent = "⏳ Adsgram Ad (2/2)..."; await showAdsgram(); progressBar.style.width='95%'; compressedBytes = await pdfDoc.save(); progressBar.style.width='100%'; status.innerHTML = `✅ Done! Original: ${(selectedFile.size/1024/1024).toFixed(2)}MB → Compressed: ${(compressedBytes.length/1024/1024).toFixed(2)}MB`; dlBtn.style.display='block'; setTimeout(async()=>{ await showMonetag(); },1000);
+    for(let i=1;i<=pdf.numPages;i++){
+      status.textContent = `⚙️ Compressing page ${i}/${pdf.numPages} - 50% quality...`;
+      progressBar.style.width = `${15 + (i/pdf.numPages)*70}%`;
+      const page = await pdf.getPage(i);
+      const viewport = page.getViewport({scale: 1.2});
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
+      await page.render({canvasContext: context, viewport: viewport}).promise;
+      const imgData = canvas.toDataURL('image/jpeg', quality);
+      const img = await pdfDoc.embedJpg(imgData);
+      const newPage = pdfDoc.addPage([viewport.width, viewport.height]);
+      newPage.drawImage(img, {x:0,y:0,width:viewport.width,height:viewport.height});
+    }
+    status.textContent = "⏳ Adsgram Ad (2/2)..."; await showAdsgram();
+    progressBar.style.width='95%'; compressedBytes = await pdfDoc.save();
+    progressBar.style.width='100%'; status.innerHTML = `✅ Done! Original: ${(selectedFile.size/1024/1024).toFixed(2)}MB → Compressed: ${(compressedBytes.length/1024/1024).toFixed(2)}MB`;
+    dlBtn.style.display='block'; await showMonetag();
   }catch(e){ status.textContent = "❌ Error: "+e.message; }
 });
-document.getElementById('pdfDownload').addEventListener('click', async()=>{ if(!compressedBytes) return; await showMonetag(); const blob = new Blob([compressedBytes], {type:'application/pdf'}); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href=url; a.download='compressed_50percent.pdf'; a.click(); document.getElementById('pdfStatus').innerHTML += "<br>📥 Gallery me save ho gaya!"; await showAdsgram(); });
+document.getElementById('pdfDownload').addEventListener('click', async()=>{
+  if(!compressedBytes) return; await showMonetag();
+  const blob = new Blob([compressedBytes], {type:'application/pdf'}); const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href=url; a.download='compressed_50percent.pdf'; a.click();
+  document.getElementById('pdfStatus').innerHTML += "<br>📥 Saved!"; await showAdsgram();
+});
 </script>
 </body>
   </html> 
