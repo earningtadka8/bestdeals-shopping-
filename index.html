@@ -6,6 +6,7 @@
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
 <script src="https://libtl.com/sdk.js" data-zone="11968926" data-sdk="show_11968926"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-width:480px;margin:0 auto}
 .app-bar{background:linear-gradient(90deg,#ffcc00,#f59e0b);border-radius:12px;padding:14px;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;position:sticky;top:0;z-index:99;border:1px solid #ffcc00}
@@ -36,10 +37,9 @@ body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-w
 </head>
 <body>
 
-<!-- APP DOWNLOAD - 33MB - ADDED HERE -->
 <div class="app-bar">
   <div style="color:#000;font-weight:bold;font-size:14px">📱 BestDeals App<br><span style="font-size:11px;font-weight:normal">33MB - Fast Download</span></div>
-  <a href=https://drive.usercontent.google.com/download?id=136JySWmaDJx17ylwS0RBMTxomRSFGmwc&export=download&confirm=t" style="background:#000;color:#ffcc00;padding:10px 18px;border-radius:20px;font-weight:bold;text-decoration:none;font-size:13px">📥 DOWNLOAD</a>
+  <a href="https://drive.usercontent.google.com/download?id=136JySWmaDJx17ylwS0RBMTxomRSFGmwc&export=download&confirm=t" style="background:#000;color:#ffcc00;padding:10px 18px;border-radius:20px;font-weight:bold;text-decoration:none;font-size:13px">📥 DOWNLOAD</a>
 </div>
 <a href="https://t.me/dealsandshoppingbot/app" target="_blank" style="display:block;background:#229ED9;color:#fff;text-align:center;padding:12px;border-radius:12px;font-weight:bold;margin-bottom:12px;text-decoration:none;font-size:14px">✈️ Telegram Mini App Open Karo 🚀</a>
 
@@ -70,15 +70,38 @@ body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-w
 </div>
 <div id="productContainer"></div>
 <div class="loader" id="loader">↓ Niche scroll karo aur products load honge...</div>
-<div id="pdfTool" style="margin:28px 0 16px;background:#1e293b;border:1px solid #334155;border-radius:16px;padding:16px">
-  <h3 style="color:#f8fafc;margin-bottom:4px">📄 PDF Compressor - 50% Mode</h3>
-  <p style="color:#94a3b8;font-size:11px;margin-bottom:10px">50% Compress + Gallery Save + Double Ads</p>
-  <input type="file" id="pdfInput" accept="application/pdf" style="width:100%;padding:10px;background:#0f172a;border:1px dashed #334155;border-radius:10px;color:#fff" />
-  <select id="qualitySelect" style="flex:1;padding:10px;background:#0f172a;border:1px solid #334155;border-radius:10px;color:#fff;margin-top:10px;width:100%"><option value="0.5">50% Compress (Recommended)</option><option value="0.7">30% Compress (Good Quality)</option><option value="0.3">70% Compress (Max Save)</option></select>
-  <button id="compressBtn" style="margin-top:12px;width:100%;background:#f59e0b;border:0;border-radius:10px;padding:12px;font-weight:800;color:#000;cursor:pointer">⚡ Compress Now</button>
-  <div id="pdfStatus" style="margin-top:10px;color:#38bdf8;font-size:13px;line-height:1.5"></div>
-  <div style="width:100%;background:#0f172a;border-radius:10px;height:6px;margin-top:10px;display:none" id="progressWrap"><div id="progressBar" style="height:6px;background:#38bdf8;border-radius:10px;width:0%"></div></div>
-  <button id="pdfDownload" style="display:none;margin-top:12px;width:100%;background:#22c55e;border:0;border-radius:10px;padding:12px;font-weight:800;color:#000;cursor:pointer">⬇️ Download / Save to Gallery</button>
+
+<!-- ===== PIXEL DOCUMENT MAKER - NEW TOOL ===== -->
+<div id="pdfTool" style="margin:28px 0 16px;background:#1e293b;border:1px solid #ffcc00;border-radius:16px;padding:16px">
+  <h3 style="color:#ffcc00;margin:0 0 6px 0">📄 Pixel Document Maker</h3>
+  <p style="color:#94a3b8;font-size:11px;margin:0 0 12px 0">Width / Height in Pixel - Exact Same Size PDF</p>
+  
+  <div style="display:flex;gap:8px">
+    <div style="flex:1"><label style="font-size:11px;color:#94a3b8">Width (px)</label><input type="number" id="docW" class="input-dark" value="800" placeholder="Ex: 800"></div>
+    <div style="flex:1"><label style="font-size:11px;color:#94a3b8">Height (px)</label><input type="number" id="docH" class="input-dark" value="1000" placeholder="Ex: 1000"></div>
+  </div>
+
+  <label style="font-size:11px;color:#94a3b8">Document Text</label>
+  <textarea id="docText" class="input-dark" rows="3" placeholder="Yahan apna text likho">Yashpal Singh
+Custom Document - 800 x 1000 px</textarea>
+
+  <div style="display:flex;gap:8px">
+    <div style="flex:1"><label style="font-size:11px;color:#94a3b8">BG Color</label><input type="color" id="docBG" value="#ffffff" style="width:100%;height:44px;border-radius:10px;border:1px solid #334155"></div>
+    <div style="flex:1"><label style="font-size:11px;color:#94a3b8">Text Color</label><input type="color" id="docTC" value="#000000" style="width:100%;height:44px;border-radius:10px;border:1px solid #334155"></div>
+  </div>
+
+  <label style="font-size:11px;color:#94a3b8">Upload Background Image (Optional)</label>
+  <input type="file" id="docImg" accept="image/*" class="input-dark">
+
+  <div id="docPreview" style="margin:14px auto;border:2px dashed #ffcc00;display:flex;align-items:center;justify-content:center;background:#fff;color:#000;font-weight:bold;text-align:center;overflow:hidden;max-width:100%;border-radius:8px">Preview</div>
+
+  <div style="display:flex;gap:8px;margin-top:12px">
+    <button id="btnImg" style="flex:1;background:#0f172a;border:1px solid #334155;color:#fff;border-radius:10px;padding:12px;font-weight:800">🖼️ JPG Download</button>
+    <button id="btnPdf" style="flex:1;background:#ffcc00;border:0;color:#000;border-radius:10px;padding:12px;font-weight:800">📄 PDF Same Pixel</button>
+  </div>
+  <div id="docStatus" style="margin-top:10px;color:#38bdf8;font-size:12px;text-align:center"></div>
+  <div style="font-size:10px;color:#64748b;margin-top:8px;text-align:center">Tip: 800x1000 = ID Card High Quality, 1240x1754 = A4 @150dpi</div>
+
   <a href="https://drive.usercontent.google.com/download?id=1Bs4NtACIWBHTBP1BVMjILhNKDwvy2F6K&export=download&confirm=t" style="display:block;background:#ffcc00;color:#000;text-align:center;padding:12px;border-radius:10px;font-weight:bold;margin-top:12px;text-decoration:none">📥 Download BestDeals App - 33MB</a>
 </div>
 
@@ -109,45 +132,73 @@ async function startSpin(){ if(isSpinning) return; isSpinning=true; document.get
 async function buyProduct(idx){ let p=allProducts[idx]; await showMonetag(); window.open(p.link,"_blank"); }
 renderProducts();
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+
 <script>
-pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-let compressedBytes = null; let selectedFile = null;
-document.getElementById('pdfInput').addEventListener('change', (e)=>{ selectedFile = e.target.files[0]; if(selectedFile) document.getElementById('pdfStatus').textContent = `Selected: ${selectedFile.name} (${(selectedFile.size/1024/1024).toFixed(2)} MB)`; });
-document.getElementById('compressBtn').addEventListener('click', async ()=>{
-  if(!selectedFile){ alert('Pehle PDF select karo'); return; }
-  const status = document.getElementById('pdfStatus'); const dlBtn = document.getElementById('pdfDownload'); const quality = parseFloat(document.getElementById('qualitySelect').value); const progressWrap = document.getElementById('progressWrap'); const progressBar = document.getElementById('progressBar');
-  dlBtn.style.display='none'; progressWrap.style.display='block'; progressBar.style.width='5%'; status.textContent = "⏳ Monetag Ad (1/2)..."; await showMonetag(); progressBar.style.width='15%'; status.textContent = "⚙️ 50% Compression start...";
-  try{
-    const arrayBuffer = await selectedFile.arrayBuffer(); const pdf = await pdfjsLib.getDocument({data: arrayBuffer}).promise; const pdfDoc = await PDFLib.PDFDocument.create();
-    for(let i=1;i<=pdf.numPages;i++){
-      status.textContent = `⚙️ Compressing page ${i}/${pdf.numPages} - 50% quality...`;
-      progressBar.style.width = `${15 + (i/pdf.numPages)*70}%`;
-      const page = await pdf.getPage(i);
-      const viewport = page.getViewport({scale: 1.2});
-      const canvas = document.createElement('canvas');
-      const context = canvas.getContext('2d');
-      canvas.width = viewport.width;
-      canvas.height = viewport.height;
-      await page.render({canvasContext: context, viewport: viewport}).promise;
-      const imgData = canvas.toDataURL('image/jpeg', quality);
-      const img = await pdfDoc.embedJpg(imgData);
-      const newPage = pdfDoc.addPage([viewport.width, viewport.height]);
-      newPage.drawImage(img, {x:0,y:0,width:viewport.width,height:viewport.height});
-    }
-    status.textContent = "⏳ Adsgram Ad (2/2)..."; await showAdsgram();
-    progressBar.style.width='95%'; compressedBytes = await pdfDoc.save();
-    progressBar.style.width='100%'; status.innerHTML = `✅ Done! Original: ${(selectedFile.size/1024/1024).toFixed(2)}MB → Compressed: ${(compressedBytes.length/1024/1024).toFixed(2)}MB`;
-    dlBtn.style.display='block'; await showMonetag();
-  }catch(e){ status.textContent = "❌ Error: "+e.message; }
+// ===== NEW PIXEL DOCUMENT MAKER LOGIC =====
+const tg = window.Telegram.WebApp; try{ tg.ready(); tg.expand(); }catch(e){}
+let docCanvas = document.createElement('canvas');
+let uploadedImg = null;
+document.getElementById('docImg').addEventListener('change', e=>{
+  const file = e.target.files[0]; if(!file) return;
+  const reader = new FileReader();
+  reader.onload = ev=>{ uploadedImg = new Image(); uploadedImg.onload=()=>drawDoc(); uploadedImg.src=ev.target.result; };
+  reader.readAsDataURL(file);
 });
-document.getElementById('pdfDownload').addEventListener('click', async()=>{
-  if(!compressedBytes) return; await showMonetag();
-  const blob = new Blob([compressedBytes], {type:'application/pdf'}); const url = URL.createObjectURL(blob);
-  const a = document.createElement('a'); a.href=url; a.download='compressed_50percent.pdf'; a.click();
-  document.getElementById('pdfStatus').innerHTML += "<br>📥 Saved!"; await showAdsgram();
-});
-</script>
-</body>
-  </html> 
+
+function drawDoc(){
+  const W = parseInt(document.getElementById('docW').value) || 800;
+  const H = parseInt(document.getElementById('docH').value) || 1000;
+  const bg = document.getElementById('docBG').value;
+  const tc = document.getElementById('docTC').value;
+  const txt = document.getElementById('docText').value;
+  
+  docCanvas.width = W; // EXACT PIXEL - NO SCALING
+  docCanvas.height = H;
+  const ctx = docCanvas.getContext('2d');
+  
+  // High Quality
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = 'high';
+  
+  ctx.fillStyle = bg;
+  ctx.fillRect(0,0,W,H);
+  
+  if(uploadedImg){
+    // Cover the canvas with uploaded image
+    ctx.drawImage(uploadedImg,0,0,W,H);
+  }
+  
+  ctx.fillStyle = tc;
+  const fontSize = Math.max(14, Math.floor(W/35));
+  ctx.font = `bold ${fontSize}px Arial`;
+  ctx.textAlign = 'left';
+  const lines = txt.split('\n');
+  lines.forEach((line,i)=>{
+    ctx.fillText(line, W*0.05, H*0.08 + i*(fontSize+10));
+  });
+  
+  // Preview - small version
+  const preview = document.getElementById('docPreview');
+  const maxPreviewW = 300;
+  const scale = Math.min(1, maxPreviewW / W);
+  preview.style.width = (W*scale)+'px';
+  preview.style.height = (H*scale)+'px';
+  preview.style.backgroundImage = `url(${docCanvas.toDataURL('image/jpeg',0.6)})`;
+  preview.style.backgroundSize = 'cover';
+  preview.innerText = '';
+  document.getElementById('docStatus').innerText = `Preview: ${W} x ${H} px - High Quality`;
+}
+
+document.getElementById('docW').addEventListener('input', drawDoc);
+document.getElementById('docH').addEventListener('input', drawDoc);
+document.getElementById('docText').addEventListener('input', drawDoc);
+document.getElementById('docBG').addEventListener('input', drawDoc);
+document.getElementById('docTC').addEventListener('input', drawDoc);
+
+drawDoc();
+
+async function downloadAsImage(){
+  drawDoc();
+  document.getElementById('docStatus').innerText = "⏳ Ad loading...";
+  await showMonetag();
+  const W = parseInt(document 
