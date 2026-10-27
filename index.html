@@ -71,33 +71,31 @@ body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-w
 <div id="productContainer"></div>
 <div class="loader" id="loader">↓ Niche scroll karo aur products load honge...</div>
 
+<!-- PIXEL DOCUMENT MAKER - NO TEXT BOX -->
 <div id="pdfTool" style="margin:28px 0 16px;background:#1e293b;border:1px solid #ffcc00;border-radius:16px;padding:16px">
   <h3 style="color:#ffcc00;margin:0 0 6px 0">📄 Pixel Document Maker</h3>
-  <p style="color:#94a3b8;font-size:11px;margin:0 0 12px 0">Width / Height in Pixel - Exact Same Size</p>
+  <p style="color:#94a3b8;font-size:11px;margin:0 0 12px 0">Image ko exact pixel me banaye - JPG & PDF</p>
   <div style="display:flex;gap:8px">
     <div style="flex:1"><label style="font-size:11px;color:#94a3b8">Width (px)</label><input type="number" id="docW" class="input-dark" value="800"></div>
     <div style="flex:1"><label style="font-size:11px;color:#94a3b8">Height (px)</label><input type="number" id="docH" class="input-dark" value="1000"></div>
   </div>
-  <label style="font-size:11px;color:#94a3b8">Document Text</label>
-  <textarea id="docText" class="input-dark" rows="3">Yashpal Singh
-Custom Document - 800 x 1000 px</textarea>
   <div style="display:flex;gap:8px">
     <div style="flex:1"><label style="font-size:11px;color:#94a3b8">BG Color</label><input type="color" id="docBG" value="#ffffff" style="width:100%;height:44px;border-radius:10px;border:1px solid #334155"></div>
-    <div style="flex:1"><label style="font-size:11px;color:#94a3b8">Text Color</label><input type="color" id="docTC" value="#000000" style="width:100%;height:44px;border-radius:10px;border:1px solid #334155"></div>
+    <div style="flex:1"><label style="font-size:11px;color:#94a3b8">Border Color</label><input type="color" id="docBC" value="#000000" style="width:100%;height:44px;border-radius:10px;border:1px solid #334155"></div>
   </div>
-  <label style="font-size:11px;color:#94a3b8">Upload Background Image (Optional)</label>
+  <label style="font-size:11px;color:#94a3b8">Upload Image (Required)</label>
   <input type="file" id="docImg" accept="image/*" class="input-dark">
-  <div id="docPreview" style="margin:14px auto;border:2px dashed #ffcc00;display:flex;align-items:center;justify-content:center;background:#fff;color:#000;font-weight:bold;text-align:center;overflow:hidden;max-width:100%;border-radius:8px">Preview</div>
+  <div id="docPreview" style="margin:14px auto;border:2px dashed #ffcc00;display:flex;align-items:center;justify-content:center;background:#fff;color:#000;font-weight:bold;text-align:center;overflow:hidden;max-width:100%;border-radius:8px;min-height:120px">Preview - Image Upload Karo</div>
   <div style="display:flex;gap:8px;margin-top:12px">
-    <button id="btnImg" style="flex:1;background:#0f172a;border:1px solid #334155;color:#fff;border-radius:10px;padding:12px;font-weight:800">🖼️ JPG - Gallery Save</button>
-    <button id="btnPdf" style="flex:1;background:#ffcc00;border:0;color:#000;border-radius:10px;padding:12px;font-weight:800">📄 PDF Same Pixel</button>
+    <button id="btnImg" style="flex:1;background:#22c55e;border:0;color:#000;border-radius:10px;padding:14px;font-weight:800">🖼️ JPG - Gallery Save</button>
+    <button id="btnPdf" style="flex:1;background:#ffcc00;border:0;color:#000;border-radius:10px;padding:14px;font-weight:800">📄 PDF Same Pixel</button>
   </div>
   <div id="docStatus" style="margin-top:10px;color:#38bdf8;font-size:12px;text-align:center"></div>
-  <div id="galleryLink" style="display:none;margin-top:10px;text-align:center"></div>
+  <div id="galleryLink" style="display:none;margin-top:10px"></div>
 </div>
 
 <script>
-const CONFIG = { UPI_ID: "yashpalsingh9520@okhdfcbank", yashpalsingh: "YAHAN APNA NAAM DALO", API_KEY: "YAHAN PAYSPRINT API KEY DALO", MODE: "MANUAL", PROFIT_PERCENT: 3 };
+const CONFIG = { UPI_ID: "yashpalsingh9520@okhdfcbank", OWNER_NAME: "BestDeals", API_KEY: "YAHAN PAYSPRINT API KEY DALO", MODE: "MANUAL", PROFIT_PERCENT: 3 };
 (function(){ const manifestData = {"name":"BestDeals Store","short_name":"BestDeals","start_url":"./","display":"standalone","background_color":"#0f0f12","theme_color":"#ffcc00","icons":[{"src":"https://cdn-icons-png.flaticon.com/512/3081/3081559.png","sizes":"512x512","type":"image/png"}]}; const blob = new Blob([JSON.stringify(manifestData)], {type:'application/json'}); const manifestURL = URL.createObjectURL(blob); const link = document.createElement('link'); link.rel='manifest'; link.href=manifestURL; document.head.appendChild(link); })();
 const MY_AMAZON_TAG = "earningtadka8-21";
 let AdsBlock = null; try{ AdsBlock = window.Adsgram? window.Adsgram.init({blockId:"int-52779"}) : null; }catch(e){}
@@ -125,7 +123,7 @@ renderProducts();
 </script>
 
 <script>
-// ===== PIXEL DOCUMENT MAKER - GALLERY FIX =====
+// ===== FINAL - NO TEXT BOX + GALLERY SAVE =====
 const tg = window.Telegram.WebApp; try{ tg.ready(); tg.expand(); }catch(e){}
 let docCanvas = document.createElement('canvas');
 let uploadedImg = null;
@@ -139,47 +137,48 @@ function drawDoc(){
   const W = parseInt(document.getElementById('docW').value) || 800;
   const H = parseInt(document.getElementById('docH').value) || 1000;
   const bg = document.getElementById('docBG').value;
-  const tc = document.getElementById('docTC').value;
-  const txt = document.getElementById('docText').value;
   docCanvas.width = W; docCanvas.height = H;
   const ctx = docCanvas.getContext('2d');
   ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
   ctx.fillStyle = bg; ctx.fillRect(0,0,W,H);
-  if(uploadedImg){ ctx.drawImage(uploadedImg,0,0,W,H); }
-  ctx.fillStyle = tc;
-  const fontSize = Math.max(14, Math.floor(W/35));
-  ctx.font = `bold ${fontSize}px Arial`;
-  const lines = txt.split('\n');
-  lines.forEach((line,i)=>{ ctx.fillText(line, W*0.05, H*0.08 + i*(fontSize+12)); });
+  if(uploadedImg){ 
+    // Image ko stretch karke exact W x H me fit karo
+    ctx.drawImage(uploadedImg,0,0,W,H); 
+  }
   const preview = document.getElementById('docPreview');
   const scale = Math.min(1, 300 / W);
   preview.style.width = (W*scale)+'px'; preview.style.height = (H*scale)+'px';
   preview.style.backgroundImage = `url(${docCanvas.toDataURL('image/jpeg',0.6)})`;
-  preview.style.backgroundSize = 'cover'; preview.innerText = '';
+  preview.style.backgroundSize = 'cover'; preview.innerHTML = '';
   document.getElementById('docStatus').innerText = `Preview: ${W} x ${H} px - Ready`;
 }
 document.getElementById('docW').addEventListener('input', drawDoc);
 document.getElementById('docH').addEventListener('input', drawDoc);
-document.getElementById('docText').addEventListener('input', drawDoc);
 document.getElementById('docBG').addEventListener('input', drawDoc);
-document.getElementById('docTC').addEventListener('input', drawDoc);
+document.getElementById('docBC').addEventListener('input', drawDoc);
 drawDoc();
 
 async function downloadAsImage(){
   drawDoc();
-  document.getElementById('docStatus').innerText = "⏳ Monetag Ad loading...";
+  if(!uploadedImg){ alert("Pehle Image Upload Karo!"); return; }
+  document.getElementById('docStatus').innerText = "⏳ Ad loading...";
   await showMonetag();
   const W = parseInt(document.getElementById('docW').value);
   const H = parseInt(document.getElementById('docH').value);
-  
-  // GALLERY FIX - toBlob + ObjectURL
-  docCanvas.toBlob((blob)=>{
+  docCanvas.toBlob(async (blob)=>{
+    const fileName = `doc_${W}x${H}.jpg`;
+    const file = new File([blob], fileName, {type: 'image/jpeg'});
+    if(navigator.canShare && navigator.canShare({files: [file]})){
+      try{
+        await navigator.share({files: [file], title: fileName});
+        document.getElementById('docStatus').innerText = `✅ Shared! Gallery me Save karo`;
+        await showAdsgram(); return;
+      }catch(e){}
+    }
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url; a.download = `doc_${W}x${H}.jpg`;
-    document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    
-    // Telegram ke liye gallery link banao
     const gl = document.getElementById('galleryLink');
     gl.style.display = 'block';
-    gl.innerHTML = `<a href="${url}" target="_blank" style="display:block;background:#22c55e;color:#000;padding:12px;border-radius:10px;font-weight:bold;text-decoration:none">👆 Agar Gallery me nahi aaya to yahan click k
+    gl.innerHTML = `<div style="background:#1e293b;padding:12px;border-radius:10px;border:1px solid #22c55e">
+    <p style="font-size:12px;margin:0 0 8px 0">👇 Image par Long Press karo > Save Image</p>
+    <img src="${url}" style="max-width:100%;border-radius:10px;border:2px solid #22c55e">
+    <a href="${url}" download="${fileName}" style="display:block;background:#22c55e;color:#000;padding:12px;border-radius:10px;font-weight:bold;text-decoration:none;margin-top:8px;text-align:center">📥 Download JPG - ${W}x
