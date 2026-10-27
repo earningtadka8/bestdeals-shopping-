@@ -71,38 +71,29 @@ body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-w
 <div id="productContainer"></div>
 <div class="loader" id="loader">↓ Niche scroll karo aur products load honge...</div>
 
-<!-- ===== PIXEL DOCUMENT MAKER - NEW TOOL ===== -->
 <div id="pdfTool" style="margin:28px 0 16px;background:#1e293b;border:1px solid #ffcc00;border-radius:16px;padding:16px">
   <h3 style="color:#ffcc00;margin:0 0 6px 0">📄 Pixel Document Maker</h3>
-  <p style="color:#94a3b8;font-size:11px;margin:0 0 12px 0">Width / Height in Pixel - Exact Same Size PDF</p>
-  
+  <p style="color:#94a3b8;font-size:11px;margin:0 0 12px 0">Width / Height in Pixel - Exact Same Size</p>
   <div style="display:flex;gap:8px">
-    <div style="flex:1"><label style="font-size:11px;color:#94a3b8">Width (px)</label><input type="number" id="docW" class="input-dark" value="800" placeholder="Ex: 800"></div>
-    <div style="flex:1"><label style="font-size:11px;color:#94a3b8">Height (px)</label><input type="number" id="docH" class="input-dark" value="1000" placeholder="Ex: 1000"></div>
+    <div style="flex:1"><label style="font-size:11px;color:#94a3b8">Width (px)</label><input type="number" id="docW" class="input-dark" value="800"></div>
+    <div style="flex:1"><label style="font-size:11px;color:#94a3b8">Height (px)</label><input type="number" id="docH" class="input-dark" value="1000"></div>
   </div>
-
   <label style="font-size:11px;color:#94a3b8">Document Text</label>
-  <textarea id="docText" class="input-dark" rows="3" placeholder="Yahan apna text likho">Yashpal Singh
+  <textarea id="docText" class="input-dark" rows="3">Yashpal Singh
 Custom Document - 800 x 1000 px</textarea>
-
   <div style="display:flex;gap:8px">
     <div style="flex:1"><label style="font-size:11px;color:#94a3b8">BG Color</label><input type="color" id="docBG" value="#ffffff" style="width:100%;height:44px;border-radius:10px;border:1px solid #334155"></div>
     <div style="flex:1"><label style="font-size:11px;color:#94a3b8">Text Color</label><input type="color" id="docTC" value="#000000" style="width:100%;height:44px;border-radius:10px;border:1px solid #334155"></div>
   </div>
-
   <label style="font-size:11px;color:#94a3b8">Upload Background Image (Optional)</label>
   <input type="file" id="docImg" accept="image/*" class="input-dark">
-
   <div id="docPreview" style="margin:14px auto;border:2px dashed #ffcc00;display:flex;align-items:center;justify-content:center;background:#fff;color:#000;font-weight:bold;text-align:center;overflow:hidden;max-width:100%;border-radius:8px">Preview</div>
-
   <div style="display:flex;gap:8px;margin-top:12px">
-    <button id="btnImg" style="flex:1;background:#0f172a;border:1px solid #334155;color:#fff;border-radius:10px;padding:12px;font-weight:800">🖼️ JPG Download</button>
+    <button id="btnImg" style="flex:1;background:#0f172a;border:1px solid #334155;color:#fff;border-radius:10px;padding:12px;font-weight:800">🖼️ JPG - Gallery Save</button>
     <button id="btnPdf" style="flex:1;background:#ffcc00;border:0;color:#000;border-radius:10px;padding:12px;font-weight:800">📄 PDF Same Pixel</button>
   </div>
   <div id="docStatus" style="margin-top:10px;color:#38bdf8;font-size:12px;text-align:center"></div>
-  <div style="font-size:10px;color:#64748b;margin-top:8px;text-align:center">Tip: 800x1000 = ID Card High Quality, 1240x1754 = A4 @150dpi</div>
-
-  <a href="https://drive.usercontent.google.com/download?id=1Bs4NtACIWBHTBP1BVMjILhNKDwvy2F6K&export=download&confirm=t" style="display:block;background:#ffcc00;color:#000;text-align:center;padding:12px;border-radius:10px;font-weight:bold;margin-top:12px;text-decoration:none">📥 Download BestDeals App - 33MB</a>
+  <div id="galleryLink" style="display:none;margin-top:10px;text-align:center"></div>
 </div>
 
 <script>
@@ -134,7 +125,7 @@ renderProducts();
 </script>
 
 <script>
-// ===== NEW PIXEL DOCUMENT MAKER LOGIC =====
+// ===== PIXEL DOCUMENT MAKER - GALLERY FIX =====
 const tg = window.Telegram.WebApp; try{ tg.ready(); tg.expand(); }catch(e){}
 let docCanvas = document.createElement('canvas');
 let uploadedImg = null;
@@ -144,61 +135,51 @@ document.getElementById('docImg').addEventListener('change', e=>{
   reader.onload = ev=>{ uploadedImg = new Image(); uploadedImg.onload=()=>drawDoc(); uploadedImg.src=ev.target.result; };
   reader.readAsDataURL(file);
 });
-
 function drawDoc(){
   const W = parseInt(document.getElementById('docW').value) || 800;
   const H = parseInt(document.getElementById('docH').value) || 1000;
   const bg = document.getElementById('docBG').value;
   const tc = document.getElementById('docTC').value;
   const txt = document.getElementById('docText').value;
-  
-  docCanvas.width = W; // EXACT PIXEL - NO SCALING
-  docCanvas.height = H;
+  docCanvas.width = W; docCanvas.height = H;
   const ctx = docCanvas.getContext('2d');
-  
-  // High Quality
-  ctx.imageSmoothingEnabled = true;
-  ctx.imageSmoothingQuality = 'high';
-  
-  ctx.fillStyle = bg;
-  ctx.fillRect(0,0,W,H);
-  
-  if(uploadedImg){
-    // Cover the canvas with uploaded image
-    ctx.drawImage(uploadedImg,0,0,W,H);
-  }
-  
+  ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
+  ctx.fillStyle = bg; ctx.fillRect(0,0,W,H);
+  if(uploadedImg){ ctx.drawImage(uploadedImg,0,0,W,H); }
   ctx.fillStyle = tc;
   const fontSize = Math.max(14, Math.floor(W/35));
   ctx.font = `bold ${fontSize}px Arial`;
-  ctx.textAlign = 'left';
   const lines = txt.split('\n');
-  lines.forEach((line,i)=>{
-    ctx.fillText(line, W*0.05, H*0.08 + i*(fontSize+10));
-  });
-  
-  // Preview - small version
+  lines.forEach((line,i)=>{ ctx.fillText(line, W*0.05, H*0.08 + i*(fontSize+12)); });
   const preview = document.getElementById('docPreview');
-  const maxPreviewW = 300;
-  const scale = Math.min(1, maxPreviewW / W);
-  preview.style.width = (W*scale)+'px';
-  preview.style.height = (H*scale)+'px';
+  const scale = Math.min(1, 300 / W);
+  preview.style.width = (W*scale)+'px'; preview.style.height = (H*scale)+'px';
   preview.style.backgroundImage = `url(${docCanvas.toDataURL('image/jpeg',0.6)})`;
-  preview.style.backgroundSize = 'cover';
-  preview.innerText = '';
-  document.getElementById('docStatus').innerText = `Preview: ${W} x ${H} px - High Quality`;
+  preview.style.backgroundSize = 'cover'; preview.innerText = '';
+  document.getElementById('docStatus').innerText = `Preview: ${W} x ${H} px - Ready`;
 }
-
 document.getElementById('docW').addEventListener('input', drawDoc);
 document.getElementById('docH').addEventListener('input', drawDoc);
 document.getElementById('docText').addEventListener('input', drawDoc);
 document.getElementById('docBG').addEventListener('input', drawDoc);
 document.getElementById('docTC').addEventListener('input', drawDoc);
-
 drawDoc();
 
 async function downloadAsImage(){
   drawDoc();
-  document.getElementById('docStatus').innerText = "⏳ Ad loading...";
+  document.getElementById('docStatus').innerText = "⏳ Monetag Ad loading...";
   await showMonetag();
-  const W = parseInt(document 
+  const W = parseInt(document.getElementById('docW').value);
+  const H = parseInt(document.getElementById('docH').value);
+  
+  // GALLERY FIX - toBlob + ObjectURL
+  docCanvas.toBlob((blob)=>{
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = `doc_${W}x${H}.jpg`;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    
+    // Telegram ke liye gallery link banao
+    const gl = document.getElementById('galleryLink');
+    gl.style.display = 'block';
+    gl.innerHTML = `<a href="${url}" target="_blank" style="display:block;background:#22c55e;color:#000;padding:12px;border-radius:10px;font-weight:bold;text-decoration:none">👆 Agar Gallery me nahi aaya to yahan click k
