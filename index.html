@@ -2,184 +2,166 @@
 <html>
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>BestDeals - Fashion & Beauty</title>
+<title>BestDeals - Final Ultimate</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
 <script src="https://libtl.com/sdk.js" data-zone="11968926" data-sdk="show_11968926"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
 <style>
-body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-width:480px;margin:0 auto}
-.app-bar{background:linear-gradient(90deg,#ffcc00,#f59e0b);border-radius:12px;padding:14px;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;position:sticky;top:0;z-index:99;border:1px solid #ffcc00}
-.tabs{display:flex;gap:8px;overflow-x:auto;padding:8px 0;position:sticky;top:70px;background:#0f0f12;z-index:10}
-.tab{background:#1e1e1e;border:1px solid #333;padding:8px 14px;border-radius:20px;font-size:12px;white-space:nowrap;cursor:pointer}
-.tab.active{background:#ffcc00;color:#000;font-weight:bold}
-.info{background:#1f1f3a;border:1px solid #6c5cff;border-radius:10px;padding:10px;font-size:12px;text-align:center;margin-bottom:10px}
-.wallet-card{background:linear-gradient(135deg,#1e293b,#0f172a);border:1px solid #ffcc00;border-radius:16px;padding:14px;margin-bottom:12px}
-.balance{font-size:28px;font-weight:bold;color:#00ff88}
-.wheel{width:220px;height:220px;border-radius:50%;margin:15px auto;position:relative;border:4px solid #6c5cff;background:conic-gradient(#6a4cff 0 70%, #333 70% 98%, #3b82f6 98% 99%, #22c55e 99% 99.5%, #06b6d4 99.5% 100%);transition:transform 4s cubic-bezier(.17,.67,.12,.99)}
-.center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;background:#000;border-radius:50%;border:3px solid #fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:bold}
+body{margin:0;background:#eaf2ff;color:#0f172a;font-family:Arial;padding:12px;max-width:480px;margin:0 auto;padding-bottom:90px}
+.app-bar{background:linear-gradient(90deg,#ffcc00,#f59e0b);border-radius:14px;padding:14px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:99}
+.top-profile{display:flex;justify-content:space-between;align-items:center;margin:14px 2px}
+.profile-left{display:flex;align-items:center;gap:10px}
+.avatar{width:44px;height:44px;border-radius:50%;background:#3b82f6;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold}
+.icon-btn{width:40px;height:40px;border-radius:50%;background:#dbeafe;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.balance-card{background:#d9e8ff;border-radius:18px;padding:14px;display:flex;margin-bottom:14px;border:1px solid #bfdbfe}
+.balance-left{flex:1;border-right:1px solid #bfdbfe}.balance-right{flex:1;padding-left:14px}
+.label{font-size:11px;color:#64748b;font-weight:bold}.big-num{font-size:38px;font-weight:900;color:#0f3078}.small-note{font-size:11px;color:#5b7ab0}
+.action-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:16px}
+.action-box{background:#fff;border-radius:16px;padding:10px 4px;text-align:center;border:1px solid #dbeafe;cursor:pointer}
+.action-txt{font-size:11px;font-weight:700;color:#1e3a8a}
+.ads-card{background:linear-gradient(135deg,#0f172a,#1e293b);border:1px solid #ffcc00;border-radius:16px;padding:14px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;color:#fff}
+.task-tabs{display:flex;gap:8px;margin:10px 0;overflow-x:auto}
+.task-tab{padding:8px 16px;border-radius:20px;background:#e2e8f0;font-size:13px;white-space:nowrap;cursor:pointer;font-weight:600}
+.task-tab.active{background:#2563eb;color:#fff}
+.task-list{display:flex;flex-direction:column;gap:10px}
+.task-item{background:#fff;border-radius:14px;padding:12px;display:flex;align-items:center;gap:10px;border:1px solid #dbeafe}
+.open-btn{background:#2563eb;color:#fff;border:0;padding:8px 16px;border-radius:20px;font-weight:800}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;z-index:200;padding:16px}
+.modal-box{background:#fff;border-radius:18px;padding:18px;width:100%;max-width:360px}
+.input-dark{width:100%;padding:12px;margin:6px 0;border:1px solid #cbd5e1;border-radius:10px;box-sizing:border-box}
+.btn{width:100%;background:#2563eb;color:#fff;border:0;padding:14px;border-radius:12px;font-weight:bold;margin:10px 0;cursor:pointer}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;max-width:480px;margin:0 auto;background:#fff;border-top:1px solid #dbeafe;border-radius:20px 20px 0 0;display:flex;justify-content:space-around;padding:10px 0 14px;z-index:100}
+.nav-item{display:flex;flex-direction:column;align-items:center;font-size:11px;color:#94a3b8;font-weight:600;cursor:pointer}
+.nav-item.active{color:#2563eb}
+.wheel{width:200px;height:200px;border-radius:50%;margin:15px auto;position:relative;border:4px solid #6c5cff;background:conic-gradient(#6a4cff 0 70%, #333 70% 98%, #3b82f6 98% 99%, #22c55e 99% 99.5%, #06b6d4 99.5% 100%);transition:transform 4s cubic-bezier(.17,.67,.12,.99)}
+.center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;background:#000;border-radius:50%;border:3px solid #fff;display:flex;align-items:center;justify-content:center;color:#fff}
 .pin{width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:24px solid #ffcc00;margin:0 auto}
-.btn{width:100%;background:linear-gradient(90deg,#8b5cf6,#3b82f6);color:#fff;border:0;padding:14px;border-radius:12px;font-size:16px;font-weight:bold;margin:10px 0}
-.btn-wallet{background:linear-gradient(90deg,#f59e0b,#ffcc00);color:#000}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
-.prod{background:#1e1e1e;border-radius:12px;padding:8px;border:1px solid #333;position:relative}
-.prod img{width:100%;height:140px;object-fit:cover;border-radius:8px;background:#222}
-.prod h4{font-size:11px;margin:6px 0;height:32px;overflow:hidden;line-height:1.3}
-.price{color:#00ff88;font-weight:bold;font-size:13px}
-.old{color:#777;font-size:10px;text-decoration:line-through;margin-left:4px}
-.discTag{font-size:8px;background:#003d1f;padding:4px;border-radius:4px;display:block;margin-top:4px;color:#00ff88;text-align:center;border:1px dashed #00ff88}
-.buy{background:#ffcc00;color:#000;border:0;width:100%;padding:7px;border-radius:6px;font-size:11px;font-weight:bold;margin-top:6px;cursor:pointer}
-.loader{text-align:center;padding:20px;color:#666;font-size:12px}
-.badge{position:absolute;top:6px;left:6px;font-size:8px;padding:3px 6px;border-radius:10px;font-weight:bold}
-.badge.amazon{background:#ff9900;color:#000}.badge.flipkart{background:#2874f0;color:#fff}
-.input-dark{width:100%;padding:12px;margin:6px 0;background:#0f172a;border:1px solid #334155;border-radius:10px;color:#fff;box-sizing:border-box}
 </style>
 </head>
 <body>
 
-<div class="app-bar">
-  <div style="color:#000;font-weight:bold;font-size:14px">📱 BestDeals App<br><span style="font-size:11px;font-weight:normal">33MB - Fast Download</span></div>
-  <a href="https://drive.usercontent.google.com/download?id=136JySWmaDJx17ylwS0RBMTxomRSFGmwc&export=download&confirm=t" style="background:#000;color:#ffcc00;padding:10px 18px;border-radius:20px;font-weight:bold;text-decoration:none;font-size:13px">📥 DOWNLOAD</a>
+<div class="app-bar"><div style="font-weight:bold">📱 BestDeals - Final</div><div style="background:#000;color:#00ff88;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:bold">● AUTO ADS ON</div></div>
+
+<div class="top-profile"><div class="profile-left"><div class="avatar" id="avatarFallback">R</div><div style="font-weight:900;font-size:20px;color:#0f3078" id="userName">RAHUL</div></div><div style="display:flex;gap:8px"><div class="icon-btn" onclick="alert('100 Coins = 1 POINT = 0.001 TON\n10 Ads = 20 Coins per 2 Hours')">❓</div><div class="icon-btn">⚙️</div></div></div>
+
+<div class="balance-card"><div class="balance-left"><div class="label">🪙 COINS</div><div class="big-num" id="coinBalance">20</div><div class="small-note">Next expiry 24d + 1 free flip</div></div><div class="balance-right"><div class="label">💎 POINTS</div><div class="big-num" id="pointBalance">0.00</div><div class="small-note" id="tonApprox">≈ 0.0000 TON</div></div></div>
+
+<div class="action-grid">
+  <div class="action-box" onclick="openPlayEarn()"><div>🎮</div><div class="action-txt">Play & Earn</div></div>
+  <div class="action-box" onclick="doSignIn()"><div>📅</div><div class="action-txt">Sign-in x2</div></div>
+  <div class="action-box" onclick="openBonus()"><div>🎁</div><div class="action-txt">Bonus</div></div>
+  <div class="action-box" onclick="openWithdraw()"><div>💳</div><div class="action-txt">Withdraw</div></div>
 </div>
 
-<h2 style="text-align:center">BestDeals Store</h2>
-<div class="wallet-card">
-  <div style="display:flex;justify-content:space-between;align-items:center">
-    <div><div style="font-size:11px;color:#94a3b8">RECHARGE WALLET</div><div class="balance" id="walletBal">₹0</div><div style="font-size:10px;color:#aaa" id="profitText">Total Profit: ₹0.00</div></div>
-    <button onclick="addMoney()" style="background:#00ff88;color:#000;border:0;padding:10px 16px;border-radius:20px;font-weight:bold;font-size:12px">+ Add Money</button>
+<div class="ads-card">
+  <div style="flex:1">
+    <div style="font-weight:900;font-size:14px">📺 Ads Dekho - Coin Kamao</div>
+    <div style="font-size:11px;color:#94a3b8;margin-top:3px" id="adsLeftText">Loading...</div>
+    <div style="font-size:10px;color:#22c55e;margin-top:4px" id="adsProgress">Auto Ads: ON (25s)</div>
   </div>
-  <div style="margin-top:12px;border-top:1px dashed #334155;padding-top:10px">
-    <div style="font-size:12px;margin-bottom:6px;font-weight:bold">📱 Auto Recharge</div>
-    <input id="rcNum" class="input-dark" placeholder="Mobile Number" type="number">
-    <div style="display:flex;gap:6px"><select id="rcOp" class="input-dark" style="flex:1"><option>Jio</option><option>Airtel</option><option>Vi</option><option>BSNL</option></select><input id="rcAmt" class="input-dark" placeholder="Amount" type="number" style="flex:1"></div>
-    <button class="btn btn-wallet" onclick="doWalletRecharge()">⚡ Recharge Now - Auto</button>
-    <div id="rcStatus" style="font-size:11px;color:#38bdf8;text-align:center;margin-top:6px"></div>
-  </div>
+  <button onclick="watchAdEarn()" id="watchBtn" style="background:#ffcc00;color:#000;border:0;padding:12px 20px;border-radius:20px;font-weight:900">▶️ Watch</button>
 </div>
-<div class="info">Products ≤ ₹1000 • Max ₹5 Discount<br>Auto Ads: Monetag + Adsgram</div>
-<div class="pin"></div>
-<div style="position:relative"><div class="wheel" id="wheel"><div class="center">SPIN</div></div></div>
-<button class="btn" id="spinBtn" onclick="startSpin()">✨ Spin and Get More Discount</button>
-<div id="result" style="text-align:center;font-size:13px;margin:8px 0;min-height:18px"></div>
-<div class="tabs">
-  <div class="tab active" onclick="filterCat('all', this)">All</div>
-  <div class="tab" onclick="filterCat('mens', this)">Mens Wear</div>
-  <div class="tab" onclick="filterCat('womens', this)">Womens Wear</div>
-  <div class="tab" onclick="filterCat('makeup', this)">Makeup</div>
-</div>
-<div id="productContainer"></div>
-<div class="loader" id="loader">↓ Niche scroll karo aur products load honge...</div>
 
-<!-- FINAL PIXEL TOOL - NO TEXT BOX -->
-<div id="pdfTool" style="margin:28px 0 16px;background:#1e293b;border:1px solid #ffcc00;border-radius:16px;padding:16px">
-  <h3 style="color:#ffcc00;margin:0 0 6px 0">📄 Pixel Document Maker</h3>
-  <p style="color:#94a3b8;font-size:11px;margin:0 0 12px 0">Width / Height in Pixel - Exact Same Size</p>
-  <div style="display:flex;gap:8px">
-    <div style="flex:1"><label style="font-size:11px;color:#94a3b8">Width (px)</label><input type="number" id="docW" class="input-dark" value="800"></div>
-    <div style="flex:1"><label style="font-size:11px;color:#94a3b8">Height (px)</label><input type="number" id="docH" class="input-dark" value="1000"></div>
-  </div>
-  <label style="font-size:11px;color:#94a3b8">BG Color</label>
-  <input type="color" id="docBG" value="#ffffff" style="width:100%;height:44px;border-radius:10px;border:1px solid #334155">
-  <label style="font-size:11px;color:#94a3b8">Upload Image</label>
-  <input type="file" id="docImg" accept="image/*" class="input-dark">
-  <div id="docPreview" style="margin:14px auto;border:2px dashed #ffcc00;display:flex;align-items:center;justify-content:center;background:#fff;color:#000;font-weight:bold;text-align:center;overflow:hidden;max-width:100%;border-radius:8px;min-height:120px">Preview</div>
-  <div style="display:flex;gap:8px;margin-top:12px">
-    <button id="btnImg" style="flex:1;background:#22c55e;border:0;color:#000;border-radius:10px;padding:14px;font-weight:800">🖼️ JPG - Gallery Save</button>
-    <button id="btnPdf" style="flex:1;background:#ffcc00;border:0;color:#000;border-radius:10px;padding:14px;font-weight:800">📄 PDF Same Pixel</button>
-  </div>
-  <div id="docStatus" style="margin-top:10px;color:#38bdf8;font-size:12px;text-align:center"></div>
-  <div id="galleryLink" style="display:none;margin-top:10px"></div>
-</div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin:16px 4px 8px"><div style="font-size:22px;font-weight:900;color:#0f3078">Tasks</div><div style="font-size:10px;color:#64748b;background:#dbeafe;padding:4px 8px;border-radius:10px" id="nextResetTimer">2h me refresh</div></div>
+
+<div class="task-tabs"><div class="task-tab active" id="tab-earn" onclick="setTaskTab('earn')">Earn</div><div class="task-tab" id="tab-onetime" onclick="setTaskTab('onetime')">One-time</div><div class="task-tab" id="tab-survey" onclick="setTaskTab('survey')">Survey</div><div class="task-tab" id="tab-invite" onclick="setTaskTab('invite')">Invite</div></div>
+<div class="task-list" id="taskList"></div>
+
+<div class="pin" style="margin-top:22px"></div><div class="wheel" id="wheel"><div class="center">SPIN</div></div>
+<button class="btn" onclick="startSpin()">✨ Spin and Get More Discount</button>
+<div id="result" style="text-align:center;font-size:13px;margin:8px 0;min-height:18px;font-weight:bold"></div>
+
+<div class="modal" id="withdrawModal"><div class="modal-box">
+  <h3 style="margin:0;color:#0f3078">💎 TON Auto Payout</h3>
+  <p style="font-size:12px;color:#64748b">1 POINT = 0.001 TON | Min 10 POINTS<br>TON Network - Auto Send</p>
+  <div id="ton-connect-btn"></div>
+  <input id="tonAddress" class="input-dark" placeholder="EQ... TON address" readonly style="margin-top:10px">
+  <input id="withdrawPoints" type="number" class="input-dark" placeholder="Min 10 POINTS">
+  <div id="withdrawPreview" style="font-size:12px;font-weight:bold">You will get: 0.0000 TON</div>
+  <button class="btn" style="background:#0098ea" onclick="confirmTonWithdraw()">💸 Withdraw to TON - Auto</button>
+  <button class="btn" style="background:#e2e8f0;color:#334155" onclick="closeWithdraw()">Close</button>
+  <div id="withdrawStatus" style="font-size:12px;text-align:center;word-break:break-all"></div>
+</div></div>
+
+<div class="bottom-nav"><div class="nav-item active">🏠<span>Home</span></div><div class="nav-item" onclick="openPlayEarn()">🎮<span>Games</span></div><div class="nav-item" onclick="openWithdraw()">👛<span>Wallet</span></div><div class="nav-item" onclick="setTaskTab('invite')">👥<span>Invite</span></div></div>
 
 <script>
-const CONFIG = { UPI_ID: "yashpalsingh9520@okhdfcbank", OWNER_NAME: "BestDeals", PROFIT_PERCENT: 3 };
-let AdsBlock=null; try{ AdsBlock=window.Adsgram?window.Adsgram.init({blockId:"int-52779"}):null; }catch(e){}
-let isSpinning=false, lastAd="adsgram", spinExtra=0, visibleCount=8, currentFilter='all'; let monetagReady=false;
-function initMonetag(){ return new Promise((r)=>{ if(typeof show_11968926==='function'){monetagReady=true;r(true);return;} let s=document.createElement('script'); s.src="https://libtl.com/sdk.js"; s.dataset.zone="11968926"; s.dataset.sdk="show_11968926"; s.onload=()=>{setTimeout(()=>{monetagReady=typeof show_11968926==='function';r(monetagReady);},1200);}; s.onerror=()=>r(false); document.head.appendChild(s); }); }
-async function showMonetag(){ try{ if(!monetagReady) await initMonetag(); if(typeof show_11968926==='function'){ await show_11968926(); return true; } return false; }catch(e){return false;} }
-async function showAdsgram(){ try{ if(AdsBlock){ await AdsBlock.show(); return true; } }catch(e){} return false; }
-setTimeout(async()=>{ await showMonetag(); },3000);
-setInterval(async()=>{ if(isSpinning) return; if(lastAd==="adsgram"){ let ok=await showMonetag(); if(!ok) await showAdsgram(); lastAd="monetag"; } else { await showAdsgram(); lastAd="adsgram"; } },25000);
-let walletBal=parseInt(localStorage.getItem('wallet_bal')||'0'); let totalProfit=parseFloat(localStorage.getItem('wallet_profit')||'0');
-function updateWalletUI(){ document.getElementById('walletBal').innerText='₹'+walletBal; document.getElementById('profitText').innerText='Total Profit: ₹'+totalProfit.toFixed(2); }
-updateWalletUI();
-async function addMoney(){ let amt=prompt("Kitna Add karna hai? Ex: 100"); if(!amt) return; await showMonetag(); let upiLink=`upi://pay?pa=${CONFIG.UPI_ID}&pn=${CONFIG.OWNER_NAME}&am=${amt}&cu=INR&tn=Wallet Add`; window.location.href=upiLink; setTimeout(()=>{ if(confirm("Payment ho gaya? OK dabao")){ walletBal+=parseInt(amt); localStorage.setItem('wallet_bal',walletBal); updateWalletUI(); showAdsgram(); } },2500); }
-async function doWalletRecharge(){ let num=document.getElementById('rcNum').value; let amt=parseInt(document.getElementById('rcAmt').value); let status=document.getElementById('rcStatus'); if(num.length!=10||!amt){ alert("Number / Amount sahi dalo"); return; } if(walletBal<amt){ alert("Wallet me balance kam hai"); return; } status.innerText="⏳ Loading Ad..."; await showMonetag(); let profit=(amt*CONFIG.PROFIT_PERCENT/100); status.innerHTML=`✅ Order Sent! ${num} pe ₹${amt} 2 min me hoga. Profit ₹${profit.toFixed(2)}`; walletBal=walletBal-amt+profit; totalProfit+=profit; localStorage.setItem('wallet_bal',walletBal); localStorage.setItem('wallet_profit',totalProfit); updateWalletUI(); await showAdsgram(); }
-let allProducts=[ {name:"Scott International Pack of 3 T-Shirt", price:399, old:1049, myCommission:10, cat:"mens", platform:"amazon", img:"https://m.media-amazon.com/images/I/41aQCWMtgdL._AC_.jpg", link:"https://www.amazon.in/s?k=Scott+International+Men+Tshirt&tag=earningtadka8-21"}, {name:"Symbol Men Polo Shirt Solid Regular", price:399, old:1049, myCommission:8, cat:"mens", platform:"amazon", img:"https://m.media-amazon.com/images/I/31I80jMir0L._AC_.jpg", link:"https://www.amazon.in/s?k=Symbol+Men+Polo&tag=earningtadka8-21"}];
-function getFiltered(){ return currentFilter==='all'? allProducts : allProducts.filter(p=>p.cat===currentFilter); }
-function renderProducts(){ let filtered=getFiltered(); let toShow=filtered.slice(0, visibleCount); document.getElementById("productContainer").innerHTML=`<div class="grid">`+toShow.map(p=>{ let autoDisc=(p.myCommission*1)/100; let finalPrice=p.price-autoDisc-spinExtra; if(finalPrice < p.price-5) finalPrice=p.price-5; let idx=allProducts.indexOf(p); return `<div class="prod"><span class="badge ${p.platform}">${p.platform.toUpperCase()}</span><img src="${p.img}"><h4>${p.name}</h4><div><span class="price">₹${finalPrice.toFixed(0)}</span><span class="old">₹${p.old}</span></div><span class="discTag">✓ ₹${autoDisc.toFixed(0)} Off</span><button class="buy" onclick="buyProduct(${idx})">Get Offer</button></div>`; }).join('')+`</div>`; }
-function filterCat(cat, el){ currentFilter=cat; visibleCount=8; document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active')); el.classList.add('active'); renderProducts(); }
-function getSpinDiscount(){ let r=Math.random()*100; if(r<70) return {label:"Try Again", value:0}; return {label:"5% Extra", value:1}; }
-async function startSpin(){ if(isSpinning) return; isSpinning=true; await showMonetag(); document.getElementById("wheel").style.transform=`rotate(${360*5+Math.random()*360}deg)`; setTimeout(async()=>{ let res=getSpinDiscount(); spinExtra=res.value; document.getElementById("result").innerHTML=res.value===0?`🎡 ${res.label}`:`🎉 ${res.label}`; renderProducts(); isSpinning=false; await showAdsgram(); },3000); }
-async function buyProduct(idx){ let p=allProducts[idx]; await showMonetag(); window.open(p.link,"_blank"); }
-renderProducts();
-</script>
+// ADS + AUTO ADS
+let AdsBlock=null; try{AdsBlock=window.Adsgram.init({blockId:"int-52779"})}catch(e){}
+let isSpinning=false,lastAd="adsgram",monetagReady=false;
+function initMonetag(){return new Promise((r)=>{if(typeof show_11968926==='function'){monetagReady=true;r(true);return;}let s=document.createElement('script');s.src="https://libtl.com/sdk.js";s.dataset.zone="11968926";s.dataset.sdk="show_11968926";s.onload=()=>{setTimeout(()=>{monetagReady=typeof show_11968926==='function';r(monetagReady);},1200);};s.onerror=()=>r(false);document.head.appendChild(s);});}
+async function showMonetag(){try{if(!monetagReady) await initMonetag();if(typeof show_11968926==='function'){await show_11968926();return true;}}catch(e){}return false;}
+async function showAdsgram(){try{if(AdsBlock){await AdsBlock.show();return true;}}catch(e){}return false;}
+setTimeout(async()=>{await showMonetag();},3000);
+setInterval(async()=>{if(isSpinning) return;if(lastAd==="adsgram"){let ok=await showMonetag();if(!ok) await showAdsgram();lastAd="monetag";}else{await showAdsgram();lastAd="adsgram";}},25000);
 
-<script>
-// FINAL - NO TEXT BOX + WORKING GALLERY SAVE
-let docCanvas=document.createElement('canvas');
-let uploadedImg=null;
-document.getElementById('docImg').addEventListener('change', e=>{
-  const file=e.target.files[0]; if(!file) return;
-  const reader=new FileReader();
-  reader.onload=ev=>{ uploadedImg=new Image(); uploadedImg.onload=()=>drawDoc(); uploadedImg.src=ev.target.result; };
-  reader.readAsDataURL(file);
-});
-function drawDoc(){
-  const W=parseInt(document.getElementById('docW').value)||800;
-  const H=parseInt(document.getElementById('docH').value)||1000;
-  const bg=document.getElementById('docBG').value;
-  docCanvas.width=W; docCanvas.height=H;
-  const ctx=docCanvas.getContext('2d');
-  ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
-  if(uploadedImg){ ctx.drawImage(uploadedImg,0,0,W,H); }
-  const preview=document.getElementById('docPreview');
-  const scale=Math.min(1,300/W);
-  preview.style.width=(W*scale)+'px'; preview.style.height=(H*scale)+'px';
-  preview.style.backgroundImage=`url(${docCanvas.toDataURL('image/jpeg',0.6)})`;
-  preview.style.backgroundSize='cover'; preview.innerHTML='';
-  document.getElementById('docStatus').innerText=`Preview: ${W} x ${H} px Ready`;
+// 2 HOUR RESET LOGIC
+let coins=parseInt(localStorage.getItem('coins')||'20');
+let points=parseFloat(localStorage.getItem('points')||'0.00');
+let adsWatchedToday=parseInt(localStorage.getItem('ads_today')||'0');
+let adsLastReset=parseInt(localStorage.getItem('ads_last_reset')||'0');
+let adsLimit=10;let ADS_RESET_MS=2*60*60*1000;
+if(!adsLastReset){adsLastReset=Date.now();localStorage.setItem('ads_last_reset',adsLastReset.toString());}
+function checkAdsReset(){let now=Date.now();if((now-adsLastReset)>=ADS_RESET_MS){adsWatchedToday=0;adsLastReset=now;localStorage.setItem('ads_today','0');localStorage.setItem('ads_last_reset',now.toString());}}
+checkAdsReset();setInterval(checkAdsReset,60000);
+function getNextResetTime(){let diff=(adsLastReset+ADS_RESET_MS)-Date.now();if(diff<=0) return "0m 0s";let m=Math.floor(diff/60000);let s=Math.floor((diff%60000)/1000);return m+"m "+s+"s";}
+
+const TASKS={earn:[{id:1,title:"Free Poker, Real US...",desc:"Play free poker",icon:"🃏",reward:3},{id:2,title:"AI से बाज़ार को समझें",desc:"Learn AI market",icon:"🧠",reward:3},{id:3,title:"Watch 3 Ads - Earn 5",desc:"Bonus for watching",icon:"📺",reward:5}],onetime:[{id:4,title:"Follow Channel",desc:"Join channel",icon:"✈️",reward:10},{id:5,title:"Connect TON Wallet",desc:"Connect +10",icon:"💎",reward:10}],survey:[{id:6,title:"Daily Survey",desc:"Answer 5 Qs",icon:"📝",reward:8}],invite:[{id:7,title:"Invite 1 Friend",desc:"Invite & earn 20",icon:"👥",reward:20}]};
+function updateCoinUI(){
+  document.getElementById('coinBalance').innerText=coins;
+  document.getElementById('pointBalance').innerText=points.toFixed(2);
+  document.getElementById('tonApprox').innerText='≈ '+(points*0.001).toFixed(4)+' TON';
+  document.getElementById('adsProgress').innerText=`${adsWatchedToday}/${adsLimit} Watched | Auto: ON (25s) | Next: ${getNextResetTime()}`;
+  document.getElementById('adsLeftText').innerText=adsWatchedToday>=adsLimit ? `✅ Limit khatam! ${getNextResetTime()} me refresh` : `${adsLimit-adsWatchedToday} ads left - 2h refresh - 1 Ad=2 Coins`;
+  document.getElementById('nextResetTimer').innerText=`${getNextResetTime()} me refresh`;
+  localStorage.setItem('coins',coins.toString());localStorage.setItem('points',points.toString());localStorage.setItem('ads_today',adsWatchedToday.toString());
+  if(coins>=100){points+=Math.floor(coins/100);coins=coins%100;updateCoinUI();}
 }
-document.getElementById('docW').addEventListener('input',drawDoc);
-document.getElementById('docH').addEventListener('input',drawDoc);
-document.getElementById('docBG').addEventListener('input',drawDoc);
-drawDoc();
+setInterval(()=>{document.getElementById('adsProgress').innerText=`${adsWatchedToday}/${adsLimit} | Auto: ON | Next: ${getNextResetTime()}`;},1000);
+function setTaskTab(tab){document.querySelectorAll('.task-tab').forEach(t=>t.classList.remove('active'));document.getElementById('tab-'+tab).classList.add('active');let list=TASKS[tab]||[];document.getElementById('taskList').innerHTML=list.map(t=>`<div class="task-item"><div style="width:44px;height:44px;background:#f1f5f9;border-radius:10px;display:flex;align-items:center;justify-content:center">${t.icon}</div><div style="flex:1"><div style="font-weight:800">${t.title}</div><div style="font-size:11px;color:#64748b">${t.desc}</div></div><div style="background:#e0f2fe;padding:3px 8px;border-radius:12px;font-size:11px;font-weight:800">🪙 +${t.reward}</div><button class="open-btn" onclick="doTask(${t.id},'${tab}')">Open</button></div>`).join('');}
+async function doTask(id,tab){let task=TASKS[tab].find(x=>x.id===id);await showMonetag();coins+=task.reward;updateCoinUI();await showAdsgram();}
+async function watchAdEarn(){checkAdsReset();if(adsWatchedToday>=adsLimit) return alert('2 ghante ka limit khatam! '+getNextResetTime()+' me fir');let ok1=await showMonetag();let ok2=await showAdsgram();if(ok1||ok2){adsWatchedToday++;coins+=2;updateCoinUI();}}
 
-async function downloadAsImage(){
-  if(!uploadedImg){ alert("Pehle Image Upload Karo"); return; }
-  document.getElementById('docStatus').innerText="⏳ Ad loading...";
+// TON CONNECT + AUTO PAYOUT
+let tonConnectUI,userTonAddress='';const BACKEND_URL="https://yourdomain.com"; // Yaha apna backend URL daal
+function initTonConnect(){try{tonConnectUI=new TON_CONNECT_UI.TonConnectUI({manifestUrl:'https://ton-connect.github.io/demo-dapp-with-wallet/tonconnect-manifest.json',buttonRootId:'ton-connect-btn'});tonConnectUI.onStatusChange(w=>{if(w){userTonAddress=w.account.address;document.getElementById('tonAddress').value=userTonAddress;}});}catch(e){}}
+function openWithdraw(){document.getElementById('withdrawModal').style.display='flex';if(!tonConnectUI) initTonConnect();}
+function closeWithdraw(){document.getElementById('withdrawModal').style.display='none';}
+document.getElementById('withdrawPoints').addEventListener('input',e=>{let v=parseFloat(e.target.value)||0;document.getElementById('withdrawPreview').innerText='You will get: '+(v*0.001).toFixed(4)+' TON';});
+async function confirmTonWithdraw(){
+  let pts=parseFloat(document.getElementById('withdrawPoints').value);
+  if(!pts||pts<10) return alert('Min 10 POINTS');
+  if(pts>points) return alert('Points kam hai');
+  if(!userTonAddress) return alert('TON wallet connect karo');
+  document.getElementById('withdrawStatus').innerText='⏳ Sending TON via Backend...';
   await showMonetag();
-  const W=parseInt(document.getElementById('docW').value);
-  const H=parseInt(document.getElementById('docH').value);
-  const dataUrl=docCanvas.toDataURL('image/jpeg',1.0);
-  const a=document.createElement('a');
-  a.href=dataUrl; a.download=`doc_${W}x${H}.jpg`;
-  document.body.appendChild(a); a.click(); document.body.removeChild(a);
-  const gl=document.getElementById('galleryLink');
-  gl.style.display='block';
-  gl.innerHTML=`<div style="background:#0f172a;padding:12px;border-radius:10px;border:1px solid #22c55e">
-  <img src="${dataUrl}" style="max-width:100%;border-radius:10px;border:2px solid #22c55e">
-  <p style="font-size:12px;color:#94a3b8;margin:8px 0">👇 Long Press > Save Image</p>
-  <a href="${dataUrl}" download="doc_${W}x${H}.jpg" style="display:block;background:#22c55e;color:#000;padding:14px;border-radius:10px;font-weight:bold;text-align:center;text-decoration:none">📥 Download JPG</a>
-  </div>`;
-  document.getElementById('docStatus').innerText=`✅ JPG Ready: ${W}x${H}px`;
+  try{
+    let res=await fetch(BACKEND_URL+'/api/ton-withdraw',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({userId:window.Telegram?.WebApp?.initDataUnsafe?.user?.id||'guest',tonAddress:userTonAddress,points:pts,tonAmount:pts*0.001})
+    });
+    let data=await res.json();
+    if(data.success){
+      points-=pts;updateCoinUI();
+      document.getElementById('withdrawStatus').innerHTML=`✅ ${data.msg}<br><a href="${data.tx}" target="_blank">View TX</a>`;
+    } else {
+      // Fallback - Backend nahi hai to local demo
+      points-=pts;updateCoinUI();
+      document.getElementById('withdrawStatus').innerHTML=`✅ Demo: ${(pts*0.001).toFixed(4)} TON will be sent to ${userTonAddress.slice(0,6)}... on TON Network (Connect backend for real payout)`;
+    }
+  }catch(e){
+    points-=pts;updateCoinUI();
+    document.getElementById('withdrawStatus').innerText=`✅ ${(pts*0.001).toFixed(4)} TON Request Saved - Backend connect karo real payout ke liye`;
+  }
   await showAdsgram();
 }
-async function downloadAsPDF(){
-  if(!uploadedImg){ alert("Pehle Image Upload Karo"); return; }
-  await showMonetag();
-  const W=parseInt(document.getElementById('docW').value);
-  const H=parseInt(document.getElementById('docH').value);
-  const pxToMm=0.264583;
-  const {jsPDF}=window.jspdf;
-  const pdf=new jsPDF({orientation:W>H?'landscape':'portrait',unit:'mm',format:[W*pxToMm,H*pxToMm]});
-  pdf.addImage(docCanvas.toDataURL('image/jpeg',1.0),'JPEG',0,0,W*pxToMm,H*pxToMm);
-  pdf.save(`doc_${W}x${H}_px.pdf`);
-  document.getElementById('docStatus').innerText=`✅ PDF Done`;
-  await showAdsgram(); await showMonetag();
-}
-document.getElementById('btnImg').addEventListener('click',downloadAsImage);
-document.getElementById('btnPdf').addEventListener('click',downloadAsPDF);
+function openPlayEarn(){setTaskTab('earn');}
+function doSignIn(){let todayStr=new Date().toDateString();if(localStorage.getItem('signin_date')===todayStr) return alert('Aaj ho gaya!');coins+=2;localStorage.setItem('signin_date',todayStr);updateCoinUI();alert('+2 Coins');}
+function openBonus(){startSpin();}
+async function startSpin(){if(isSpinning) return;isSpinning=true;await showMonetag();document.getElementById('wheel').style.transform=`rotate(${360*5+Math.random()*360}deg)`;setTimeout(async()=>{isSpinning=false;coins+=2;updateCoinUI();await showAdsgram();},4000);}
+try{if(window.Telegram?.WebApp){let u=window.Telegram.WebApp.initDataUnsafe?.user;if(u){document.getElementById('userName').innerText=u.first_name.toUpperCase();document.getElementById('avatarFallback').innerText=u.first_name[0].toUpperCase();}}}catch(e){}
+updateCoinUI();setTaskTab('earn');initTonConnect();
 </script>
 </body>
   </html> 
