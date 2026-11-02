@@ -78,50 +78,109 @@ body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-w
 </div>
 
 <script>
-// ADS SETUP - DONO RAKHA
-let AdsBlock=null; try{ if(window.Adsgram) AdsBlock=window.Adsgram.init({blockId:"int-52779"}); }catch(e){}
-let isSpinning=false, curShop='all', monetagReady=false, isSnakePlaying=false, nextSec=15, isAdRunning=false, autoStarted=false, snakeAdTimer=0;
+// === DONO ADS + SNAKE 3MIN FIX ===
+let AdsBlock=null; 
+try{ if(window.Adsgram) AdsBlock=window.Adsgram.init({blockId:"int-52779"}); }catch(e){}
+let isSpinning=false, curShop='all', monetagReady=false, isSnakePlaying=false, nextSec=15, isAdRunning=false, autoStarted=false;
 let coins=0, points=0, adsToday=0, autoCount=0;
-try{coins=parseInt(localStorage.getItem('coins')||'0');points=parseFloat(localStorage.getItem('points')||'0');adsToday=parseInt(localStorage.getItem('ads_today')||'0');autoCount=parseInt(localStorage.getItem('auto_count')||'0');}catch(e){}
-function saveCoins(){if(coins>=100){points+=Math.floor(coins/100);coins=coins%100;}try{localStorage.setItem('coins',coins);localStorage.setItem('points',points);localStorage.setItem('ads_today',adsToday);localStorage.setItem('auto_count',autoCount);}catch(e){}document.getElementById('coins').innerText=coins;document.getElementById('points').innerText=points.toFixed(2);document.getElementById('tonVal').innerText=(points*0.001).toFixed(4);document.getElementById('autoCount').innerText=autoCount;}
+try{
+  coins=parseInt(localStorage.getItem('coins')||'0');
+  points=parseFloat(localStorage.getItem('points')||'0');
+  adsToday=parseInt(localStorage.getItem('ads_today')||'0');
+  autoCount=parseInt(localStorage.getItem('auto_count')||'0');
+}catch(e){}
+function saveCoins(){
+  if(coins>=100){points+=Math.floor(coins/100);coins=coins%100;}
+  try{localStorage.setItem('coins',coins);localStorage.setItem('points',points);localStorage.setItem('ads_today',adsToday);localStorage.setItem('auto_count',autoCount);}catch(e){}
+  document.getElementById('coins').innerText=coins;
+  document.getElementById('points').innerText=points.toFixed(2);
+  document.getElementById('tonVal').innerText=(points*0.001).toFixed(4);
+  document.getElementById('autoCount').innerText=autoCount;
+}
 saveCoins();
 
-function initMonetag(){ return new Promise((r)=>{ if(typeof show_11968926==='function'){monetagReady=true;r(true);return;} let s=document.createElement('script'); s.src="https://libtl.com/sdk.js"; s.dataset.zone="11968926"; s.dataset.sdk="show_11968926"; s.onload=()=>{setTimeout(()=>{monetagReady=typeof show_11968926==='function';r(monetagReady);},1000);}; s.onerror=()=>r(false); document.head.appendChild(s); }); }
-async function showMonetag(){ try{ if(!monetagReady) await initMonetag(); if(typeof show_11968926==='function'){ await show_11968926(); return true; } }catch(e){ try{ if(typeof show_11968926==='function'){ await show_11968926(); return true; } }catch(e2){} } return false; }
-async function showAdsgram(){ try{ if(!AdsBlock){ try{AdsBlock=window.Adsgram.init({blockId:"int-52779"});}catch(e){} } if(AdsBlock){ await AdsBlock.show(); return true; } }catch(e){} return false; }
+function initMonetag(){ 
+  return new Promise((r)=>{ 
+    if(typeof show_11968926==='function'){monetagReady=true;r(true);return;} 
+    let s=document.createElement('script'); 
+    s.src="https://libtl.com/sdk.js"; 
+    s.dataset.zone="11968926"; 
+    s.dataset.sdk="show_11968926"; 
+    s.onload=()=>{setTimeout(()=>{monetagReady=typeof show_11968926==='function';r(monetagReady);},1000);}; 
+    s.onerror=()=>r(false); 
+    document.head.appendChild(s); 
+  }); 
+}
+async function showMonetag(){ 
+  try{ 
+    if(!monetagReady) await initMonetag(); 
+    if(typeof show_11968926==='function'){ 
+      await show_11968926(); 
+      return true; 
+    } 
+  }catch(e){} 
+  return false; 
+}
+async function showAdsgram(){ 
+  try{ 
+    if(!AdsBlock){ try{AdsBlock=window.Adsgram.init({blockId:"int-52779"});}catch(e){} } 
+    if(AdsBlock){ await AdsBlock.show(); return true; } 
+  }catch(e){} 
+  return false; 
+}
 
-// DONO ADS EK SATH - AUTO SYSTEM
 async function runAutoAds(){
   if(isAdRunning) return;
-  if(adsToday>=15) return;
+  if(adsToday>=15){ document.getElementById('nextAd').innerText="15/day limit"; return; }
   isAdRunning=true;
+  document.getElementById('nextAd').innerText="Loading Ads...";
   let m=await showMonetag(); 
-  await new Promise(r=>setTimeout(r,700));
+  if(m){coins+=1;adsToday++;autoCount++;saveCoins();}
+  await new Promise(r=>setTimeout(r,800));
   let a=await showAdsgram();
-  if(m||a){coins+=1;adsToday++;autoCount++;saveCoins();}
+  if(a){coins+=1;adsToday++;autoCount++;saveCoins();}
   isAdRunning=false;
   nextSec=isSnakePlaying?180:15;
-  snakeAdTimer=0;
 }
 
 function startAutoAdsSystem(){ 
   if(autoStarted) return; 
   autoStarted=true; 
-  runAutoAds(); 
+  setTimeout(runAutoAds, 1500);
   setInterval(()=>{ 
     nextSec--; 
-    snakeAdTimer++;
     if(nextSec<=0){ nextSec=isSnakePlaying?180:15; runAutoAds(); } 
     let el=document.getElementById('nextAd');
     let sEl=document.getElementById('snakeAdInfo');
-    if(el) el.innerText=isSnakePlaying?Math.floor(nextSec/60)+'m '+nextSec%60+'s - SNAKE 3min':'Next: '+nextSec+'s - ALL 15s';
-    if(sEl && isSnakePlaying) sEl.innerText='Snake Auto Ad in: '+Math.floor(nextSec/60)+'m '+nextSec%60+'s | Playing...';
-    else if(sEl) sEl.innerText='Snake me har 3 min me auto ad ayega';
+    if(el && !isAdRunning){
+      el.innerText=isSnakePlaying?Math.floor(nextSec/60)+'m '+nextSec%60+'s SNAKE (3min)':'Next: '+nextSec+'s ALL (15s)';
+    }
+    if(sEl){
+      sEl.innerText=isSnakePlaying?'Snake Playing - Auto Ad in: '+Math.floor(nextSec/60)+'m '+nextSec%60+'s':'Snake me har 3 min me auto ad ayega';
+    }
   },1000); 
 }
 
 function getSpinDiscount(){ let r=Math.random()*100; if(r<70) return {label:"Try Again", value:0, coins:1}; return {label:"5% Extra", value:1, coins:5}; }
-async function startSpin(){ startAutoAdsSystem(); if(isSpinning||isAdRunning) return; isSpinning=true; let status=document.getElementById("result"); status.innerText="🎬 Monetag Before Spin..."; await showMonetag(); document.getElementById("wheel").style.transform=`rotate(${360*5+Math.random()*360}deg)`; status.innerText="🎡 Spinning..."; setTimeout(async()=>{ let res=getSpinDiscount(); coins+=res.coins; saveCoins(); status.innerHTML=`🎉 ${res.label} +${res.coins} Coins!`; isSpinning=false; status.innerText="🎬 Adsgram After..."; await showAdsgram(); status.innerText=`✅ +${res.coins} Coins Added!`; },3000); }
+async function startSpin(){ 
+  startAutoAdsSystem(); 
+  if(isSpinning||isAdRunning) return; 
+  isSpinning=true; 
+  let status=document.getElementById("result"); 
+  status.innerText="🎬 Monetag Before Spin..."; 
+  await showMonetag(); 
+  document.getElementById("wheel").style.transform=`rotate(${360*5+Math.random()*360}deg)`; 
+  status.innerText="🎡 Spinning..."; 
+  setTimeout(async()=>{ 
+    let res=getSpinDiscount(); 
+    coins+=res.coins; saveCoins(); 
+    status.innerHTML=`🎉 ${res.label} +${res.coins} Coins!`; 
+    isSpinning=false; 
+    status.innerText="🎬 Adsgram After..."; 
+    await showAdsgram(); 
+    status.innerText=`✅ +${res.coins} Coins Added!`; 
+  },3000); 
+}
 
 const SHOP_PRODUCTS=[
 {n:"Scott International T-Shirt 3 Pack",p:399,old:1049,cat:"amazon",img:"https://m.media-amazon.com/images/I/41aQCWMtgdL._AC_.jpg",l:"https://www.amazon.in/s?k=Scott+International+Tshirt&tag=earningtadka8-21"},
@@ -142,19 +201,17 @@ renderShop();
 function calcTON(){let pts=parseFloat(document.getElementById('tpts').value||0);document.getElementById('tprev').innerText='You will get: '+(pts*0.001).toFixed(4)+' TON';}
 function withdrawTON(){try{let addr=document.getElementById('taddr').value.trim();let pts=parseFloat(document.getElementById('tpts').value||0);if(!addr||addr.length<10){alert('TON Address daalo UQ...');return;}if(pts<10){alert('Min 10 Points');return;}if(pts>points){alert('Points kam hai');return;}document.getElementById('wstat').innerText='✅ Request Sent! '+pts+' Points → '+(pts*0.001)+' TON';points-=pts;localStorage.setItem('points',points);saveCoins();}catch(e){alert('Error');}}
 
-// SNAKE GAME + 3 MIN AUTO ADS
 let snake=[],food={},dir={x:0,y:0},nextDir={x:0,y:0},score=0,high=0,gInt=null;
 try{high=parseInt(localStorage.getItem('snake_high')||'0');}catch(e){}
 function initSnake(){document.getElementById('snakeHigh').innerText=high;resetSnake();drawSnake();}
 function resetSnake(){snake=[{x:10,y:10}];food={x:15,y:10};dir={x:0,y:0};nextDir={x:0,y:0};score=0;document.getElementById('snakeScore').innerText=score;if(gInt){clearInterval(gInt);gInt=null;}}
 function startSnake(){
-  startAutoAdsSystem(); // YAHAN SE AUTO ADS ON HOGA
+  startAutoAdsSystem();
   if(gInt) return;
   dir={x:1,y:0};nextDir={x:1,y:0};
   gInt=setInterval(loop,120);
   isSnakePlaying=true;
-  nextSec=180; // 3 MIN SET
-  snakeAdTimer=0;
+  nextSec=180;
   document.getElementById('snakeAdInfo').innerText='🐍 Snake Started - 3min me auto ad ayega...';
 }
 function setDir(x,y){if(dir.x===-x&&dir.y===-y)return;nextDir={x:x,y:y};if(!gInt)startSnake();}
