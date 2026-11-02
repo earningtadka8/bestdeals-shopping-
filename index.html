@@ -2,32 +2,39 @@
 <html>
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>BestDeals + Snake</title>
+<title>Final - 15+15 Rewarded</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#0f0f12;color:#fff;font-family:system-ui;padding:10px;padding-top:30px;max-width:480px;margin:auto}
 .i{background:#1e1e2f;padding:8px;border-radius:8px;text-align:center;font-size:11px;border:1px solid #6c5cff}
-.w{width:160px;height:160px;border-radius:50%;margin:12px auto;border:4px solid #6c5cff;background:#222;display:flex;align-items:center;justify-content:center;transition:transform 4s}
-.btn{width:100%;background:#8b5cf6;color:#fff;border:0;padding:12px;border-radius:8px;font-weight:bold;cursor:pointer}
+.wheel-wrap{position:relative;width:200px;height:200px;margin:15px auto}
+.w{width:200px;height:200px;border-radius:50%;border:5px solid #6c5cff;position:absolute;transition:transform 4s cubic-bezier(.17,.67,.12,.99)}
+#wheelCanvas{width:100%;height:100%;border-radius:50%}
+.wheel-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:65px;height:65px;background:#0f0f12;border:3px solid #ffcc00;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:11px;z-index:5;text-align:center}
+.pointer{width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:22px solid #ffcc00;margin:0 auto;position:relative;z-index:10}
+.btn{width:100%;background:#8b5cf6;color:#fff;border:0;padding:14px;border-radius:10px;font-weight:bold;font-size:15px}
+.btn:disabled{opacity:0.5}
 .t{display:flex;gap:5px;overflow:auto;padding:8px 0}
 .tb{padding:6px 12px;background:#222;border-radius:20px;font-size:11px;white-space:nowrap;cursor:pointer}
 .tb.a{background:#ffcc00;color:#000;font-weight:bold}
-.g{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.p{background:#1e1e1e;border-radius:8px;padding:5px;border:1px solid #333}
-.p img{width:100%;height:110px;object-fit:cover;border-radius:5px;background:#222}
-/* SNAKE */
+.g{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.p{background:#1e1e1e;border-radius:10px;padding:5px;border:1px solid #333}
+.p img{width:100%;height:140px;object-fit:cover;border-radius:8px;background:#111;display:block}
 #snakeBox{background:#111;border:2px solid #6c5cff;border-radius:12px;padding:10px;margin-top:20px;text-align:center}
-#snakeCanvas{background:#000;border-radius:8px;display:block;margin:8px auto}
+#snakeCanvas{width:300px;height:300px;background:#000;border-radius:8px;display:block;margin:8px auto}
 .ctrl{display:grid;grid-template-columns:60px 60px 60px;gap:6px;justify-content:center;margin-top:8px}
-.ctrl button{background:#222;color:#fff;border:1px solid #444;padding:10px;border-radius:8px;font-size:16px}
+.ctrl button{background:#222;color:#fff;border:1px solid #444;padding:10px;border-radius:8px}
 </style>
 </head>
 <body>
 
-<div class="i">AUTO 15s | <span id="s" style="color:#ffcc00">Ready</span> | Ads: <span id="c">0</span><br>Next: <span id="next" style="color:#00ff88">Monetag in 15s</span></div>
-<div style="width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-top:16px solid #ffcc00;margin:0 auto"></div>
-<div class="w" id="w"><b>SPIN</b></div>
-<button class="btn" id="b" onclick="spin()">🎡 SPIN - Monetag → Spin → Adsgram</button>
-<div id="m" style="text-align:center;color:#ffcc00;font-size:11px;margin:6px 0">No Collision Mode</div>
+<div class="i">REWARDED 15s+15s | <span id="s" style="color:#ffcc00">Ready</span> | Ads: <span id="c">0</span><br>Next: <span id="next" style="color:#00ff88">Monetag in 15s</span></div>
+<div class="pointer"></div>
+<div class="wheel-wrap">
+<div class="w" id="w"><canvas id="wheelCanvas" width="200" height="200"></canvas></div>
+<div class="wheel-center" id="wheelCenter">SPIN<br>ME</div>
+</div>
+<button class="btn" id="b" onclick="spin()">🎡 SPIN - 15s Monetag → Spin → 15s Adsgram</button>
+<div id="m" style="text-align:center;color:#ffcc00;font-size:12px;margin:8px 0;min-height:45px;background:#1a1a2e;padding:6px;border-radius:6px;border:1px solid #333">Wheel: 70% Again | 10% 5% | 10% 10% | 10% 3%<br>Har Spin = 15s Monetag Rewarded + 15s Adsgram Rewarded</div>
 
 <div class="t">
 <div class="tb a" onclick="fil('all',this)">All 12</div>
@@ -38,10 +45,9 @@
 
 <div id="pr"></div>
 
-<!-- SNAKE GAME NICHE -->
 <div id="snakeBox">
 <h3 style="margin:5px 0">🐍 SNAKE GAME</h3>
-<div style="font-size:11px;color:#aaa">Har 3 min pe: Monetag → Adsgram | Out pe bhi dono ads</div>
+<div style="font-size:10px;color:#aaa">Har 3 min pe: Monetag 15s → Adsgram 15s | Out pe bhi dono 15s+15s</div>
 <div>Score: <span id="score" style="color:#00ff88;font-weight:bold">0</span> | Best: <span id="best">0</span></div>
 <canvas id="snakeCanvas" width="300" height="300"></canvas>
 <button class="btn" id="startBtn" onclick="startSnake()" style="background:#00c853">▶️ START GAME</button>
@@ -49,22 +55,21 @@
 <div></div><button onclick="setDir(0,-1)">⬆️</button><div></div>
 <button onclick="setDir(-1,0)">⬅️</button><button onclick="setDir(0,1)">⬇️</button><button onclick="setDir(1,0)">➡️</button>
 </div>
-<div id="snakeMsg" style="font-size:11px;color:#ffcc00;margin-top:6px;min-height:14px">Game khelo, ads auto ayenge</div>
+<div id="snakeMsg" style="font-size:11px;color:#ffcc00;margin-top:6px">Game khelo - Double 15s ads</div>
 </div>
 
 <script>
 let adC=0,last=0,busy=false,queue=false,mon=false,ads=false,AB=null,sp=false,nextIsMonetag=true,countdown=15;
-
 function lM(){return new Promise(r=>{if(mon&&typeof show_11968926==='function'){r(true);return}let s=document.createElement('script');s.src='https://libtl.com/sdk.js';s.dataset.zone='11968926';s.dataset.sdk='show_11968926';s.onload=()=>{mon=true;r(true)};s.onerror=()=>r(true);document.head.appendChild(s)})}
 function lA(){return new Promise(r=>{if(ads&&AB){r(true);return}let s=document.createElement('script');s.src='https://sad.adsgram.ai/js/sad.min.js';s.onload=()=>{try{AB=Adsgram.init({blockId:"int-52779"});ads=true;r(true)}catch(e){r(true)}};s.onerror=()=>r(true);document.head.appendChild(s)})}
 
 async function mAd(src){
-  if(busy||queue||sp) return false;
+  if(busy&&src!=='Wheel Start') return false;
   queue=true;busy=true;
-  document.getElementById('s').innerText='Monetag...';
+  document.getElementById('s').innerText='Monetag 15s Rewarded...';
+  document.getElementById('m').innerHTML=`🎬 <b>Monetag Rewarded 15s</b> - ${src}<br>Close mat karna - pura dekho`;
+  document.getElementById('snakeMsg').innerText='🎬 Monetag 15s Rewarded '+src+'...';
   await lM();
-  document.getElementById('m').innerText='🎬 Monetag '+src;
-  document.getElementById('snakeMsg').innerText='🎬 Monetag '+src+'...';
   if(typeof show_11968926!=='function'){busy=false;queue=false;return false}
   return new Promise(r=>{
     try{
@@ -73,12 +78,14 @@ async function mAd(src){
   })
 }
 async function aAd(src){
-  if(busy||queue||sp) return false;
+  if(busy&&src!=='Wheel End'&&src!=='Snake 3Min 2/2'&&src!=='Snake OUT 2/2') return false;
+  // Wheel End ke liye busy allow hai kyunki ye sequence ka part hai
+  if(src==='Wheel End' || src.includes('2/2')) { /* allow */ } else if(busy||queue) return false;
   queue=true;busy=true;
-  document.getElementById('s').innerText='Adsgram...';
+  document.getElementById('s').innerText='Adsgram 15s Rewarded...';
+  document.getElementById('m').innerHTML=`🎬 <b>Adsgram Rewarded 15s</b> - ${src}<br>Close mat karna - pura dekho`;
+  document.getElementById('snakeMsg').innerText='🎬 Adsgram 15s Rewarded '+src+'...';
   await lA();
-  document.getElementById('m').innerText='🎬 Adsgram '+src;
-  document.getElementById('snakeMsg').innerText='🎬 Adsgram '+src+'...';
   if(!AB){busy=false;queue=false;return false}
   return new Promise(r=>{
     try{
@@ -86,15 +93,12 @@ async function aAd(src){
     }catch(e){busy=false;queue=false;r(false)}
   })
 }
-
-// DOUBLE AD SEQUENCE - MONETAG THEN ADSGRAM
 async function doubleAd(reason){
   if(busy||queue||sp) return;
-  document.getElementById('snakeMsg').innerText='⏳ Double Ad: '+reason+'...';
-  await mAd(reason+' 1/2');
-  await new Promise(z=>setTimeout(z,500));
-  await aAd(reason+' 2/2');
-  document.getElementById('snakeMsg').innerText='✅ Double Ad Done - Game Continue';
+  document.getElementById('snakeMsg').innerText='⏸️ Double 15s - '+reason;
+  await mAd(reason+' 1/2 - 15s Monetag Rewarded');
+  await new Promise(z=>setTimeout(z,800));
+  await aAd(reason+' 2/2 - 15s Adsgram Rewarded');
 }
 
 function startAuto(){
@@ -103,51 +107,107 @@ function startAuto(){
     countdown--;
     if(countdown>0){
       document.getElementById('s').innerText='Next in '+countdown+'s';
-      document.getElementById('next').innerText=(nextIsMonetag?'Monetag':'Adsgram')+' in '+countdown+'s';
-    }else{
-      if(nextIsMonetag){await mAd('Auto');nextIsMonetag=false;document.getElementById('next').innerText='Adsgram in 15s'}else{await aAd('Auto');nextIsMonetag=true;document.getElementById('next').innerText='Monetag in 15s'}
+      document.getElementById('next').innerText=(nextIsMonetag?'Monetag 15s':'Adsgram 15s')+' in '+countdown+'s';
+    } else {
+      if(nextIsMonetag){await mAd('Auto 15s Rewarded');nextIsMonetag=false}else{await aAd('Auto 15s Rewarded');nextIsMonetag=true}
       countdown=15;
     }
   },1000);
 }
-
 document.addEventListener('click',async e=>{
-  if(e.target.closest('#b') || e.target.closest('#snakeBox')) return;
+  if(e.target.closest('#b')||e.target.closest('#snakeBox')||e.target.closest('.wheel-wrap')) return;
   if(sp||busy||queue) return;
   if(Date.now()-last<15000) return;
-  await mAd('Click');
+  await mAd('Click 15s Rewarded');
 },true);
 
+// WHEEL 70% AGAIN
+const wheelCanvas=document.getElementById('wheelCanvas');
+const wCtx=wheelCanvas.getContext('2d');
+function drawWheel(){
+  let cx=100,cy=100,r=95;
+  let segs=[
+    {from:0,to:252,color:'#222233',label:'SPIN\nAGAIN\n70%',tc:'#ffcc00'},
+    {from:252,to:288,color:'#ff9900',label:'5%',tc:'#fff'},
+    {from:288,to:324,color:'#00c853',label:'10%',tc:'#fff'},
+    {from:324,to:360,color:'#f43397',label:'3%',tc:'#fff'},
+  ];
+  segs.forEach(s=>{
+    wCtx.beginPath();wCtx.moveTo(cx,cy);wCtx.arc(cx,cy,r,(s.from-90)*Math.PI/180,(s.to-90)*Math.PI/180);wCtx.closePath();wCtx.fillStyle=s.color;wCtx.fill();wCtx.strokeStyle='#0f0f12';wCtx.lineWidth=2;wCtx.stroke();
+    let mid=(s.from+s.to)/2,rad=(mid-90)*Math.PI/180,tx=cx+Math.cos(rad)*(r*0.6),ty=cy+Math.sin(rad)*(r*0.6);
+    wCtx.fillStyle=s.tc;wCtx.font='bold 13px system-ui';wCtx.textAlign='center';
+    s.label.split('\n').forEach((ln,i)=>{wCtx.fillText(ln,tx,ty+i*14-7)})
+  });
+}
+drawWheel();
+function getWheelResult(){
+  let rnd=Math.random();
+  if(rnd<0.70) return {type:'again',label:'SPIN AGAIN',angle:126};
+  else if(rnd<0.80) return {type:'5%',label:'5% - Nice!',angle:270};
+  else if(rnd<0.90) return {type:'10%',label:'10% - Jackpot!',angle:306};
+  else return {type:'3%',label:'3% - Good!',angle:342};
+}
+let curRot=0;
+// MAIN SPIN - 15s + 15s REWARDED
 async function spin(){
  if(sp||busy||queue) return;
- sp=true; let b=document.getElementById('b'); b.disabled=true;
- b.innerText='⏳ Monetag...'; await mAd('Wheel Start');
- document.getElementById('m').innerText='🎡 Spinning...'; b.innerText='🎡 Spinning...';
- document.getElementById('w').style.transform='rotate('+(720+Math.random()*720)+'deg)';
+ sp=true; 
+ let b=document.getElementById('b'); 
+ b.disabled=true;
+ b.innerText='⏳ Step 1/3: Monetag 15s Rewarded...';
+ document.getElementById('m').innerHTML='⏳ <b>Step 1/3: Monetag Rewarded 15s</b><br>Pura ad dekho, close mat karo';
+ 
+ // 1. PEHLE MONETAG 15s REWARDED
+ let ok1=await mAd('Wheel Start - 15s Monetag Rewarded');
+ if(!ok1){sp=false;b.disabled=false;b.innerText='🎡 SPIN AGAIN';return}
+ 
+ let res=getWheelResult();
+ document.getElementById('m').innerHTML=`🎡 <b>Step 2/3: Spinning to ${res.label}</b><br>Monetag 15s done - Wheel ghum raha hai`;
+ b.innerText=`🎡 Spinning to ${res.label}...`;
+ 
+ let target=360-res.angle;
+ let final=curRot+720+Math.random()*720+target;
+ document.getElementById('w').style.transform=`rotate(${final}deg)`;
+ curRot=final;
+ 
  setTimeout(async()=>{
-   ex=Math.random()<0.3?5:0; render();
-   b.innerText='⏳ Adsgram...'; await aAd('Wheel End');
-   sp=false; b.disabled=false; b.innerText='🎡 SPIN'; countdown=15;
+   // Wheel result
+   if(res.type==='again'){
+     document.getElementById('m').innerHTML=`🔄 <b>SPIN AGAIN! (70%)</b><br>Price same - Ab <b>Step 3/3: Adsgram 15s</b> ayega`;
+     document.getElementById('wheelCenter').innerHTML='AGAIN!';
+   } else {
+     document.getElementById('m').innerHTML=`🎉 <b>${res.label}</b> - Price same<br>Ab <b>Step 3/3: Adsgram 15s Rewarded</b>`;
+     document.getElementById('wheelCenter').innerHTML=res.label;
+   }
+   
+   b.innerText='⏳ Step 3/3: Adsgram 15s Rewarded...';
+   
+   // 3. ADSGRAM 15s REWARDED AFTER SPIN
+   await aAd('Wheel End - 15s Adsgram Rewarded');
+   
+   sp=false;b.disabled=false;b.innerText='🎡 SPIN AGAIN - 15s+15s';
+   countdown=15;
+   document.getElementById('m').innerHTML=`✅ <b>Done! 15s Monetag + Spin + 15s Adsgram</b><br>${res.type==='again'?'🔄 Spin Again tha - phir se karo':'🎉 '+res.label+' - Price same'}<br>Next auto in 15s`;
  },4000);
 }
 
-// PRODUCTS
+// PRODUCTS REAL IMAGES - PRICE SAME
 const TAG='earningtadka8-21';
 let all=[
-{name:"Men T-Shirt Pack 3",price:399,cat:"amazon",img:"https://via.placeholder.com/300/ff9900/fff?text=T-Shirt",link:`https://www.amazon.in/s?k=tshirt+men&tag=${TAG}`},
-{name:"Boat Airdopes 141",price:999,cat:"amazon",img:"https://via.placeholder.com/300/ff9900/fff?text=Boat+141",link:`https://www.amazon.in/s?k=boat+141&tag=${TAG}`},
-{name:"Noise Watch",price:1499,cat:"amazon",img:"https://via.placeholder.com/300/ff9900/fff?text=Noise",link:`https://www.amazon.in/s?k=noise+watch&tag=${TAG}`},
-{name:"Symbol Polo",price:499,cat:"amazon",img:"https://via.placeholder.com/300/ff9900/fff?text=Polo",link:`https://www.amazon.in/s?k=symbol+polo&tag=${TAG}`},
-{name:"Sneakers White",price:599,cat:"flipkart",img:"https://via.placeholder.com/300/2874f0/fff?text=Sneakers",link:"https://www.flipkart.com/search?q=sneakers+men"},
-{name:"Boult Z20",price:899,cat:"flipkart",img:"https://via.placeholder.com/300/2874f0/fff?text=Boult",link:"https://www.flipkart.com/search?q=boult+z20"},
-{name:"Saree Silk",price:499,cat:"flipkart",img:"https://via.placeholder.com/300/2874f0/fff?text=Saree",link:"https://www.flipkart.com/search?q=saree+women"},
-{name:"Hoodie",price:699,cat:"flipkart",img:"https://via.placeholder.com/300/2874f0/fff?text=Hoodie",link:"https://www.flipkart.com/search?q=hoodie+men"},
-{name:"T-Shirt Combo",price:299,cat:"meesho",img:"https://via.placeholder.com/300/f43397/fff?text=T-Shirt",link:"https://www.meesho.com/search?q=tshirt+men"},
-{name:"Kurti Set",price:349,cat:"meesho",img:"https://via.placeholder.com/300/f43397/fff?text=Kurti",link:"https://www.meesho.com/search?q=kurti+women"},
-{name:"Jhumka Set",price:149,cat:"meesho",img:"https://via.placeholder.com/300/f43397/fff?text=Jhumka",link:"https://www.meesho.com/search?q=jhumka+earrings"},
-{name:"Kids Dress",price:399,cat:"meesho",img:"https://via.placeholder.com/300/f43397/fff?text=Kids",link:"https://www.meesho.com/search?q=kids+dress"},
+{name:"Men T-Shirt Pack",price:399,cat:"amazon",img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop",link:`https://www.amazon.in/s?k=men+tshirt+pack&tag=${TAG}`},
+{name:"Boat Airdopes 141",price:999,cat:"amazon",img:"https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400&h=400&fit=crop",link:`https://www.amazon.in/s?k=boat+airdopes+141&tag=${TAG}`},
+{name:"Noise Smartwatch",price:1499,cat:"amazon",img:"https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=400&h=400&fit=crop",link:`https://www.amazon.in/s?k=noise+smartwatch&tag=${TAG}`},
+{name:"Polo T-Shirt Men",price:499,cat:"amazon",img:"https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=400&h=400&fit=crop",link:`https://www.amazon.in/s?k=symbol+polo+tshirt&tag=${TAG}`},
+{name:"White Sneakers",price:599,cat:"flipkart",img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop",link:`https://www.flipkart.com/search?q=sneakers+men+white`},
+{name:"Boult Earbuds Z20",price:899,cat:"flipkart",img:"https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=400&h=400&fit=crop",link:`https://www.flipkart.com/search?q=boult+z20+earbuds`},
+{name:"Silk Saree Women",price:499,cat:"flipkart",img:"https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400&h=400&fit=crop",link:`https://www.flipkart.com/search?q=saree+silk+women`},
+{name:"Hoodie Winter",price:699,cat:"flipkart",img:"https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&h=400&fit=crop",link:`https://www.flipkart.com/search?q=hoodie+men+winter`},
+{name:"Men Combo T-Shirt",price:299,cat:"meesho",img:"https://images.unsplash.com/photo-1562157873-818bc0726f68?w=400&h=400&fit=crop",link:`https://www.meesho.com/search?q=men+tshirt+combo`},
+{name:"Kurti Set Women",price:349,cat:"meesho",img:"https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=400&h=400&fit=crop",link:`https://www.meesho.com/search?q=kurti+set+women`},
+{name:"Jhumka Earrings",price:149,cat:"meesho",img:"https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop",link:`https://www.meesho.com/search?q=jhumka+earrings+gold`},
+{name:"Kids Dress Frock",price:399,cat:"meesho",img:"https://images.unsplash.com/photo-1518831959646-356c3a3ad3c4?w=400&h=400&fit=crop",link:`https://www.meesho.com/search?q=kids+dress+girls+frock`},
 ];
-let cur='all',ex=0;
+let cur='all';
 function getF(){return cur==='all'?all:all.filter(x=>x.cat===cur)}
 function render(){
  let f=getF();
@@ -155,107 +215,37 @@ function render(){
  <div class="p" onclick="go('${p.link}')">
  <img src="${p.img}" loading="eager">
  <div style="font-size:11px;margin:4px 0;height:32px;overflow:hidden">${p.name}</div>
- <div style="color:#00ff88;font-weight:bold">₹${p.price-ex}</div>
+ <div style="color:#00ff88;font-weight:bold">₹${p.price} <span style="font-size:8px;background:${p.cat==='amazon'?'#ff9900':p.cat==='flipkart'?'#2874f0':'#f43397'};color:#fff;padding:2px 6px;border-radius:10px">${p.cat.toUpperCase()}</span></div>
  </div>`).join('')+'</div>';
 }
 function fil(c,el){cur=c;document.querySelectorAll('.tb').forEach(t=>t.classList.remove('a'));el.classList.add('a');render()}
-async function go(l){if(busy||queue||sp) return; await mAd('Product'); window.open(l,'_blank')}
-render(); startAuto();
+async function go(l){if(busy||queue||sp) return;await mAd('Product 15s Rewarded');window.open(l,'_blank')}
+render();startAuto();
 
-// ===== SNAKE GAME LOGIC =====
+// SNAKE
 let canvas=document.getElementById('snakeCanvas'),ctx=canvas.getContext('2d');
-let snake,food,dir,nextDir,scoreTimer,gameLoopTimer,threeMinTimer;
-let gameRunning=false,score=0,best=localStorage.getItem('snakeBest')||0;
+let snake,food,dir,nextDir,gameLoopTimer,threeMinTimer,gameRunning=false,score=0,best=localStorage.getItem('snakeBest')||0;
 document.getElementById('best').innerText=best;
-
-function initSnake(){
-  snake=[{x:10,y:10}];
-  dir={x:1,y:0}; nextDir={x:1,y:0};
-  food={x:15,y:10};
-  score=0; document.getElementById('score').innerText=0;
-}
-
-function setDir(x,y){
-  if(!gameRunning) return;
-  if(dir.x===-x && dir.y===-y) return; // reverse block
-  nextDir={x,y};
-}
-
+function initSnake(){snake=[{x:10,y:10}];dir={x:1,y:0};nextDir={x:1,y:0};food={x:15,y:10};score=0;document.getElementById('score').innerText=0}
+function setDir(x,y){if(!gameRunning) return;if(dir.x===-x&&dir.y===-y) return;nextDir={x,y}}
 function startSnake(){
-  if(busy||queue) {document.getElementById('snakeMsg').innerText='Ad chal raha hai, wait...';return}
-  initSnake();
-  gameRunning=true;
-  document.getElementById('startBtn').innerText='🔄 RESTART';
-  document.getElementById('snakeMsg').innerText='Game Started - Har 3 min pe double ad';
-  
-  clearInterval(gameLoopTimer);
-  clearInterval(threeMinTimer);
-  
+  if(busy||queue){document.getElementById('snakeMsg').innerText='Ad chal raha, wait...';return}
+  initSnake();gameRunning=true;document.getElementById('startBtn').innerText='🔄 RESTART';document.getElementById('snakeMsg').innerText='Started - 3 min pe double 15s';
+  clearInterval(gameLoopTimer);clearInterval(threeMinTimer);
   gameLoopTimer=setInterval(loop,120);
-  
-  // HAR 3 MINUTE ME DOUBLE AD - MONETAG THEN ADSGRAM
-  threeMinTimer=setInterval(async()=>{
-    if(!gameRunning) return;
-    if(busy||queue||sp) return;
-    // pause game
-    clearInterval(gameLoopTimer);
-    document.getElementById('snakeMsg').innerText='⏸️ 3 Min Complete - Ads...';
-    await doubleAd('Snake 3Min');
-    if(gameRunning){
-      gameLoopTimer=setInterval(loop,120);
-      document.getElementById('snakeMsg').innerText='▶️ Game Resume';
-    }
-  },180000); // 3 min = 180000ms
+  threeMinTimer=setInterval(async()=>{if(!gameRunning||busy||queue||sp) return;clearInterval(gameLoopTimer);document.getElementById('snakeMsg').innerText='⏸️ 3 Min - 15s+15s Ads...';await doubleAd('Snake 3Min');if(gameRunning){gameLoopTimer=setInterval(loop,120);document.getElementById('snakeMsg').innerText='▶️ Resume'}},180000);
 }
-
 function loop(){
-  dir=nextDir;
-  let head={x:snake[0].x+dir.x,y:snake[0].y+dir.y};
-  
-  // wall collision = OUT
-  if(head.x<0||head.x>=20||head.y<0||head.y>=20){
-    gameOver();
-    return;
-  }
-  // self collision = OUT
-  for(let s of snake){if(s.x===head.x && s.y===head.y){gameOver();return;}}
-  
+  dir=nextDir;let head={x:snake[0].x+dir.x,y:snake[0].y+dir.y};
+  if(head.x<0||head.x>=20||head.y<0||head.y>=20){gameOver();return}
+  for(let s of snake){if(s.x===head.x&&s.y===head.y){gameOver();return}}
   snake.unshift(head);
-  
-  if(head.x===food.x && head.y===food.y){
-    score+=10; document.getElementById('score').innerText=score;
-    if(score>best){best=score;localStorage.setItem('snakeBest',best);document.getElementById('best').innerText=best}
-    // new food
-    food={x:Math.floor(Math.random()*20),y:Math.floor(Math.random()*20)};
-  } else {
-    snake.pop();
-  }
+  if(head.x===food.x&&head.y===food.y){score+=10;document.getElementById('score').innerText=score;if(score>best){best=score;localStorage.setItem('snakeBest',best);document.getElementById('best').innerText=best}food={x:Math.floor(Math.random()*20),y:Math.floor(Math.random()*20)}}else{snake.pop()}
   draw();
 }
-
-function draw(){
-  ctx.fillStyle='#000'; ctx.fillRect(0,0,300,300);
-  // grid
-  ctx.strokeStyle='#111'; for(let i=0;i<=20;i++){ctx.beginPath();ctx.moveTo(i*15,0);ctx.lineTo(i*15,300);ctx.stroke();ctx.beginPath();ctx.moveTo(0,i*15);ctx.lineTo(300,i*15);ctx.stroke();}
-  // food
-  ctx.fillStyle='#ff0000'; ctx.fillRect(food.x*15+2,food.y*15+2,11,11);
-  // snake
-  ctx.fillStyle='#00ff00'; snake.forEach((s,i)=>{ctx.fillStyle=i===0?'#00ff88':'#00cc00';ctx.fillRect(s.x*15+1,s.y*15+1,13,13)});
-}
-
-async function gameOver(){
-  gameRunning=false;
-  clearInterval(gameLoopTimer);
-  clearInterval(threeMinTimer);
-  document.getElementById('snakeMsg').innerText='💀 OUT! Score: '+score;
-  document.getElementById('startBtn').innerText='▶️ START AGAIN';
-  
-  // OUT HONE PE DONO ADS - MONETAG THEN ADSGRAM
-  await new Promise(z=>setTimeout(z,800));
-  await doubleAd('Snake OUT');
-}
-
-initSnake(); draw();
+function draw(){ctx.fillStyle='#000';ctx.fillRect(0,0,300,300);ctx.strokeStyle='#111';for(let i=0;i<=20;i++){ctx.beginPath();ctx.moveTo(i*15,0);ctx.lineTo(i*15,300);ctx.stroke();ctx.beginPath();ctx.moveTo(0,i*15);ctx.lineTo(300,i*15);ctx.stroke()}ctx.fillStyle='#ff0000';ctx.fillRect(food.x*15+2,food.y*15+2,11,11);snake.forEach((s,i)=>{ctx.fillStyle=i===0?'#00ff88':'#00cc00';ctx.fillRect(s.x*15+1,s.y*15+1,13,13)})}
+async function gameOver(){gameRunning=false;clearInterval(gameLoopTimer);clearInterval(threeMinTimer);document.getElementById('snakeMsg').innerText='💀 OUT! Score: '+score;document.getElementById('startBtn').innerText='▶️ START AGAIN';await new Promise(z=>setTimeout(z,800));await doubleAd('Snake OUT')}
+initSnake();draw();
 </script>
 </body>
 </html> 
