@@ -2,10 +2,11 @@
 <html>
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>BestDeals - Fashion & Beauty</title>
+<title>BestDeals - Fixed Ads</title>
+<!-- Monetag ek hi baar HEAD me -->
+<script src="https://libtl.com/sdk.js" data-zone="11968926" data-sdk="show_11968926"></script>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
-<script src="https://libtl.com/sdk.js" data-zone="11968926" data-sdk="show_11968926"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-width:480px;margin:0 auto}
@@ -19,10 +20,10 @@ body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-w
 .wheel{width:220px;height:220px;border-radius:50%;margin:15px auto;position:relative;border:4px solid #6c5cff;background:conic-gradient(#6a4cff 0 70%, #333 70% 98%, #3b82f6 98% 99%, #22c55e 99% 99.5%, #06b6d4 99.5% 100%);transition:transform 4s cubic-bezier(.17,.67,.12,.99)}
 .center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;background:#000;border-radius:50%;border:3px solid #fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:bold}
 .pin{width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:24px solid #ffcc00;margin:0 auto}
-.btn{width:100%;background:linear-gradient(90deg,#8b5cf6,#3b82f6);color:#fff;border:0;padding:14px;border-radius:12px;font-size:16px;font-weight:bold;margin:10px 0}
+.btn{width:100%;background:linear-gradient(90deg,#8b5cf6,#3b82f6);color:#fff;border:0;padding:14px;border-radius:12px;font-size:16px;font-weight:bold;margin:10px 0;cursor:pointer}
 .btn-wallet{background:linear-gradient(90deg,#f59e0b,#ffcc00);color:#000}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
-.prod{background:#1e1e1e;border-radius:12px;padding:8px;border:1px solid #333;position:relative}
+.prod{background:#1e1e1e;border-radius:12px;padding:8px;border:1px solid #333;position:relative;cursor:pointer}
 .prod img{width:100%;height:140px;object-fit:cover;border-radius:8px;background:#222}
 .prod h4{font-size:11px;margin:6px 0;height:32px;overflow:hidden;line-height:1.3}
 .price{color:#00ff88;font-weight:bold;font-size:13px}
@@ -56,7 +57,7 @@ body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-w
     <div id="rcStatus" style="font-size:11px;color:#38bdf8;text-align:center;margin-top:6px"></div>
   </div>
 </div>
-<div class="info">Products ≤ ₹1000 • Max ₹5 Discount<br>Auto Ads: Monetag + Adsgram</div>
+<div class="info">Products ≤ ₹1000 • Max ₹5 Discount<br>Auto Ads: Monetag + Adsgram • Next: <span id="nextAd">Ready - Click Any Button</span></div>
 <div class="pin"></div>
 <div style="position:relative"><div class="wheel" id="wheel"><div class="center">SPIN</div></div></div>
 <button class="btn" id="spinBtn" onclick="startSpin()">✨ Spin and Get More Discount</button>
@@ -68,9 +69,8 @@ body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-w
   <div class="tab" onclick="filterCat('makeup', this)">Makeup</div>
 </div>
 <div id="productContainer"></div>
-<div class="loader" id="loader">↓ Niche scroll karo aur products load honge...</div>
+<div class="loader" id="loader">↓ Niche scroll karo...</div>
 
-<!-- FINAL PIXEL TOOL - NO TEXT BOX -->
 <div id="pdfTool" style="margin:28px 0 16px;background:#1e293b;border:1px solid #ffcc00;border-radius:16px;padding:16px">
   <h3 style="color:#ffcc00;margin:0 0 6px 0">📄 Pixel Document Maker</h3>
   <p style="color:#94a3b8;font-size:11px;margin:0 0 12px 0">Width / Height in Pixel - Exact Same Size</p>
@@ -93,30 +93,201 @@ body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-w
 
 <script>
 const CONFIG = { UPI_ID: "yashpalsingh9520@okhdfcbank", OWNER_NAME: "BestDeals", PROFIT_PERCENT: 3 };
-let AdsBlock=null; try{ AdsBlock=window.Adsgram?window.Adsgram.init({blockId:"int-52779"}):null; }catch(e){}
-let isSpinning=false, lastAd="adsgram", spinExtra=0, visibleCount=8, currentFilter='all'; let monetagReady=false;
-function initMonetag(){ return new Promise((r)=>{ if(typeof show_11968926==='function'){monetagReady=true;r(true);return;} let s=document.createElement('script'); s.src="https://libtl.com/sdk.js"; s.dataset.zone="11968926"; s.dataset.sdk="show_11968926"; s.onload=()=>{setTimeout(()=>{monetagReady=typeof show_11968926==='function';r(monetagReady);},1200);}; s.onerror=()=>r(false); document.head.appendChild(s); }); }
-async function showMonetag(){ try{ if(!monetagReady) await initMonetag(); if(typeof show_11968926==='function'){ await show_11968926(); return true; } return false; }catch(e){return false;} }
-async function showAdsgram(){ try{ if(AdsBlock){ await AdsBlock.show(); return true; } }catch(e){} return false; }
-setTimeout(async()=>{ await showMonetag(); },3000);
-setInterval(async()=>{ if(isSpinning) return; if(lastAd==="adsgram"){ let ok=await showMonetag(); if(!ok) await showAdsgram(); lastAd="monetag"; } else { await showAdsgram(); lastAd="adsgram"; } },25000);
+
+// ===== FIXED ADS SYSTEM =====
+let AdsBlock=null;
+let monetagReady=false;
+let isAdRunning=false;
+let autoStarted=false;
+let nextSec=25;
+let lastAd="adsgram";
+
+function initAdsgram(){
+  try{
+    if(window.Adsgram){
+      AdsBlock = window.Adsgram.init({blockId:"int-52779"});
+      console.log("Adsgram Ready");
+    }
+  }catch(e){ console.log("Adsgram Error",e); }
+}
+window.addEventListener('load', ()=>{ setTimeout(initAdsgram, 1000); });
+
+async function showMonetag(){
+  if(isAdRunning) return false;
+  isAdRunning=true;
+  document.getElementById('nextAd').innerText="Monetag Loading...";
+  try{
+    for(let i=0;i<10;i++){
+      if(typeof window.show_11968926 === 'function'){
+        await window.show_11968926();
+        console.log("Monetag Show OK");
+        isAdRunning=false;
+        nextSec=25;
+        return true;
+      }
+      await new Promise(r=>setTimeout(r,500));
+    }
+    console.log("Monetag Not Ready");
+  }catch(e){ console.log("Monetag Error",e); }
+  isAdRunning=false;
+  return false;
+}
+
+async function showAdsgram(){
+  if(isAdRunning) return false;
+  isAdRunning=true;
+  document.getElementById('nextAd').innerText="Adsgram Loading...";
+  try{
+    if(!AdsBlock) initAdsgram();
+    if(AdsBlock){
+      await AdsBlock.show();
+      console.log("Adsgram Show OK");
+      isAdRunning=false;
+      nextSec=25;
+      return true;
+    }
+  }catch(e){ console.log("Adsgram Error",e); }
+  isAdRunning=false;
+  return false;
+}
+
+function startAutoAdsSystem(){
+  if(autoStarted) return;
+  autoStarted=true;
+  setInterval(async()=>{
+    if(isAdRunning) return;
+    nextSec--;
+    document.getElementById('nextAd').innerText="Next Ads in: "+nextSec+"s ("+lastAd+")";
+    if(nextSec<=0){
+      nextSec=25;
+      if(lastAd==="adsgram"){
+        let ok=await showMonetag();
+        if(!ok) await showAdsgram();
+        lastAd="monetag";
+      }else{
+        let ok=await showAdsgram();
+        if(!ok) await showMonetag();
+        lastAd="adsgram";
+      }
+    }
+  },1000);
+}
+
+const _t = "earningtadka8-21"; // TAG HIDDEN
+
+let allProducts=[
+{name:"Scott International Pack of 3 T-Shirt", price:399, old:1049, myCommission:10, cat:"mens", platform:"amazon", img:"https://m.media-amazon.com/images/I/41aQCWMtgdL._AC_.jpg", link:"https://www.amazon.in/s?k=Scott+International+Men+Tshirt&tag="+_t},
+{name:"Symbol Men Polo Shirt Solid Regular", price:399, old:1049, myCommission:8, cat:"mens", platform:"amazon", img:"https://m.media-amazon.com/images/I/31I80jMir0L._AC_.jpg", link:"https://www.amazon.in/s?k=Symbol+Men+Polo&tag="+_t},
+{name:"Boat Airdopes 141 Wireless Earbuds", price:999, old:2990, myCommission:15, cat:"mens", platform:"amazon", img:"https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400&h=400&fit=crop", link:"https://www.amazon.in/s?k=boat+airdopes&tag="+_t},
+{name:"Womens Kurti Set Festive", price:599, old:1999, myCommission:12, cat:"womens", platform:"amazon", img:"https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400&h=400&fit=crop", link:"https://www.amazon.in/s?k=kurti+set+women&tag="+_t}
+];
+
 let walletBal=parseInt(localStorage.getItem('wallet_bal')||'0'); let totalProfit=parseFloat(localStorage.getItem('wallet_profit')||'0');
+let isSpinning=false, spinExtra=0, visibleCount=8, currentFilter='all';
 function updateWalletUI(){ document.getElementById('walletBal').innerText='₹'+walletBal; document.getElementById('profitText').innerText='Total Profit: ₹'+totalProfit.toFixed(2); }
 updateWalletUI();
-async function addMoney(){ let amt=prompt("Kitna Add karna hai? Ex: 100"); if(!amt) return; await showMonetag(); let upiLink=`upi://pay?pa=${CONFIG.UPI_ID}&pn=${CONFIG.OWNER_NAME}&am=${amt}&cu=INR&tn=Wallet Add`; window.location.href=upiLink; setTimeout(()=>{ if(confirm("Payment ho gaya? OK dabao")){ walletBal+=parseInt(amt); localStorage.setItem('wallet_bal',walletBal); updateWalletUI(); showAdsgram(); } },2500); }
-async function doWalletRecharge(){ let num=document.getElementById('rcNum').value; let amt=parseInt(document.getElementById('rcAmt').value); let status=document.getElementById('rcStatus'); if(num.length!=10||!amt){ alert("Number / Amount sahi dalo"); return; } if(walletBal<amt){ alert("Wallet me balance kam hai"); return; } status.innerText="⏳ Loading Ad..."; await showMonetag(); let profit=(amt*CONFIG.PROFIT_PERCENT/100); status.innerHTML=`✅ Order Sent! ${num} pe ₹${amt} 2 min me hoga. Profit ₹${profit.toFixed(2)}`; walletBal=walletBal-amt+profit; totalProfit+=profit; localStorage.setItem('wallet_bal',walletBal); localStorage.setItem('wallet_profit',totalProfit); updateWalletUI(); await showAdsgram(); }
-let allProducts=[ {name:"Scott International Pack of 3 T-Shirt", price:399, old:1049, myCommission:10, cat:"mens", platform:"amazon", img:"https://m.media-amazon.com/images/I/41aQCWMtgdL._AC_.jpg", link:"https://www.amazon.in/s?k=Scott+International+Men+Tshirt&tag=earningtadka8-21"}, {name:"Symbol Men Polo Shirt Solid Regular", price:399, old:1049, myCommission:8, cat:"mens", platform:"amazon", img:"https://m.media-amazon.com/images/I/31I80jMir0L._AC_.jpg", link:"https://www.amazon.in/s?k=Symbol+Men+Polo&tag=earningtadka8-21"}];
+
+async function addMoney(){
+  startAutoAdsSystem();
+  let amt=prompt("Kitna Add karna hai? Ex: 100"); if(!amt) return;
+  document.getElementById('rcStatus').innerText="Monetag Ad...";
+  await showMonetag();
+  let upiLink=`upi://pay?pa=${CONFIG.UPI_ID}&pn=${CONFIG.OWNER_NAME}&am=${amt}&cu=INR&tn=Wallet Add`;
+  window.location.href=upiLink;
+  setTimeout(()=>{
+    if(confirm("Payment ho gaya? OK dabao")){
+      walletBal+=parseInt(amt); localStorage.setItem('wallet_bal',walletBal); updateWalletUI();
+      showAdsgram();
+    }
+  },2500);
+}
+
+async function doWalletRecharge(){
+  startAutoAdsSystem();
+  let num=document.getElementById('rcNum').value; let amt=parseInt(document.getElementById('rcAmt').value);
+  let status=document.getElementById('rcStatus');
+  if(num.length!=10||!amt){ alert("Number / Amount sahi dalo"); return; }
+  if(walletBal<amt){ alert("Wallet me balance kam hai"); return; }
+  status.innerText="⏳ Monetag Ad Loading...";
+  let ok = await showMonetag();
+  if(!ok) status.innerText="⏳ Adsgram Ad Loading... - Monetag no fill";
+  let profit=(amt*CONFIG.PROFIT_PERCENT/100);
+  status.innerHTML=`✅ Order Sent! ${num} pe ₹${amt} 2 min me hoga. Profit ₹${profit.toFixed(2)}`;
+  walletBal=walletBal-amt+profit; totalProfit+=profit;
+  localStorage.setItem('wallet_bal',walletBal); localStorage.setItem('wallet_profit',totalProfit);
+  updateWalletUI();
+  await new Promise(r=>setTimeout(r,500));
+  await showAdsgram();
+}
+
 function getFiltered(){ return currentFilter==='all'? allProducts : allProducts.filter(p=>p.cat===currentFilter); }
-function renderProducts(){ let filtered=getFiltered(); let toShow=filtered.slice(0, visibleCount); document.getElementById("productContainer").innerHTML=`<div class="grid">`+toShow.map(p=>{ let autoDisc=(p.myCommission*1)/100; let finalPrice=p.price-autoDisc-spinExtra; if(finalPrice < p.price-5) finalPrice=p.price-5; let idx=allProducts.indexOf(p); return `<div class="prod"><span class="badge ${p.platform}">${p.platform.toUpperCase()}</span><img src="${p.img}"><h4>${p.name}</h4><div><span class="price">₹${finalPrice.toFixed(0)}</span><span class="old">₹${p.old}</span></div><span class="discTag">✓ ₹${autoDisc.toFixed(0)} Off</span><button class="buy" onclick="buyProduct(${idx})">Get Offer</button></div>`; }).join('')+`</div>`; }
-function filterCat(cat, el){ currentFilter=cat; visibleCount=8; document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active')); el.classList.add('active'); renderProducts(); }
-function getSpinDiscount(){ let r=Math.random()*100; if(r<70) return {label:"Try Again", value:0}; return {label:"5% Extra", value:1}; }
-async function startSpin(){ if(isSpinning) return; isSpinning=true; await showMonetag(); document.getElementById("wheel").style.transform=`rotate(${360*5+Math.random()*360}deg)`; setTimeout(async()=>{ let res=getSpinDiscount(); spinExtra=res.value; document.getElementById("result").innerHTML=res.value===0?`🎡 ${res.label}`:`🎉 ${res.label}`; renderProducts(); isSpinning=false; await showAdsgram(); },3000); }
-async function buyProduct(idx){ let p=allProducts[idx]; await showMonetag(); window.open(p.link,"_blank"); }
+
+function renderProducts(){
+  let filtered=getFiltered();
+  let toShow=filtered.slice(0, visibleCount);
+  document.getElementById("productContainer").innerHTML=`<div class="grid">`+toShow.map(p=>{
+    let autoDisc=(p.myCommission*1)/100;
+    let finalPrice=p.price-autoDisc-spinExtra;
+    if(finalPrice < p.price-5) finalPrice=p.price-5;
+    let idx=allProducts.indexOf(p);
+    return `<div class="prod" onclick="buyProduct(${idx})">
+      <span class="badge ${p.platform}">${p.platform.toUpperCase()}</span>
+      <img src="${p.img}" loading="lazy" onerror="this.src='https://via.placeholder.com/300?text=No+Image'">
+      <h4>${p.name}</h4>
+      <div><span class="price">₹${finalPrice.toFixed(0)}</span><span class="old">₹${p.old}</span></div>
+      <span class="discTag">✓ ₹${autoDisc.toFixed(0)} Off + Coin</span>
+      <button class="buy">Get Offer</button>
+    </div>`;
+  }).join('')+`</div>`;
+}
+
+function filterCat(cat, el){
+  startAutoAdsSystem();
+  currentFilter=cat; visibleCount=8;
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  renderProducts();
+  showMonetag();
+}
+
+function getSpinDiscount(){
+  let r=Math.random()*100;
+  if(r<70) return {label:"Try Again", value:0};
+  return {label:"₹5 Extra Discount", value:5};
+}
+
+async function startSpin(){
+  if(isSpinning) return;
+  isSpinning=true;
+  startAutoAdsSystem();
+  document.getElementById('result').innerText="🎬 Monetag Ad Loading...";
+  let m = await showMonetag();
+  document.getElementById("wheel").style.transform=`rotate(${360*5+Math.random()*360}deg)`;
+  setTimeout(async()=>{
+    let res=getSpinDiscount();
+    spinExtra=res.value;
+    document.getElementById("result").innerHTML=res.value===0?`🎡 ${res.label} - Adsgram...`:`🎉 ${res.label} Unlocked!`;
+    renderProducts();
+    isSpinning=false;
+    await showAdsgram();
+  },3500);
+}
+
+// PRODUCT CLICK = MONETAG FIRST
+async function buyProduct(idx){
+  startAutoAdsSystem();
+  let p=allProducts[idx];
+  document.getElementById('result').innerText="Product Ad Loading...";
+  let ok = await showMonetag(); // PEHLE AD
+  if(!ok) await showAdsgram();
+  if(window.Telegram&&Telegram.WebApp) Telegram.WebApp.openLink(p.link);
+  else window.open(p.link,"_blank");
+}
+
 renderProducts();
 </script>
 
 <script>
-// FINAL - NO TEXT BOX + WORKING GALLERY SAVE
 let docCanvas=document.createElement('canvas');
 let uploadedImg=null;
 document.getElementById('docImg').addEventListener('change', e=>{
@@ -147,7 +318,8 @@ drawDoc();
 
 async function downloadAsImage(){
   if(!uploadedImg){ alert("Pehle Image Upload Karo"); return; }
-  document.getElementById('docStatus').innerText="⏳ Ad loading...";
+  startAutoAdsSystem();
+  document.getElementById('docStatus').innerText="⏳ Monetag Ad...";
   await showMonetag();
   const W=parseInt(document.getElementById('docW').value);
   const H=parseInt(document.getElementById('docH').value);
@@ -167,6 +339,7 @@ async function downloadAsImage(){
 }
 async function downloadAsPDF(){
   if(!uploadedImg){ alert("Pehle Image Upload Karo"); return; }
+  startAutoAdsSystem();
   await showMonetag();
   const W=parseInt(document.getElementById('docW').value);
   const H=parseInt(document.getElementById('docH').value);
@@ -176,10 +349,10 @@ async function downloadAsPDF(){
   pdf.addImage(docCanvas.toDataURL('image/jpeg',1.0),'JPEG',0,0,W*pxToMm,H*pxToMm);
   pdf.save(`doc_${W}x${H}_px.pdf`);
   document.getElementById('docStatus').innerText=`✅ PDF Done`;
-  await showAdsgram(); await showMonetag();
+  await showAdsgram();
 }
 document.getElementById('btnImg').addEventListener('click',downloadAsImage);
 document.getElementById('btnPdf').addEventListener('click',downloadAsPDF);
 </script>
 </body>
-  </html> 
+    </html> 
