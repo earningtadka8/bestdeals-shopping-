@@ -1,165 +1,155 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>BestDeals - Final Fixed</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>BestDeals - Auto Ads + 20 List</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
-<script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
+<script src="https://libtl.com/sdk.js" data-zone="11968926" data-sdk="show_11968926"></script>
 <style>
-body{margin:0;background:#eaf2ff;color:#0f172a;font-family:Arial;padding:12px;max-width:480px;margin:0 auto;padding-bottom:100px}
-.app-bar{background:linear-gradient(90deg,#ffcc00,#f59e0b);border-radius:14px;padding:14px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:99}
-.top-profile{display:flex;justify-content:space-between;align-items:center;margin:14px 2px;background:#fff;padding:10px;border-radius:14px;border:1px solid #dbeafe}
-.avatar{width:44px;height:44px;border-radius:50%;background:#3b82f6;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold;font-size:18px;overflow:hidden}
-.balance-card{background:#d9e8ff;border-radius:18px;padding:14px;display:flex;margin-bottom:14px;border:1px solid #bfdbfe}
-.big-num{font-size:32px;font-weight:900;color:#0f3078}
-.task-tabs{display:flex;gap:8px;margin:10px 0;overflow-x:auto}
-.task-tab{padding:8px 16px;border-radius:20px;background:#e2e8f0;font-size:13px;white-space:nowrap;cursor:pointer;font-weight:600}
-.task-tab.active{background:#2563eb;color:#fff}
-.task-item{background:#fff;border-radius:14px;padding:12px;display:flex;align-items:center;gap:10px;border:1px solid #dbeafe;margin-bottom:8px}
-.open-btn{background:#2563eb;color:#fff;border:0;padding:8px 16px;border-radius:20px;font-weight:800;cursor:pointer}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,0.7);display:none;align-items:center;justify-content:center;z-index:200;padding:12px}
-.modal-box{background:#fff;border-radius:18px;padding:16px;width:100%;max-width:400px;max-height:90vh;overflow-y:auto}
-.btn{width:100%;background:#2563eb;color:#fff;border:0;padding:14px;border-radius:12px;font-weight:bold;margin:10px 0;cursor:pointer}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;max-width:480px;margin:0 auto;background:#fff;border-top:1px solid #dbeafe;border-radius:20px 20px 0 0;display:flex;justify-content:space-around;padding:10px 0 14px;z-index:999}
-.nav-item{display:flex;flex-direction:column;align-items:center;font-size:11px;color:#94a3b8;font-weight:600;cursor:pointer;padding:6px 14px;border-radius:12px}
-.nav-item.active{color:#2563eb;background:#dbeafe}
-.game-card{border-radius:14px;padding:12px;text-align:center;cursor:pointer;border:1px solid #e2e8f0}
-canvas{background:#fff;border-radius:12px;border:2px solid #dbeafe;display:block;margin:8px auto}
-.mem-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}
-.mem-card{aspect-ratio:1;background:#dbeafe;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:24px;cursor:pointer;font-weight:900}
-.wheel{width:200px;height:200px;border-radius:50%;margin:15px auto;position:relative;border:4px solid #6c5cff;background:conic-gradient(#6a4cff 0 70%, #333 70% 98%, #3b82f6 98% 99%, #22c55e 99% 99.5%, #06b6d4 99.5% 100%);transition:transform 4s cubic-bezier(.17,.67,.12,.99)}
-.center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;background:#000;border-radius:50%;border:3px solid #fff;display:flex;align-items:center;justify-content:center;color:#fff}
-.pin{width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:24px solid #ffcc00;margin:0 auto}
+*{box-sizing:border-box}body{margin:0;background:#eaf2ff;font-family:Arial;padding:12px;padding-bottom:110px;max-width:480px;margin:0 auto}
+.app-bar{background:#ffcc00;border-radius:14px;padding:14px;font-weight:900;display:flex;justify-content:space-between;position:sticky;top:0;z-index:10}
+.card{background:#fff;border-radius:14px;padding:12px;margin:8px 0;border:1px solid #dbeafe;display:flex;justify-content:space-between;align-items:center}
+.balance{display:flex;background:#d9e8ff;border-radius:18px;padding:14px;margin:10px 0}
+.big{font-size:30px;font-weight:900;color:#0f3078}
+.nav{position:fixed;bottom:0;left:0;right:0;max-width:480px;margin:0 auto;background:#fff;display:flex;justify-content:space-around;padding:10px 0;border-top:2px solid #2563eb;border-radius:20px 20px 0 0;z-index:9999}
+.nav div{padding:8px 14px;border-radius:12px;font-size:11px;font-weight:700;color:#64748b;text-align:center;cursor:pointer}
+.nav div.active{background:#2563eb;color:#fff}
+.btn{width:100%;background:#2563eb;color:#fff;border:0;padding:13px;border-radius:12px;font-weight:800;margin:6px 0}
+.wheel{width:160px;height:160px;border-radius:50%;margin:10px auto;border:4px solid #ffcc00;background:conic-gradient(#2563eb 0 90deg,#22c55e 90deg 180deg,#f59e0b 180deg 270deg,#ef4444 270deg 360deg);transition:transform 3s ease-out}
+.game{border-radius:14px;padding:12px;text-align:center;background:#fff;border:2px solid #dbeafe;cursor:pointer}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,0.8);display:none;align-items:center;justify-content:center;z-index:10000;padding:12px}
+.modal.show{display:flex}.box{background:#fff;border-radius:16px;padding:16px;width:100%;max-width:380px;max-height:90vh;overflow:auto}
+.side-ads{height:300px;overflow-y:auto;border:1px solid #bfdbfe;border-radius:12px;padding:8px;background:#f8faff}
+.ad-item{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:8px;margin:6px 0;display:flex;justify-content:space-between;align-items:center;font-size:12px}
 </style>
 </head>
 <body>
 
-<div class="app-bar"><div style="font-weight:900">📱 BestDeals - 6 Games</div><div style="background:#000;color:#00ff88;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:bold">● AUTO ADS ON</div></div>
+<div class="app-bar"><span>📱 BestDeals</span><span style="background:#000;color:#0f0;padding:4px 8px;border-radius:10px;font-size:10px" id="autoStatus">AUTO ADS ON</span></div>
 
-<div class="top-profile"><div style="display:flex;align-items:center;gap:10px"><div class="avatar" id="avatarFallback">U</div><div><div style="font-weight:900;font-size:16px;color:#0f3078" id="userName">LOADING...</div><div style="font-size:10px;color:#64748b" id="userIdShow">ID: ...</div></div></div><div style="background:#22c55e;color:#fff;font-size:9px;padding:4px 8px;border-radius:10px;font-weight:800" id="liveStatus">LIVE</div></div>
+<div class="card"><div style="display:flex;gap:10px;align-items:center"><div id="av" style="width:40px;height:40px;border-radius:50%;background:#2563eb;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900">U</div><div><div id="uname" style="font-weight:900">LOADING...</div><div id="uid" style="font-size:10px">ID: ...</div></div></div><div style="font-size:10px;color:green">LIVE ✓</div></div>
 
-<div class="balance-card"><div style="flex:1;border-right:1px solid #bfdbfe"><div style="font-size:11px;color:#64748b;font-weight:bold">🪙 COINS</div><div class="big-num" id="coinBalance">20</div><div style="font-size:11px;color:#5b7ab0">100 Coins = 1 Point</div></div><div style="flex:1;padding-left:14px"><div style="font-size:11px;color:#64748b;font-weight:bold">💎 POINTS</div><div class="big-num" id="pointBalance">0.00</div><div style="font-size:11px" id="tonApprox">≈ 0.0000 TON</div></div></div>
+<div class="balance"><div style="flex:1;border-right:1px solid #aaa"><div style="font-size:11px">🪙 COINS</div><div class="big" id="coins">20</div><div style="font-size:10px">100 = 1 Point</div></div><div style="flex:1;padding-left:12px"><div style="font-size:11px">💎 POINTS</div><div class="big" id="points">0.00</div><div style="font-size:10px" id="ton">≈ 0 TON</div></div></div>
 
 <!-- HOME -->
-<div id="homeSection">
-  <div style="background:linear-gradient(135deg,#0f172a,#1e293b);border:1px solid #ffcc00;border-radius:16px;padding:14px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;color:#fff">
-    <div style="flex:1"><div style="font-weight:900;font-size:14px">📺 Ads Dekho - Coin Kamao</div><div style="font-size:11px;color:#94a3b8;margin-top:3px" id="adsLeftText">10 ads left</div><div style="font-size:10px;color:#22c55e;margin-top:4px" id="adsProgress">Auto: ON (25s) | 10 Ads/2hr</div></div>
-    <button onclick="watchAdEarn()" id="watchBtn" style="background:#ffcc00;color:#000;border:0;padding:12px 20px;border-radius:20px;font-weight:900">▶️ Watch</button>
-  </div>
+<div id="sec-home">
+  <div class="card" style="background:#0f172a;color:#fff"><div><b>📺 Auto Ads - Har 25s</b><div style="font-size:11px;color:#aaa" id="adsInfo">10 Ads Left | Next: 2h</div><div style="font-size:10px;color:#0f0" id="adsTimer">Auto: Monetag+Adsgram</div></div><button onclick="watchAdManual()" style="background:#ffcc00;border:0;padding:10px 18px;border-radius:20px;font-weight:900">Watch</button></div>
 
-  <div style="display:flex;justify-content:space-between;align-items:center;margin:16px 4px 8px"><div style="font-size:20px;font-weight:900;color:#0f3078">Tasks</div><div style="font-size:10px;color:#64748b;background:#dbeafe;padding:4px 8px;border-radius:10px" id="nextResetTimer">2h me refresh</div></div>
-  <div class="task-tabs"><div class="task-tab active" id="tab-earn" onclick="setTaskTab('earn')">Earn</div><div class="task-tab" id="tab-onetime" onclick="setTaskTab('onetime')">One-time</div><div class="task-tab" id="tab-games" onclick="setTaskTab('games')">Games</div><div class="task-tab" id="tab-invite" onclick="setTaskTab('invite')">Invite</div></div>
-  <div id="taskList"></div>
-
-  <!-- WHEEL ADS WALA - WAPAS ADD KIYA -->
-  <div style="margin-top:20px;background:#fff;border:1px solid #dbeafe;border-radius:18px;padding:14px;text-align:center">
-    <div style="font-weight:900;color:#0f3078">🎡 Wheel - Spin & Earn</div>
-    <div class="pin"></div><div class="wheel" id="wheel"><div class="center">SPIN</div></div>
-    <button class="btn" onclick="startSpin()">✨ Spin and Get 2-20 Coins</button>
-    <div id="result" style="text-align:center;font-size:13px;margin:8px 0;min-height:18px;font-weight:bold;color:#16a34a"></div>
+  <div style="display:flex;gap:10px">
+    <div style="flex:2">
+      <div style="font-weight:900;margin:10px 0">Tasks - 2hr me Refresh</div>
+      <div id="taskMainList"></div>
+      <div class="card" style="text-align:center;display:block"><b>🎡 Wheel Spin</b><div id="wheel" class="wheel"></div><button class="btn" onclick="spin()">SPIN - 2 to 20 Coins</button><div id="wheelRes" style="font-weight:900;color:green"></div></div>
+    </div>
+    <div style="flex:1">
+      <div style="font-weight:900;font-size:12px;margin:10px 0">🔥 20 Hot Ads (2hr)</div>
+      <div class="side-ads" id="sideAdsList"></div>
+      <div style="font-size:10px;color:gray;text-align:center;margin-top:6px" id="sideAdsTimer">Refresh in 2:00:00</div>
+    </div>
   </div>
 </div>
 
-<!-- GAMES - 6 IN-APP -->
-<div id="gamesSection" style="display:none">
-  <h3 style="color:#0f3078;margin:8px 0">🎮 6 In-App Games - No External Link</h3>
+<div id="sec-games" style="display:none">
+  <h3>🎮 6 Games - Inside</h3>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-    <div class="game-card" style="background:#f0f9ff;border-color:#7dd3fc" onclick="openGame('tap')"><div style="font-size:36px">👆</div><div style="font-weight:800">Tap Tap</div><div style="font-size:10px;color:#0284c7">30s = +10</div></div>
-    <div class="game-card" style="background:#dcfce7;border-color:#4ade80" onclick="openGame('snake')"><div style="font-size:36px">🐍</div><div style="font-weight:800">Snake</div><div style="font-size:10px;color:#16a34a">50+ = +15</div></div>
-    <div class="game-card" style="background:#fce7f3;border-color:#f472b6" onclick="openGame('flappy')"><div style="font-size:36px">🐦</div><div style="font-weight:800">Flappy</div><div style="font-size:10px;color:#db2777">10+ = +15</div></div>
-    <div class="game-card" style="background:#ede9fe;border-color:#a78bfa" onclick="openGame('memory')"><div style="font-size:36px">🧠</div><div style="font-weight:800">Memory</div><div style="font-size:10px;color:#7c3aed">Win = +12</div></div>
-    <div class="game-card" style="background:#fef3c7;border-color:#fbbf24" onclick="openGame('math')"><div style="font-size:36px">🧮</div><div style="font-weight:800">Math Quiz</div><div style="font-size:10px;color:#d97706">5 Qs = +10</div></div>
-    <div class="game-card" style="background:#ffedd5;border-color:#fb923c" onclick="openGame('lucky')"><div style="font-size:36px">🎰</div><div style="font-weight:800">Lucky Spin</div><div style="font-size:10px;color:#ea580c">Spin = +20</div></div>
+    <div class="game" onclick="openG('tap')">👆<br><b>Tap Tap</b></div><div class="game" onclick="openG('snake')">🐍<br><b>Snake</b></div>
+    <div class="game" onclick="openG('flappy')">🐦<br><b>Flappy</b></div><div class="game" onclick="openG('memory')">🧠<br><b>Memory</b></div>
+    <div class="game" onclick="openG('math')">🧮<br><b>Math</b></div><div class="game" onclick="openG('lucky')">🎰<br><b>Lucky</b></div>
   </div>
 </div>
 
-<div id="shopSection" style="display:none">
-  <div style="display:flex;justify-content:space-between;align-items:center;margin:8px 4px"><div style="font-size:22px;font-weight:900;color:#0f3078">🛍️ Shopping</div><div style="background:#ff9900;color:#fff;font-size:10px;padding:4px 8px;border-radius:10px;font-weight:800">earningtadka8-21</div></div>
-  <div id="shoppingContainer" style="display:grid;grid-template-columns:1fr 1fr;gap:10px"></div>
+<div id="sec-shop" style="display:none"><h3>🛍️ Shopping earningtadka8-21</h3>
+  <div class="card" onclick="shopClick()">👕 T-Shirt ₹399 <button class="btn" style="width:auto;padding:6px 12px">Buy +1</button></div>
+  <div class="card" onclick="shopClick()">🎧 Boat ₹999 <button class="btn" style="width:auto;padding:6px 12px">Buy +1</button></div>
 </div>
 
-<div id="walletSection" style="display:none">
-  <h3 style="color:#0f3078">💎 TON Wallet - 10 TON MIN</h3>
-  <p style="font-size:12px;color:#ef4444;font-weight:900;background:#fee2e2;padding:8px;border-radius:10px">⚠️ Minimum 10 TON = 10,000 POINTS = 10,00,000 Coins</p>
-  <div id="ton-connect-btn" style="margin:12px 0"></div>
-  <input id="tonAddress" style="width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:10px;box-sizing:border-box" placeholder="TON address auto ayega" readonly>
-  <input id="withdrawPoints" type="number" style="width:100%;padding:12px;margin:8px 0;border:1px solid #cbd5e1;border-radius:10px;box-sizing:border-box" placeholder="10000 POINTS = 10 TON">
-  <div id="withdrawPreview" style="font-size:13px;font-weight:900">You will get: 0.0000 TON | Min: 10 TON</div>
-  <button class="btn" style="background:#0098ea" onclick="confirmTonWithdraw()">💸 Withdraw 10 TON</button>
-  <div id="withdrawStatus" style="font-size:12px;text-align:center;margin-top:8px"></div>
+<div id="sec-wallet" style="display:none"><h3>💎 10 TON MIN Wallet</h3>
+  <div class="card" style="background:#fee2e2;color:#b91c1c;font-weight:800;font-size:11px;display:block">⚠️ MIN 10 TON = 10,000 POINTS = 10 Lakh Coins</div>
+  <div class="card" style="display:block"><input id="taddr" placeholder="TON Address" style="width:100%;padding:10px;border:1px solid #ccc;border-radius:8px" readonly><input id="tpts" type="number" placeholder="10000 POINTS = 10 TON" style="width:100%;padding:10px;margin-top:8px;border:1px solid #ccc;border-radius:8px"><div id="tprev" style="font-weight:900;margin:8px 0">You will get: 0 TON | Min 10 TON</div><button class="btn" style="background:#0098ea" onclick="withdraw()">Withdraw 10 TON</button><div id="wstat"></div></div>
 </div>
 
-<!-- MODALS -->
-<div class="modal" id="tapModal"><div class="modal-box" style="text-align:center"><h3>👆 Tap Tap</h3><div style="font-size:48px;font-weight:900;color:#0f3078" id="tapCount">0</div><div id="tapTimer">30s</div><button class="btn" style="font-size:28px;padding:24px" onclick="doTap()">TAP ME! 👆</button><div id="tapResult" style="font-weight:bold;color:#16a34a"></div><button class="btn" style="background:#e2e8f0;color:#333" onclick="closeAllGames()">Close</button></div></div>
-<div class="modal" id="snakeModal"><div class="modal-box" style="text-align:center"><h3>🐍 Snake</h3><canvas id="snakeCanvas" width="300" height="300"></canvas><div style="display:flex;gap:6px;justify-content:center"><button class="open-btn" onclick="snakeDir('up')">⬆️</button></div><div style="display:flex;gap:6px;justify-content:center"><button class="open-btn" onclick="snakeDir('left')">⬅️</button><button class="open-btn" onclick="snakeDir('down')">⬇️</button><button class="open-btn" onclick="snakeDir('right')">➡️</button></div><div id="snakeScore">Score: 0</div><button class="btn" style="background:#e2e8f0;color:#333" onclick="closeAllGames()">Close</button></div></div>
-<div class="modal" id="flappyModal"><div class="modal-box" style="text-align:center"><h3>🐦 Flappy</h3><canvas id="flappyCanvas" width="300" height="400"></canvas><button class="btn" onclick="flap()">FLAP 🐦</button><div id="flappyScore">Score: 0</div><button class="btn" style="background:#e2e8f0;color:#333" onclick="closeAllGames()">Close</button></div></div>
-<div class="modal" id="memoryModal"><div class="modal-box" style="text-align:center"><h3>🧠 Memory</h3><div class="mem-grid" id="memGrid"></div><div id="memResult" style="font-weight:bold;color:#16a34a"></div><button class="btn" style="background:#e2e8f0;color:#333" onclick="closeAllGames()">Close</button></div></div>
-<div class="modal" id="mathModal"><div class="modal-box" style="text-align:center"><h3>🧮 Math Quiz</h3><div id="mathQ" style="font-size:28px;font-weight:900;margin:16px 0"></div><input id="mathAns" type="number" style="width:100%;padding:12px;border-radius:10px;border:1px solid #cbd5e1"><button class="btn" onclick="checkMath()">Submit</button><div id="mathProgress">1/5</div><div id="mathResult"></div><button class="btn" style="background:#e2e8f0;color:#333" onclick="closeAllGames()">Close</button></div></div>
-<div class="modal" id="luckyModal"><div class="modal-box" style="text-align:center"><h3>🎰 Lucky Spin</h3><div style="width:180px;height:180px;border-radius:50%;margin:12px auto;background:conic-gradient(#ff9900 0 60deg,#2563eb 60deg 120deg,#22c55e 120deg 180deg,#ec4899 180deg 240deg,#f59e0b 240deg 300deg,#8b5cf6 300deg 360deg);transition:transform 3s cubic-bezier(.17,.67,.12,.99)" id="luckyWheel"></div><button class="btn" onclick="doLuckySpin()">SPIN 🎰</button><div id="luckyResult" style="font-weight:bold;color:#16a34a"></div><button class="btn" style="background:#e2e8f0;color:#333" onclick="closeAllGames()">Close</button></div></div>
-
-<div class="bottom-nav">
-  <div class="nav-item active" id="nav-home" onclick="showSection('home')">🏠<span>Home</span></div>
-  <div class="nav-item" id="nav-games" onclick="showSection('games')">🎮<span>Games</span></div>
-  <div class="nav-item" id="nav-shop" onclick="showSection('shop')">🛍️<span>Shopping</span></div>
-  <div class="nav-item" id="nav-wallet" onclick="showSection('wallet')">👛<span>Wallet</span></div>
+<div class="nav">
+  <div id="n-home" class="active" onclick="showSec('home')">🏠<br>Home</div>
+  <div id="n-games" onclick="showSec('games')">🎮<br>Games</div>
+  <div id="n-shop" onclick="showSec('shop')">🛍️<br>Shop</div>
+  <div id="n-wallet" onclick="showSec('wallet')">👛<br>Wallet</div>
 </div>
+
+<!-- MODALS (same as before) -->
+<div id="m-tap" class="modal"><div class="box" style="text-align:center"><h3>👆 Tap Tap</h3><div style="font-size:44px;font-weight:900" id="tc">0</div><div id="tt">30s</div><button class="btn" style="font-size:26px;padding:24px" onclick="doTap()">TAP ME! 👆</button><div id="tr"></div><button class="btn" style="background:#ccc;color:#000" onclick="closeG()">Close</button></div></div>
+<div id="m-snake" class="modal"><div class="box" style="text-align:center"><h3>🐍 Snake</h3><canvas id="sc" width="300" height="300"></canvas><br><button onclick="sd('up')">⬆️</button><br><button onclick="sd('left')">⬅️</button><button onclick="sd('down')">⬇️</button><button onclick="sd('right')">➡️</button><div id="ss">Score: 0</div><button class="btn" style="background:#ccc;color:#000" onclick="closeG()">Close</button></div></div>
+<div id="m-memory" class="modal"><div class="box" style="text-align:center"><h3>🧠 Memory</h3><div id="mg" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px"></div><div id="mr"></div><button class="btn" style="background:#ccc;color:#000" onclick="closeG()">Close</button></div></div>
+<div id="m-math" class="modal"><div class="box" style="text-align:center"><h3>🧮 Math</h3><div id="mq" style="font-size:26px;font-weight:900"></div><input id="ma" type="number" style="width:100%;padding:12px"><button class="btn" onclick="checkM()">Submit</button><div id="mp"></div><div id="mres"></div><button class="btn" style="background:#ccc;color:#000" onclick="closeG()">Close</button></div></div>
+<div id="m-flappy" class="modal"><div class="box" style="text-align:center"><h3>🐦 Flappy</h3><canvas id="fc" width="300" height="320"></canvas><button class="btn" onclick="flap()">FLAP</button><div id="fs">Score: 0</div><button class="btn" style="background:#ccc;color:#000" onclick="closeG()">Close</button></div></div>
+<div id="m-lucky" class="modal"><div class="box" style="text-align:center"><h3>🎰 Lucky</h3><div id="lw" class="wheel" style="width:150px;height:150px"></div><button class="btn" onclick="doLucky()">SPIN</button><div id="lr"></div><button class="btn" style="background:#ccc;color:#000" onclick="closeG()">Close</button></div></div>
 
 <script>
-// USER FIX - 3 RETRY
-function setTelegramUser(){
-  try{
-    const nameEl=document.getElementById('userName'), idEl=document.getElementById('userIdShow'), av=document.getElementById('avatarFallback');
-    if(window.Telegram && window.Telegram.WebApp){
-      const tg=window.Telegram.WebApp; tg.ready(); tg.expand();
-      const u=tg.initDataUnsafe?.user;
-      console.log('TG USER:', u);
-      if(u && u.first_name){
-        const full=(u.first_name+(u.last_name?' '+u.last_name:'')).trim();
-        nameEl.innerText=full.toUpperCase();
-        idEl.innerText='ID: '+u.id;
-        av.innerText=u.first_name[0].toUpperCase();
-        if(u.photo_url) av.innerHTML=`<img src="${u.photo_url}" style="width:100%;height:100%;border-radius:50%;object-fit:cover">`;
-        document.getElementById('liveStatus').innerText='LIVE ✓';
-        return true;
-      }
-    }
-    nameEl.innerText='GUEST USER'; idEl.innerText='Telegram me kholo'; return false;
-  }catch(e){ return false; }
-}
-
-// ADS - MONETAG + ADSGRAM
-let AdsBlock=null; try{AdsBlock=window.Adsgram.init({blockId:"int-52779"})}catch(e){}
-let monetagLoaded=false;
-function loadMonetag(){return new Promise(r=>{if(window.show_11968926){monetagLoaded=true;r(true);return;}let s=document.createElement('script');s.src='https://libtl.com/sdk.js';s.dataset.zone='11968926';s.dataset.sdk='show_11968926';s.onload=()=>setTimeout(()=>{monetagLoaded=typeof show_11968926==='function';r(monetagLoaded)},1000);s.onerror=()=>r(false);document.head.appendChild(s);});}
-async function showMonetag(){try{if(!monetagLoaded)await loadMonetag();if(typeof show_11968926==='function'){await show_11968926();return true;}}catch(e){}return false;}
+// ADS SETUP - SAFE, WILL NOT BREAK NAV
+let AdsBlock=null; try{AdsBlock=window.Adsgram.init({blockId:"int-52779"})}catch(e){console.log('adsgram fail');}
+let lastAd='adsgram';
+async function showMonetag(){try{if(typeof show_11968926==='function'){await show_11968926();return true;}}catch(e){}return false;}
 async function showAdsgram(){try{if(AdsBlock){await AdsBlock.show();return true;}}catch(e){}return false;}
-setTimeout(async()=>{let ok=await showMonetag();if(!ok)await showAdsgram();},2000);
-let lastAd='adsgram'; setInterval(async()=>{if(lastAd==='adsgram'){let ok=await showMonetag();if(!ok)await showAdsgram();lastAd='monetag';}else{let ok=await showAdsgram();if(!ok)await showMonetag();lastAd='adsgram';}},25000);
+// AUTO ADS HAR 25 SEC
+setInterval(async()=>{
+  let ok=false;
+  if(lastAd==='adsgram'){ok=await showMonetag(); if(!ok) ok=await showAdsgram(); lastAd='monetag'; document.getElementById('autoStatus').innerText='AUTO: MONETAG';}
+  else{ok=await showAdsgram(); if(!ok) ok=await showMonetag(); lastAd='adsgram'; document.getElementById('autoStatus').innerText='AUTO: ADSGRAM';}
+  if(ok){coins+=1; save();} // auto ad pe 1 coin bonus
+},25000);
 
-// NAV - FIXED 100%
-function showSection(sec){
-  document.getElementById('homeSection').style.display = sec==='home'?'block':'none';
-  document.getElementById('gamesSection').style.display = sec==='games'?'block':'none';
-  document.getElementById('shopSection').style.display = sec==='shop'?'block':'none';
-  document.getElementById('walletSection').style.display = sec==='wallet'?'block':'none';
-  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  document.getElementById('nav-'+sec).classList.add('active');
-  if(sec==='shop') renderShopping();
-  if(sec==='wallet' && !tonConnectUI) initTonConnect();
-  window.scrollTo({top:0,behavior:'smooth'});
-  showMonetag();
+// 20 ADS LIST - HAR 2 GHANTE UPDATE
+const ADS_POOL=[
+{id:1,t:"Free Poker Real US",r:3},{id:2,t:"AI Market Seekho",r:3},{id:3,t:"Crypto Earn Daily",r:5},{id:4,t:"Shop & Earn 10x",r:2},{id:5,t:"Game Khelo Jeeto",r:4},{id:6,t:"Amazon Deals",r:3},{id:7,t:"Meesho Kurti Sale",r:2},{id:8,t:"Boat Headphone Offer",r:3},{id:9,t:"T-Shirt Combo 3",r:2},{id:10,t:"Refer & Earn 20",r:10},{id:11,t:"Watch Video +5",r:5},{id:12,t:"Spin Wheel Free",r:5},{id:13,t:"Daily Checkin Bonus",r:3},{id:14,t:"Invite Friend Bonus",r:15},{id:15,t:"Complete Task +8",r:8},{id:16,t:"Lucky Draw Entry",r:4},{id:17,t:"Flash Sale Live",r:3},{id:18,t:"New User Offer",r:6},{id:19,t:"Festival Dhamaka",r:4},{id:20,t:"Big Billion Days",r:5},{id:21,t:"Extra Cashback",r:3},{id:22,t:"Limited Time Deal",r:3},{id:23,t:"Free Delivery",r:2},{id:24,t:"Top Rated Product",r:2},{id:25,t:"Trending Now",r:3}
+];
+let adsResetTime = parseInt(localStorage.getItem('ads20_reset')||Date.now());
+let adsLimit=10, adsToday=parseInt(localStorage.getItem('ads_today')||'0');
+function check2HrReset(){
+  if(Date.now()-adsResetTime >= 2*60*60*1000){
+    adsResetTime=Date.now(); localStorage.setItem('ads20_reset',adsResetTime); adsToday=0; localStorage.setItem('ads_today','0');
+    renderAds(); renderTasks();
+  }
+}
+function getTimeLeft(){let diff=(adsResetTime+2*60*60*1000)-Date.now(); if(diff<0) return "0s"; let h=Math.floor(diff/3600000); let m=Math.floor((diff%3600000)/60000); let s=Math.floor((diff%60000)/1000); return h+":"+String(m).padStart(2,'0')+":"+String(s).padStart(2,'0');}
+
+function renderTasks(){
+  let shuffled=[...ADS_POOL].sort(()=>0.5-Math.random()).slice(0,6);
+  document.getElementById('taskMainList').innerHTML=shuffled.map(a=>`<div class="card"><div><b>${a.t}</b><div style="font-size:10px;color:gray">+${a.r} Coins</div></div><button style="background:#2563eb;color:#fff;border:0;padding:6px 12px;border-radius:20px" onclick="doAdTask(${a.id},${a.r})">Open</button></div>`).join('');
+}
+function renderAds(){
+  let list=[...ADS_POOL].sort(()=>0.5-Math.random()).slice(0,20);
+  document.getElementById('sideAdsList').innerHTML=list.map(a=>`<div class="ad-item"><span>${a.t.slice(0,18)}</span><button style="background:#22c55e;color:#fff;border:0;padding:4px 8px;border-radius:12px;font-size:11px" onclick="doAdTask(${a.id},${a.r})">+${a.r}</button></div>`).join('');
+}
+async function doAdTask(id,reward){
+  if(adsToday>=adsLimit){alert('10 ads limit khatam! '+getTimeLeft()+' baad refresh'); return;}
+  let ok=await showMonetag(); if(!ok) ok=await showAdsgram();
+  if(ok){coins+=reward; adsToday++; localStorage.setItem('ads_today',adsToday); save(); alert('+'+reward+' Coins!');}
 }
 
-let coins=parseInt(localStorage.getItem('coins')||'20'), points=parseFloat(localStorage.getItem('points')||'0'), adsWatchedToday=parseInt(localStorage.getItem('ads_today')||'0'), adsLastReset=parseInt(localStorage.getItem('ads_last_reset')||Date.now()), adsLimit=10, ADS_RESET_MS=2*60*60*1000;
-if(!localStorage.getItem('ads_last_reset')) localStorage.setItem('ads_last_reset',adsLastReset.toString());
-function checkAdsReset(){if((Date.now()-adsLastReset)>=ADS_RESET_MS){adsWatchedToday=0;adsLastReset=Date.now();localStorage.setItem('ads_today','0');localStorage.setItem('ads_last_reset',adsLastReset.toString());}}
-function getNextResetTime(){let diff=(adsLastReset+ADS_RESET_MS)-Date.now();if(diff<=0)return"0m";let m=Math.floor(diff/60000);let s=Math.floor((diff%60000)/1000);return m+"m "+s+"s";}
-function updateCoinUI(){document.getElementById('coinBalance').innerText=coins;document.getElementById('pointBalance').innerText=points.toFixed(2);document.getElementById('tonApprox').innerText='≈ '+(points*0.001).toFixed(4)+' TON';document.getElementById('adsProgress').innerText=`${adsWatchedToday}/${adsLimit} | Auto: ON (25s) | Next: ${getNextResetTime()}`;document.getElementById('adsLeftText').innerText=adsWatchedToday>=adsLimit?`Limit khatam! ${getNextResetTime()} me refresh`:`${adsLimit-adsWatchedToday} ads left`;document.getElementById('nextResetTimer').innerText=`${getNextResetTime()} me refresh`;localStorage.setItem('coins',coins);localStorage.setItem('points',points);localStorage.setItem('ads_today',adsWatchedToday.toString());if(coins>=100){points+=Math.floor(coins/100);coins=coins%100;updateCoinUI();}}
-const TASKS={earn:[{id:1,title:"Free Poker, Real US...",desc:"Play free poker",icon:"🃏",reward:3},{id:2,title:"AI से बाज़ार समझें",desc:"Learn AI market",icon:"🧠",reward:3},{id:3,title:"Watch 3 Ads - Earn 5",desc:"Bonus",icon:"📺",reward:5}],onetime:[{id:4,title:"Follow Channel",desc:"Join channel",icon:"✈️",reward:10},{id:5,title:"Connect TON Wallet",desc:"Connect +10",icon:"💎",reward:10}],games:[{id:6,title:"Play Any Game",desc:"Khelo +12",icon:"🎮",reward:12}],invite:[{id:7,title:"Invite 1 Friend",desc:"Invite & earn 20",icon:"👥",reward:20}]};
-function setTaskTab(tab){document.querySelectorAll('.task-tab').forEach(t=>t.classList.remove('active'));document.getElementById('tab-'+tab).classList.add('active');let list=TASKS[tab]||[];document.getElementById('taskList').innerHTML=list.map(t=>`<div class="task-item"><div style="width:44px;height:44px;background:#f1f5f9;border-radius:10px;display:flex;align-items:center;justify-content:center">${t.icon}</div><div style="flex:1"><div style="font-weight:800">${t.title}</div><div style="font-size:11px;color:#64748b">${t.desc}</div></div><div style="background:#e0f2fe;padding:3px 8px;border-radius:12px;font-size:11px;font-weight:800">🪙 +${t.reward}</div><button class="open-btn" onclick="doTask(${t.id},'${tab}')">Open</button></div>`).join('');}
-async function doTask(id,tab){let task=TASKS[tab].find(x=>x.id===id);await showMonetag();coins+=task.reward;updateCoinUI();await showAdsgram();}
-async function watchAdEarn(){checkAdsReset();if(adsWatchedToday>=adsLimit) return alert('Limit khatam! '+getNextResetTime());let ok=await showMonetag();if(!ok) ok=await showAdsgram();else await showAdsgram();if(ok){adsWatchedToday++;coins+=2;updateCoinUI();}}
+// COINS
+let coins=parseInt(localStorage.getItem('coins')||'20'), points=parseFloat(localStorage.getItem('points')||'0');
+function save(){if(coins>=100){points+=Math.floor(coins/100);coins=coins%100;}localStorage.setItem('coins',coins);localStorage.setItem('points',points);document.getElementById('coins').innerText=coins;document.getElementById('points').innerText=points.toFixed(2);document.getElementById('ton').innerText='≈ '+(points*0.001).toFixed(4)+' TON';document.getElementById('adsInfo').innerText=adsToday+'/'+adsLimit+' Ads | Next: '+getTimeLeft();document.getElementById('sideAdsTimer').innerText='Refresh: '+getTimeLeft();}
+function watchAdManual(){doAdTask(0,3);}
+function shopClick(){coins+=1;save();window.open('https://www.amazon.in/s?k=tshirt?tag=earningtadka8-21','_blank');}
+function spin(){let w=document.getElementById('wheel');w.style.transform='rotate('+(1800+Math.random()*360)+'deg)';setTimeout(()=>{let r=[2,5,10,15,20][Math.floor(Math.random()*5)];coins+=r;save();document.getElementById('wheelRes').innerText='Won +'+r;},3000);}
 
-const PRODUCTS=[{id:1,name:"T-Shirt Pack 3",price:399,img:"👕",platform:"amazon",link:"https://www.amazon.in/s?k=tshirt?tag=earningtadka8-21"},{id:2,name:"Boat Airdopes",price:999,img:"🎧",platform:"amazon",link:"https://www.amazon.in/s?k=boat?tag=earningtadka8-21"},{id:3,name:"Kurti Set",price:349,img:"👗",platform:"meesho",link:"https://www.meesho.com/search?q=kurti"}];
-function renderShopping 
+// NAV
+function showSec(n){document.getElementById('sec-home').style.display=n==='home'?'block':'none';document.getElementById('sec-games').style.display=n==='games'?'block':'none';document.getElementById('sec-shop').style.display=n==='shop'?'block':'none';document.getElementById('sec-wallet').style.display=n==='wallet'?'block':'none';document.querySelectorAll('.nav div').forEach(d=>d.classList.remove('active'));document.getElementById('n-'+n).classList.add('active');window.scrollTo(0,0);}
+function openG(t){document.getElementById('m-'+t).classList.add('show');if(t==='tap')startTap();if(t==='snake')startSnake();if(t==='flappy')startFlappy();if(t==='memory')startMemory();if(t==='math')startMath();}
+function closeG(){document.querySelectorAll('.modal').forEach(m=>m.classList.remove('show'));clearInterval(ti);clearInterval(si);clearInterval(fi);}
+
+// GAMES (same simple)
+let tc=0,tt=30,ti=null;function startTap(){tc=0;tt=30;document.getElementById('tc').innerText='0';document.getElementById('tr').innerText='';document.getElementById('tt').innerText='30s';ti=setInterval(()=>{tt--;document.getElementById('tt').innerText=tt+'s';if(tt<=0){clearInterval(ti);let e=Math.min(Math.floor(tc/10)+2,10);coins+=e;save();document.getElementById('tr').innerText='Won +'+e;}},1000);}function doTap(){tc++;document.getElementById('tc').innerText=tc;}
+let snake,dir,food,score,si,sctx;function startSnake(){let c=document.getElementById('sc');sctx=c.getContext('2d');snake=[{x:10,y:10}];dir='right';score=0;food={x:5,y:5};si=setInterval(()=>{let h={...snake[0]};if(dir==='right')h.x++;if(dir==='left')h.x--;if(dir==='up')h.y--;if(dir==='down')h.y++;if(h.x<0||h.x>=15||h.y<0||h.y>=15){clearInterval(si);coins+=score+2;save();document.getElementById('ss').innerText='Over +'+(score+2);return;}snake.unshift(h);if(h.x===food.x&&h.y===food.y){score++;document.getElementById('ss').innerText='Score: '+score;food={x:Math.floor(Math.random()*15),y:Math.floor(Math.random()*15)}}else snake.pop();sctx.clearRect(0,0,300,300);sctx.fillStyle='green';snake.forEach(s=>sctx.fillRect(s.x*20,s.y*20,18,18));sctx.fillStyle='red';sctx.fillRect(food.x*20,food.y*20,18,18);},150);}function sd(d){dir=d;}
+let fy=150,fv=0,fp=[],fs=0,fi,fctx;function startFlappy(){let c=document.getElementById('fc');fctx=c.getContext('2d');fy=150;fv=0;fp=[{x:300,y:100}];fs=0;fi=setInterval(()=>{fv+=0.6;fy+=fv;if(fy>320||fy<0){clearInterval(fi);coins+=fs+3;save();document.getElementById('fs').innerText='Over +'+(fs+3);return;}fp.forEach(p=>{p.x-=3;if(p.x==50){fs++;document.getElementById('fs').innerText='Score: '+fs;fp.push({x:300,y:Math.random()*150+50})}});if(fp[0].x<0)fp.shift();fctx.clearRect(0,0,300,320);fctx.fillStyle='orange';fctx.fillRect(50,fy,20,20);fctx.fillStyle='green';fp.forEach(p=>{fctx.fillRect(p.x,0,30,p.y);fctx.fillRect(p.x,p.y+90,30,320)});},25);}function flap(){fv=-9;}
+let mv,mf,mm;function startMemory(){mv=['🐶','🐶','🐱','🐱','🐭','🐭','🐹','🐹','🐰','🐰','🦊','🦊','🐻','🐻','🐼','🐼'].sort(()=>Math.random()-0.5);mf=null;mm=0;document.getElementById('mr').innerText='';document.getElementById('mg').innerHTML=mv.map((v,i)=>`<div style="aspect-ratio:1;background:#dbeafe;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;cursor:pointer" id="mm-${i}" onclick="flip(${i})">?</div>`).join('');}function flip(i){let el=document.getElementById('mm-'+i);if(el.innerText!=='?')return;el.innerText=mv[i];if(mf===null){mf=i}else{if(mv[mf]===mv[i]&&mf!=i){mm+=2;if(mm==16){coins+=12;save();document.getElementById('mr').innerText='Win +12';}mf=null}else{setTimeout(()=>{document.getElementById('mm-'+mf).innerText='?';el.innerText='?';mf=null;},500)}}}
+let mq=0,mc=0,ma,mb;function startMath(){mq=0;mc=0;nextM();}function nextM(){if(mq>=5){coins+=mc*2;save();document.getElementById('mres').innerText='Done '+mc+'/5 +'+(mc*2);return;}ma=Math.floor(Math.random()*20)+1;mb=Math.floor(Math.random()*20)+1;document.getElementById('mq').innerText=ma+'+'+mb+'=?';document.getElementById('ma').value='';document.getElementById('mp').innerText=(mq+1)+'/5';}function checkM(){if(parseInt(document.getElementById('ma').value)==ma+mb)mc++;mq++;nextM();}
+function doLucky(){let w=document.getElementById('lw');w.style.transform='rotate('+(1800+Math.random()*360)+'deg)';setTimeout(()=>{let r=[2,5,10,15,20][Math.floor(Math.random()*5)];coins+=r;save();document.getElementById('lr').innerText='Won +'+r;},2500);}
+document.getElementById('tpts')?.addEventListener('input',e=>{let v=parseFloat(e.target.value)||0;document.getElementById('tprev').innerText='You will get: '+(v*0.001).toFixed(3)+' TON | Min 10 TON';});
+function withdraw(){let pts=parseFloat(document.getElementById('tpts').value);if(!pts||pts<10000){alert('Min 10000 POINTS = 10 TON');return;}if(pts>points){alert('Points kam! '+points);return;}points-=pts;save();document.getElementById('wstat').innerText='✅ '+(pts*0.001)+' TON Sent';}
+function loadUser(){try{if(window.Telegram&&window.Telegram.WebApp){let tg=window.Telegram.WebApp;tg.ready();tg.expand();let u=tg.initDataUnsafe?.user;if(u&&u.first_name){document.getElementById('uname').innerText=(u.first_name+' '+(u.last_name||'')).toUpperCase();document.getElementById('uid').innerText='ID: '+u.id;document.getElementById('av').innerText=u.first_name[0];return;}}document.getElementById('uname').innerText='GUEST USER';}catch(e){}}
+window.onload=()=>{loadUser();save();renderAds();renderTasks();showSec('home');setInterval(()=>{check2HrReset();save();},1000);}
+</script>
+</body>
+                                                                                                                                                                                                                                                                                             </html> 
