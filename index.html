@@ -2,17 +2,18 @@
 <html>
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>BestDeals - 6 Games + 10 TON</title>
+<title>BestDeals - Final Fixed</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
 <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
 <style>
-body{margin:0;background:#eaf2ff;color:#0f172a;font-family:Arial;padding:12px;max-width:480px;margin:0 auto;padding-bottom:95px}
+body{margin:0;background:#eaf2ff;color:#0f172a;font-family:Arial;padding:12px;max-width:480px;margin:0 auto;padding-bottom:100px}
 .app-bar{background:linear-gradient(90deg,#ffcc00,#f59e0b);border-radius:14px;padding:14px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:99}
 .top-profile{display:flex;justify-content:space-between;align-items:center;margin:14px 2px;background:#fff;padding:10px;border-radius:14px;border:1px solid #dbeafe}
 .avatar{width:44px;height:44px;border-radius:50%;background:#3b82f6;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold;font-size:18px;overflow:hidden}
 .balance-card{background:#d9e8ff;border-radius:18px;padding:14px;display:flex;margin-bottom:14px;border:1px solid #bfdbfe}
-.big-num{font-size:34px;font-weight:900;color:#0f3078}
+.big-num{font-size:32px;font-weight:900;color:#0f3078}
+.task-tabs{display:flex;gap:8px;margin:10px 0;overflow-x:auto}
 .task-tab{padding:8px 16px;border-radius:20px;background:#e2e8f0;font-size:13px;white-space:nowrap;cursor:pointer;font-weight:600}
 .task-tab.active{background:#2563eb;color:#fff}
 .task-item{background:#fff;border-radius:14px;padding:12px;display:flex;align-items:center;gap:10px;border:1px solid #dbeafe;margin-bottom:8px}
@@ -20,32 +21,47 @@ body{margin:0;background:#eaf2ff;color:#0f172a;font-family:Arial;padding:12px;ma
 .modal{position:fixed;inset:0;background:rgba(0,0,0,0.7);display:none;align-items:center;justify-content:center;z-index:200;padding:12px}
 .modal-box{background:#fff;border-radius:18px;padding:16px;width:100%;max-width:400px;max-height:90vh;overflow-y:auto}
 .btn{width:100%;background:#2563eb;color:#fff;border:0;padding:14px;border-radius:12px;font-weight:bold;margin:10px 0;cursor:pointer}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;max-width:480px;margin:0 auto;background:#fff;border-top:1px solid #dbeafe;border-radius:20px 20px 0 0;display:flex;justify-content:space-around;padding:10px 0 14px;z-index:100}
-.nav-item{display:flex;flex-direction:column;align-items:center;font-size:11px;color:#94a3b8;font-weight:600;cursor:pointer;padding:4px 12px;border-radius:12px}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;max-width:480px;margin:0 auto;background:#fff;border-top:1px solid #dbeafe;border-radius:20px 20px 0 0;display:flex;justify-content:space-around;padding:10px 0 14px;z-index:999}
+.nav-item{display:flex;flex-direction:column;align-items:center;font-size:11px;color:#94a3b8;font-weight:600;cursor:pointer;padding:6px 14px;border-radius:12px}
 .nav-item.active{color:#2563eb;background:#dbeafe}
 .game-card{border-radius:14px;padding:12px;text-align:center;cursor:pointer;border:1px solid #e2e8f0}
 canvas{background:#fff;border-radius:12px;border:2px solid #dbeafe;display:block;margin:8px auto}
 .mem-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}
 .mem-card{aspect-ratio:1;background:#dbeafe;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:24px;cursor:pointer;font-weight:900}
+.wheel{width:200px;height:200px;border-radius:50%;margin:15px auto;position:relative;border:4px solid #6c5cff;background:conic-gradient(#6a4cff 0 70%, #333 70% 98%, #3b82f6 98% 99%, #22c55e 99% 99.5%, #06b6d4 99.5% 100%);transition:transform 4s cubic-bezier(.17,.67,.12,.99)}
+.center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;background:#000;border-radius:50%;border:3px solid #fff;display:flex;align-items:center;justify-content:center;color:#fff}
+.pin{width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:24px solid #ffcc00;margin:0 auto}
 </style>
 </head>
 <body>
 
-<div class="app-bar"><div style="font-weight:bold">📱 BestDeals - 6 Games</div><div style="background:#000;color:#00ff88;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:bold">● AUTO ADS ON</div></div>
+<div class="app-bar"><div style="font-weight:900">📱 BestDeals - 6 Games</div><div style="background:#000;color:#00ff88;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:bold">● AUTO ADS ON</div></div>
 
-<div class="top-profile"><div style="display:flex;align-items:center;gap:10px"><div class="avatar" id="avatarFallback">U</div><div><div style="font-weight:900;font-size:16px;color:#0f3078" id="userName">LOADING...</div><div style="font-size:10px;color:#64748b" id="userIdShow">ID: ...</div></div></div><div style="background:#22c55e;color:#fff;font-size:9px;padding:4px 8px;border-radius:10px;font-weight:800">LIVE</div></div>
+<div class="top-profile"><div style="display:flex;align-items:center;gap:10px"><div class="avatar" id="avatarFallback">U</div><div><div style="font-weight:900;font-size:16px;color:#0f3078" id="userName">LOADING...</div><div style="font-size:10px;color:#64748b" id="userIdShow">ID: ...</div></div></div><div style="background:#22c55e;color:#fff;font-size:9px;padding:4px 8px;border-radius:10px;font-weight:800" id="liveStatus">LIVE</div></div>
 
-<div class="balance-card"><div style="flex:1;border-right:1px solid #bfdbfe"><div style="font-size:11px;color:#64748b;font-weight:bold">🪙 COINS</div><div class="big-num" id="coinBalance">20</div></div><div style="flex:1;padding-left:14px"><div style="font-size:11px;color:#64748b;font-weight:bold">💎 POINTS</div><div class="big-num" id="pointBalance">0.00</div><div style="font-size:11px" id="tonApprox">≈ 0.0000 TON</div></div></div>
+<div class="balance-card"><div style="flex:1;border-right:1px solid #bfdbfe"><div style="font-size:11px;color:#64748b;font-weight:bold">🪙 COINS</div><div class="big-num" id="coinBalance">20</div><div style="font-size:11px;color:#5b7ab0">100 Coins = 1 Point</div></div><div style="flex:1;padding-left:14px"><div style="font-size:11px;color:#64748b;font-weight:bold">💎 POINTS</div><div class="big-num" id="pointBalance">0.00</div><div style="font-size:11px" id="tonApprox">≈ 0.0000 TON</div></div></div>
 
+<!-- HOME -->
 <div id="homeSection">
   <div style="background:linear-gradient(135deg,#0f172a,#1e293b);border:1px solid #ffcc00;border-radius:16px;padding:14px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;color:#fff">
-    <div><div style="font-weight:900">📺 Ads Dekho - Coin Kamao</div><div style="font-size:11px;color:#94a3b8" id="adsLeftText">Loading...</div><div style="font-size:10px;color:#22c55e" id="adsProgress">Auto: ON | 10 Ads/2hr</div></div>
-    <button onclick="watchAdEarn()" style="background:#ffcc00;color:#000;border:0;padding:12px 20px;border-radius:20px;font-weight:900">▶️ Watch</button>
+    <div style="flex:1"><div style="font-weight:900;font-size:14px">📺 Ads Dekho - Coin Kamao</div><div style="font-size:11px;color:#94a3b8;margin-top:3px" id="adsLeftText">10 ads left</div><div style="font-size:10px;color:#22c55e;margin-top:4px" id="adsProgress">Auto: ON (25s) | 10 Ads/2hr</div></div>
+    <button onclick="watchAdEarn()" id="watchBtn" style="background:#ffcc00;color:#000;border:0;padding:12px 20px;border-radius:20px;font-weight:900">▶️ Watch</button>
   </div>
-  <div style="font-size:20px;font-weight:900;color:#0f3078;margin:10px 4px">Tasks</div>
+
+  <div style="display:flex;justify-content:space-between;align-items:center;margin:16px 4px 8px"><div style="font-size:20px;font-weight:900;color:#0f3078">Tasks</div><div style="font-size:10px;color:#64748b;background:#dbeafe;padding:4px 8px;border-radius:10px" id="nextResetTimer">2h me refresh</div></div>
+  <div class="task-tabs"><div class="task-tab active" id="tab-earn" onclick="setTaskTab('earn')">Earn</div><div class="task-tab" id="tab-onetime" onclick="setTaskTab('onetime')">One-time</div><div class="task-tab" id="tab-games" onclick="setTaskTab('games')">Games</div><div class="task-tab" id="tab-invite" onclick="setTaskTab('invite')">Invite</div></div>
   <div id="taskList"></div>
+
+  <!-- WHEEL ADS WALA - WAPAS ADD KIYA -->
+  <div style="margin-top:20px;background:#fff;border:1px solid #dbeafe;border-radius:18px;padding:14px;text-align:center">
+    <div style="font-weight:900;color:#0f3078">🎡 Wheel - Spin & Earn</div>
+    <div class="pin"></div><div class="wheel" id="wheel"><div class="center">SPIN</div></div>
+    <button class="btn" onclick="startSpin()">✨ Spin and Get 2-20 Coins</button>
+    <div id="result" style="text-align:center;font-size:13px;margin:8px 0;min-height:18px;font-weight:bold;color:#16a34a"></div>
+  </div>
 </div>
 
+<!-- GAMES - 6 IN-APP -->
 <div id="gamesSection" style="display:none">
   <h3 style="color:#0f3078;margin:8px 0">🎮 6 In-App Games - No External Link</h3>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
@@ -64,23 +80,23 @@ canvas{background:#fff;border-radius:12px;border:2px solid #dbeafe;display:block
 </div>
 
 <div id="walletSection" style="display:none">
-  <h3 style="color:#0f3078">💎 TON Wallet - 10 TON MINIMUM</h3>
-  <p style="font-size:12px;color:#ef4444;font-weight:900;background:#fee2e2;padding:8px;border-radius:10px">⚠️ Minimum Withdraw 10 TON = 10,000 POINTS = 10,00,000 Coins</p>
-  <p style="font-size:11px;color:#64748b">1 POINT = 0.001 TON | 100 Coins = 1 POINT</p>
+  <h3 style="color:#0f3078">💎 TON Wallet - 10 TON MIN</h3>
+  <p style="font-size:12px;color:#ef4444;font-weight:900;background:#fee2e2;padding:8px;border-radius:10px">⚠️ Minimum 10 TON = 10,000 POINTS = 10,00,000 Coins</p>
   <div id="ton-connect-btn" style="margin:12px 0"></div>
   <input id="tonAddress" style="width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:10px;box-sizing:border-box" placeholder="TON address auto ayega" readonly>
-  <input id="withdrawPoints" type="number" style="width:100%;padding:12px;margin:8px 0;border:1px solid #cbd5e1;border-radius:10px;box-sizing:border-box" placeholder="10000 POINTS likho = 10 TON">
-  <div id="withdrawPreview" style="font-size:13px;font-weight:900;color:#0f3078">You will get: 0.0000 TON | Min: 10 TON</div>
+  <input id="withdrawPoints" type="number" style="width:100%;padding:12px;margin:8px 0;border:1px solid #cbd5e1;border-radius:10px;box-sizing:border-box" placeholder="10000 POINTS = 10 TON">
+  <div id="withdrawPreview" style="font-size:13px;font-weight:900">You will get: 0.0000 TON | Min: 10 TON</div>
   <button class="btn" style="background:#0098ea" onclick="confirmTonWithdraw()">💸 Withdraw 10 TON</button>
-  <div id="withdrawStatus" style="font-size:12px;text-align:center;margin-top:8px;word-break:break-all"></div>
+  <div id="withdrawStatus" style="font-size:12px;text-align:center;margin-top:8px"></div>
 </div>
 
-<div class="modal" id="tapModal"><div class="modal-box" style="text-align:center"><h3>👆 Tap Tap - 30s</h3><div style="font-size:48px;font-weight:900;color:#0f3078" id="tapCount">0</div><div id="tapTimer" style="color:#64748b">30s</div><button class="btn" style="font-size:28px;padding:24px;background:#2563eb" onclick="doTap()">TAP ME! 👆</button><div id="tapResult" style="font-weight:bold;color:#16a34a;margin-top:8px"></div><button class="btn" style="background:#e2e8f0;color:#333" onclick="closeAllGames()">Close</button></div></div>
-<div class="modal" id="snakeModal"><div class="modal-box" style="text-align:center"><h3>🐍 Snake</h3><canvas id="snakeCanvas" width="300" height="300"></canvas><div style="display:flex;gap:6px;justify-content:center;margin-top:8px"><button class="open-btn" onclick="snakeDir('up')">⬆️</button></div><div style="display:flex;gap:6px;justify-content:center"><button class="open-btn" onclick="snakeDir('left')">⬅️</button><button class="open-btn" onclick="snakeDir('down')">⬇️</button><button class="open-btn" onclick="snakeDir('right')">➡️</button></div><div id="snakeScore" style="font-weight:bold;margin-top:6px">Score: 0</div><button class="btn" style="background:#e2e8f0;color:#333" onclick="closeAllGames()">Close</button></div></div>
+<!-- MODALS -->
+<div class="modal" id="tapModal"><div class="modal-box" style="text-align:center"><h3>👆 Tap Tap</h3><div style="font-size:48px;font-weight:900;color:#0f3078" id="tapCount">0</div><div id="tapTimer">30s</div><button class="btn" style="font-size:28px;padding:24px" onclick="doTap()">TAP ME! 👆</button><div id="tapResult" style="font-weight:bold;color:#16a34a"></div><button class="btn" style="background:#e2e8f0;color:#333" onclick="closeAllGames()">Close</button></div></div>
+<div class="modal" id="snakeModal"><div class="modal-box" style="text-align:center"><h3>🐍 Snake</h3><canvas id="snakeCanvas" width="300" height="300"></canvas><div style="display:flex;gap:6px;justify-content:center"><button class="open-btn" onclick="snakeDir('up')">⬆️</button></div><div style="display:flex;gap:6px;justify-content:center"><button class="open-btn" onclick="snakeDir('left')">⬅️</button><button class="open-btn" onclick="snakeDir('down')">⬇️</button><button class="open-btn" onclick="snakeDir('right')">➡️</button></div><div id="snakeScore">Score: 0</div><button class="btn" style="background:#e2e8f0;color:#333" onclick="closeAllGames()">Close</button></div></div>
 <div class="modal" id="flappyModal"><div class="modal-box" style="text-align:center"><h3>🐦 Flappy</h3><canvas id="flappyCanvas" width="300" height="400"></canvas><button class="btn" onclick="flap()">FLAP 🐦</button><div id="flappyScore">Score: 0</div><button class="btn" style="background:#e2e8f0;color:#333" onclick="closeAllGames()">Close</button></div></div>
-<div class="modal" id="memoryModal"><div class="modal-box" style="text-align:center"><h3>🧠 Memory Match</h3><div class="mem-grid" id="memGrid"></div><div id="memResult" style="font-weight:bold;color:#16a34a"></div><button class="btn" style="background:#e2e8f0;color:#333" onclick="closeAllGames()">Close</button></div></div>
-<div class="modal" id="mathModal"><div class="modal-box" style="text-align:center"><h3>🧮 Math Quiz</h3><div id="mathQ" style="font-size:28px;font-weight:900;margin:16px 0">2+2=?</div><input id="mathAns" type="number" style="width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:10px"><button class="btn" onclick="checkMath()">Submit</button><div id="mathProgress">1/5</div><div id="mathResult" style="font-weight:bold;color:#16a34a"></div><button class="btn" style="background:#e2e8f0;color:#333" onclick="closeAllGames()">Close</button></div></div>
-<div class="modal" id="luckyModal"><div class="modal-box" style="text-align:center"><h3>🎰 Lucky Spin</h3><div style="width:180px;height:180px;border-radius:50%;margin:12px auto;background:conic-gradient(#ff9900 0 60deg,#2563eb 60deg 120deg,#22c55e 120deg 180deg,#ec4899 180deg 240deg,#f59e0b 240deg 300deg,#8b5cf6 300deg 360deg);transition:transform 3s cubic-bezier(.17,.67,.12,.99)" id="luckyWheel"></div><button class="btn" onclick="doLuckySpin()">SPIN 🎰</button><div id="luckyResult" style="font-weight:bold;color:#16a34a;margin-top:8px"></div><button class="btn" style="background:#e2e8f0;color:#333" onclick="closeAllGames()">Close</button></div></div>
+<div class="modal" id="memoryModal"><div class="modal-box" style="text-align:center"><h3>🧠 Memory</h3><div class="mem-grid" id="memGrid"></div><div id="memResult" style="font-weight:bold;color:#16a34a"></div><button class="btn" style="background:#e2e8f0;color:#333" onclick="closeAllGames()">Close</button></div></div>
+<div class="modal" id="mathModal"><div class="modal-box" style="text-align:center"><h3>🧮 Math Quiz</h3><div id="mathQ" style="font-size:28px;font-weight:900;margin:16px 0"></div><input id="mathAns" type="number" style="width:100%;padding:12px;border-radius:10px;border:1px solid #cbd5e1"><button class="btn" onclick="checkMath()">Submit</button><div id="mathProgress">1/5</div><div id="mathResult"></div><button class="btn" style="background:#e2e8f0;color:#333" onclick="closeAllGames()">Close</button></div></div>
+<div class="modal" id="luckyModal"><div class="modal-box" style="text-align:center"><h3>🎰 Lucky Spin</h3><div style="width:180px;height:180px;border-radius:50%;margin:12px auto;background:conic-gradient(#ff9900 0 60deg,#2563eb 60deg 120deg,#22c55e 120deg 180deg,#ec4899 180deg 240deg,#f59e0b 240deg 300deg,#8b5cf6 300deg 360deg);transition:transform 3s cubic-bezier(.17,.67,.12,.99)" id="luckyWheel"></div><button class="btn" onclick="doLuckySpin()">SPIN 🎰</button><div id="luckyResult" style="font-weight:bold;color:#16a34a"></div><button class="btn" style="background:#e2e8f0;color:#333" onclick="closeAllGames()">Close</button></div></div>
 
 <div class="bottom-nav">
   <div class="nav-item active" id="nav-home" onclick="showSection('home')">🏠<span>Home</span></div>
@@ -90,50 +106,60 @@ canvas{background:#fff;border-radius:12px;border:2px solid #dbeafe;display:block
 </div>
 
 <script>
+// USER FIX - 3 RETRY
 function setTelegramUser(){
   try{
     const nameEl=document.getElementById('userName'), idEl=document.getElementById('userIdShow'), av=document.getElementById('avatarFallback');
     if(window.Telegram && window.Telegram.WebApp){
       const tg=window.Telegram.WebApp; tg.ready(); tg.expand();
       const u=tg.initDataUnsafe?.user;
-      if(u && u.first_name){ const fn=(u.first_name+(u.last_name?' '+u.last_name:'')).trim(); nameEl.innerText=fn.toUpperCase(); idEl.innerText='ID: '+u.id; av.innerText=u.first_name[0].toUpperCase(); if(u.photo_url) av.innerHTML=`<img src="${u.photo_url}" style="width:100%;height:100%;border-radius:50%;object-fit:cover">`; return; }
+      console.log('TG USER:', u);
+      if(u && u.first_name){
+        const full=(u.first_name+(u.last_name?' '+u.last_name:'')).trim();
+        nameEl.innerText=full.toUpperCase();
+        idEl.innerText='ID: '+u.id;
+        av.innerText=u.first_name[0].toUpperCase();
+        if(u.photo_url) av.innerHTML=`<img src="${u.photo_url}" style="width:100%;height:100%;border-radius:50%;object-fit:cover">`;
+        document.getElementById('liveStatus').innerText='LIVE ✓';
+        return true;
+      }
     }
-    nameEl.innerText="GUEST USER"; idEl.innerText="Open in Telegram";
-  }catch(e){}
+    nameEl.innerText='GUEST USER'; idEl.innerText='Telegram me kholo'; return false;
+  }catch(e){ return false; }
 }
+
+// ADS - MONETAG + ADSGRAM
 let AdsBlock=null; try{AdsBlock=window.Adsgram.init({blockId:"int-52779"})}catch(e){}
-async function showMonetag(){ try{ if(typeof show_11968926==='function'){ await show_11968926(); return true; } }catch(e){} return false; }
-async function showAdsgram(){ try{ if(AdsBlock){ await AdsBlock.show(); return true; } }catch(e){} return false; }
+let monetagLoaded=false;
+function loadMonetag(){return new Promise(r=>{if(window.show_11968926){monetagLoaded=true;r(true);return;}let s=document.createElement('script');s.src='https://libtl.com/sdk.js';s.dataset.zone='11968926';s.dataset.sdk='show_11968926';s.onload=()=>setTimeout(()=>{monetagLoaded=typeof show_11968926==='function';r(monetagLoaded)},1000);s.onerror=()=>r(false);document.head.appendChild(s);});}
+async function showMonetag(){try{if(!monetagLoaded)await loadMonetag();if(typeof show_11968926==='function'){await show_11968926();return true;}}catch(e){}return false;}
+async function showAdsgram(){try{if(AdsBlock){await AdsBlock.show();return true;}}catch(e){}return false;}
+setTimeout(async()=>{let ok=await showMonetag();if(!ok)await showAdsgram();},2000);
+let lastAd='adsgram'; setInterval(async()=>{if(lastAd==='adsgram'){let ok=await showMonetag();if(!ok)await showAdsgram();lastAd='monetag';}else{let ok=await showAdsgram();if(!ok)await showMonetag();lastAd='adsgram';}},25000);
+
+// NAV - FIXED 100%
 function showSection(sec){
-  document.getElementById('homeSection').style.display=sec==='home'?'block':'none';
-  document.getElementById('gamesSection').style.display=sec==='games'?'block':'none';
-  document.getElementById('shopSection').style.display=sec==='shop'?'block':'none';
-  document.getElementById('walletSection').style.display=sec==='wallet'?'block':'none';
+  document.getElementById('homeSection').style.display = sec==='home'?'block':'none';
+  document.getElementById('gamesSection').style.display = sec==='games'?'block':'none';
+  document.getElementById('shopSection').style.display = sec==='shop'?'block':'none';
+  document.getElementById('walletSection').style.display = sec==='wallet'?'block':'none';
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('nav-'+sec).classList.add('active');
   if(sec==='shop') renderShopping();
   if(sec==='wallet' && !tonConnectUI) initTonConnect();
+  window.scrollTo({top:0,behavior:'smooth'});
   showMonetag();
 }
-let coins=parseInt(localStorage.getItem('coins')||'20'), points=parseFloat(localStorage.getItem('points')||'0');
-function updateCoinUI(){ document.getElementById('coinBalance').innerText=coins; document.getElementById('pointBalance').innerText=points.toFixed(2); document.getElementById('tonApprox').innerText='≈ '+(points*0.001).toFixed(4)+' TON'; localStorage.setItem('coins',coins); localStorage.setItem('points',points); if(coins>=100){ points+=Math.floor(coins/100); coins=coins%100; updateCoinUI(); } }
-document.getElementById('taskList').innerHTML=`<div class="task-item"><div style="width:40px;height:40px;background:#f1f5f9;border-radius:10px;display:flex;align-items:center;justify-content:center">📺</div><div style="flex:1"><div style="font-weight:800">Watch Ad</div><div style="font-size:11px;color:#64748b">Earn 3</div></div><button class="open-btn" onclick="coins+=3;updateCoinUI();showAdsgram();">Open</button></div>`;
-async function watchAdEarn(){ let ok=await showMonetag(); if(!ok) ok=await showAdsgram(); if(ok){ coins+=2; updateCoinUI(); } }
+
+let coins=parseInt(localStorage.getItem('coins')||'20'), points=parseFloat(localStorage.getItem('points')||'0'), adsWatchedToday=parseInt(localStorage.getItem('ads_today')||'0'), adsLastReset=parseInt(localStorage.getItem('ads_last_reset')||Date.now()), adsLimit=10, ADS_RESET_MS=2*60*60*1000;
+if(!localStorage.getItem('ads_last_reset')) localStorage.setItem('ads_last_reset',adsLastReset.toString());
+function checkAdsReset(){if((Date.now()-adsLastReset)>=ADS_RESET_MS){adsWatchedToday=0;adsLastReset=Date.now();localStorage.setItem('ads_today','0');localStorage.setItem('ads_last_reset',adsLastReset.toString());}}
+function getNextResetTime(){let diff=(adsLastReset+ADS_RESET_MS)-Date.now();if(diff<=0)return"0m";let m=Math.floor(diff/60000);let s=Math.floor((diff%60000)/1000);return m+"m "+s+"s";}
+function updateCoinUI(){document.getElementById('coinBalance').innerText=coins;document.getElementById('pointBalance').innerText=points.toFixed(2);document.getElementById('tonApprox').innerText='≈ '+(points*0.001).toFixed(4)+' TON';document.getElementById('adsProgress').innerText=`${adsWatchedToday}/${adsLimit} | Auto: ON (25s) | Next: ${getNextResetTime()}`;document.getElementById('adsLeftText').innerText=adsWatchedToday>=adsLimit?`Limit khatam! ${getNextResetTime()} me refresh`:`${adsLimit-adsWatchedToday} ads left`;document.getElementById('nextResetTimer').innerText=`${getNextResetTime()} me refresh`;localStorage.setItem('coins',coins);localStorage.setItem('points',points);localStorage.setItem('ads_today',adsWatchedToday.toString());if(coins>=100){points+=Math.floor(coins/100);coins=coins%100;updateCoinUI();}}
+const TASKS={earn:[{id:1,title:"Free Poker, Real US...",desc:"Play free poker",icon:"🃏",reward:3},{id:2,title:"AI से बाज़ार समझें",desc:"Learn AI market",icon:"🧠",reward:3},{id:3,title:"Watch 3 Ads - Earn 5",desc:"Bonus",icon:"📺",reward:5}],onetime:[{id:4,title:"Follow Channel",desc:"Join channel",icon:"✈️",reward:10},{id:5,title:"Connect TON Wallet",desc:"Connect +10",icon:"💎",reward:10}],games:[{id:6,title:"Play Any Game",desc:"Khelo +12",icon:"🎮",reward:12}],invite:[{id:7,title:"Invite 1 Friend",desc:"Invite & earn 20",icon:"👥",reward:20}]};
+function setTaskTab(tab){document.querySelectorAll('.task-tab').forEach(t=>t.classList.remove('active'));document.getElementById('tab-'+tab).classList.add('active');let list=TASKS[tab]||[];document.getElementById('taskList').innerHTML=list.map(t=>`<div class="task-item"><div style="width:44px;height:44px;background:#f1f5f9;border-radius:10px;display:flex;align-items:center;justify-content:center">${t.icon}</div><div style="flex:1"><div style="font-weight:800">${t.title}</div><div style="font-size:11px;color:#64748b">${t.desc}</div></div><div style="background:#e0f2fe;padding:3px 8px;border-radius:12px;font-size:11px;font-weight:800">🪙 +${t.reward}</div><button class="open-btn" onclick="doTask(${t.id},'${tab}')">Open</button></div>`).join('');}
+async function doTask(id,tab){let task=TASKS[tab].find(x=>x.id===id);await showMonetag();coins+=task.reward;updateCoinUI();await showAdsgram();}
+async function watchAdEarn(){checkAdsReset();if(adsWatchedToday>=adsLimit) return alert('Limit khatam! '+getNextResetTime());let ok=await showMonetag();if(!ok) ok=await showAdsgram();else await showAdsgram();if(ok){adsWatchedToday++;coins+=2;updateCoinUI();}}
+
 const PRODUCTS=[{id:1,name:"T-Shirt Pack 3",price:399,img:"👕",platform:"amazon",link:"https://www.amazon.in/s?k=tshirt?tag=earningtadka8-21"},{id:2,name:"Boat Airdopes",price:999,img:"🎧",platform:"amazon",link:"https://www.amazon.in/s?k=boat?tag=earningtadka8-21"},{id:3,name:"Kurti Set",price:349,img:"👗",platform:"meesho",link:"https://www.meesho.com/search?q=kurti"}];
-function renderShopping(){ document.getElementById('shoppingContainer').innerHTML=PRODUCTS.map(p=>`<div style="background:#fff;border:1px solid #dbeafe;border-radius:14px;padding:10px" onclick="window.Telegram.WebApp.openLink('${p.link}');coins+=1;updateCoinUI();"><div style="font-size:42px;text-align:center">${p.img}</div><div style="font-size:12px;font-weight:800">${p.name}</div><div style="font-weight:900">₹${p.price}</div><button style="width:100%;background:#ff9900;color:#fff;border:0;padding:8px;border-radius:10px;font-weight:800;margin-top:6px">Buy +1 🪙</button></div>`).join(''); }
-let currentGame=null, gameTimerInt=null;
-function openGame(type){ closeAllGames(); currentGame=type; if(type==='tap'){ document.getElementById('tapModal').style.display='flex'; startTapGame(); } if(type==='snake'){ document.getElementById('snakeModal').style.display='flex'; startSnake(); } if(type==='flappy'){ document.getElementById('flappyModal').style.display='flex'; startFlappy(); } if(type==='memory'){ document.getElementById('memoryModal').style.display='flex'; startMemory(); } if(type==='math'){ document.getElementById('mathModal').style.display='flex'; startMath(); } if(type==='lucky'){ document.getElementById('luckyModal').style.display='flex'; } showMonetag(); }
-function closeAllGames(){ document.querySelectorAll('.modal').forEach(m=>m.style.display='none'); if(gameTimerInt) clearInterval(gameTimerInt); if(snakeInt) clearInterval(snakeInt); if(flappyInt) clearInterval(flappyInt); showAdsgram(); }
-let tap=0,tapTime=30; function startTapGame(){ tap=0; tapTime=30; document.getElementById('tapCount').innerText='0'; document.getElementById('tapResult').innerText=''; document.getElementById('tapTimer').innerText='30s'; gameTimerInt=setInterval(()=>{ tapTime--; document.getElementById('tapTimer').innerText=tapTime+'s'; if(tapTime<=0){ clearInterval(gameTimerInt); let earn=Math.floor(tap/10)+2; if(earn>10) earn=10; coins+=earn; updateCoinUI(); document.getElementById('tapResult').innerText=`🎉 ${tap} Taps! +${earn} Coins!`; } },1000); } function doTap(){ tap++; document.getElementById('tapCount').innerText=tap; }
-let snake=[], dir='right', food={x:5,y:5}, snakeScore=0, snakeInt=null, snakeCtx=null;
-function startSnake(){ const c=document.getElementById('snakeCanvas'); snakeCtx=c.getContext('2d'); snake=[{x:10,y:10}]; dir='right'; snakeScore=0; food={x:5,y:5}; snakeInt=setInterval(()=>{ moveSnake(); drawSnake(); },150); }
-function moveSnake(){ let head={...snake[0]}; if(dir==='right') head.x++; if(dir==='left') head.x--; if(dir==='up') head.y--; if(dir==='down') head.y++; if(head.x<0||head.x>=15||head.y<0||head.y>=15){ clearInterval(snakeInt); coins+=Math.floor(snakeScore/2)+2; updateCoinUI(); document.getElementById('snakeScore').innerText=`Game Over! Score ${snakeScore} +${Math.floor(snakeScore/2)+2} Coins`; return; } snake.unshift(head); if(head.x===food.x && head.y===food.y){ snakeScore++; document.getElementById('snakeScore').innerText='Score: '+snakeScore; food={x:Math.floor(Math.random()*15),y:Math.floor(Math.random()*15)}; } else snake.pop(); }
-function drawSnake(){ snakeCtx.clearRect(0,0,300,300); snakeCtx.fillStyle='#22c55e'; snake.forEach(s=>{ snakeCtx.fillRect(s.x*20,s.y*20,18,18); }); snakeCtx.fillStyle='#ef4444'; snakeCtx.fillRect(food.x*20,food.y*20,18,18); }
-function snakeDir(d){ dir=d; }
-let flappyY=200, flappyV=0, flappyPipes=[], flappyScore=0, flappyInt=null, flappyCtx=null;
-function startFlappy(){ const c=document.getElementById('flappyCanvas'); flappyCtx=c.getContext('2d'); flappyY=200; flappyV=0; flappyPipes=[{x:300,y:100}]; flappyScore=0; flappyInt=setInterval(()=>{ flappyV+=0.5; flappyY+=flappyV; if(flappyY>380||flappyY<0){ gameOverFlappy(); return; } flappyPipes.forEach(p=>{ p.x-=2; if(p.x===50) { flappyScore++; document.getElementById('flappyScore').innerText='Score: '+flappyScore; flappyPipes.push({x:300,y:Math.random()*200+50}); } }); if(flappyPipes[0].x<0) flappyPipes.shift(); drawFlappy(); },20); }
-function drawFlappy(){ flappyCtx.clearRect(0,0,300,400); flappyCtx.fillStyle='#f59e0b'; flappyCtx.fillRect(50,flappyY,20,20); flappyCtx.fillStyle='#22c55e'; flappyPipes.forEach(p=>{ flappyCtx.fillRect(p.x,0,30,p.y); flappyCtx.fillRect(p.x,p.y+100,30,400); }); }
-function flap(){ flappyV=-8; } function gameOverFlappy(){ clearInterval(flappyInt); let earn=Math.min(flappyScore+5,15); coins+=earn; updateCoinUI(); document.getElementById('flappyScore').innerText=`Game Over! Score ${flappyScore} +${earn} Coins`; }
-let memValues=[], memFirst=null, memMatched=0;
-function startMemory(){ memValues=['🐶','🐶','🐱','🐱','🐭','🐭','🐹','🐹','🐰','🐰','🦊','🦊','🐻','🐻','🐼','🐼'].sort(()=>Math.random()-0.5); memFirst=null; memMatched=0; document.getElementById('memResult').innerText=''; document.getElementById('memGrid').innerHTML=memValues.map((v,i)=>`<div class="mem-card" id="mem-${i}" onclick="flipMem(${i})">?</div>`).join(''); }
-function flipMem(i){ const el=document.getElementById('mem-'+i); if(el.innerText!=='?') return; el.innerText=memValues[i]; if(memFirst===null){ memFirst=i; } else { if(memVal
+function renderShopping 
