@@ -2,307 +2,198 @@
 <html>
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>BestDeals - 15 Sec Ads</title>
-<script src="https://libtl.com/sdk.js" data-zone="11968926" data-sdk="show_11968926"></script>
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-<script src="https://sad.adsgram.ai/js/sad.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<title>BestDeals - Wheel Flow</title>
 <style>
 body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-width:480px;margin:0 auto}
-.app-bar{background:linear-gradient(90deg,#ffcc00,#f59e0b);border-radius:12px;padding:14px;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;position:sticky;top:0;z-index:99;border:1px solid #ffcc00}
-.tabs{display:flex;gap:8px;overflow-x:auto;padding:8px 0;position:sticky;top:70px;background:#0f0f12;z-index:10}
-.tab{background:#1e1e1e;border:1px solid #333;padding:8px 14px;border-radius:20px;font-size:12px;white-space:nowrap;cursor:pointer}
+.app-bar{background:#ffcc00;border-radius:12px;padding:12px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:99}
+.info{background:#1f1f3a;border:1px solid #6c5cff;border-radius:10px;padding:8px;font-size:11px;text-align:center;margin-bottom:8px}
+.wallet-card{background:#1e293b;border:1px solid #ffcc00;border-radius:14px;padding:12px;margin-bottom:10px}
+.balance{font-size:22px;font-weight:bold;color:#00ff88}
+.wheel{width:200px;height:200px;border-radius:50%;margin:12px auto;border:4px solid #6c5cff;background:conic-gradient(#6a4cff 0 70%, #333 70% 100%);transition:transform 4s cubic-bezier(.17,.67,.12,.99)}
+.center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:50px;height:50px;background:#000;border-radius:50%;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:bold}
+.pin{width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-top:18px solid #ffcc00;margin:0 auto}
+.btn{width:100%;background:#8b5cf6;color:#fff;border:0;padding:12px;border-radius:10px;font-size:14px;font-weight:bold;margin:8px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.prod{background:#1e1e1e;border-radius:10px;padding:6px;border:1px solid #333}
+.prod img{width:100%;height:120px;object-fit:cover;border-radius:6px;background:#222}
+.prod h4{font-size:10px;margin:4px 0;height:28px;overflow:hidden}
+.price{color:#00ff88;font-weight:bold;font-size:12px}
+.buy{background:#ffcc00;color:#000;border:0;width:100%;padding:6px;border-radius:5px;font-size:10px;font-weight:bold;margin-top:4px}
+.input-dark{width:100%;padding:10px;margin:4px 0;background:#0f172a;border:1px solid #334155;border-radius:8px;color:#fff;box-sizing:border-box}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:8px 0}
+.tab{background:#1e1e1e;border:1px solid #333;padding:6px 12px;border-radius:20px;font-size:12px;white-space:nowrap}
 .tab.active{background:#ffcc00;color:#000;font-weight:bold}
-.info{background:#1f1f3a;border:1px solid #6c5cff;border-radius:10px;padding:10px;font-size:12px;text-align:center;margin-bottom:10px}
-.wallet-card{background:linear-gradient(135deg,#1e293b,#0f172a);border:1px solid #ffcc00;border-radius:16px;padding:14px;margin-bottom:12px}
-.balance{font-size:28px;font-weight:bold;color:#00ff88}
-.wheel{width:220px;height:220px;border-radius:50%;margin:15px auto;position:relative;border:4px solid #6c5cff;background:conic-gradient(#6a4cff 0 70%, #333 70% 98%, #3b82f6 98% 99%, #22c55e 99% 99.5%, #06b6d4 99.5% 100%);transition:transform 4s cubic-bezier(.17,.67,.12,.99)}
-.center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;background:#000;border-radius:50%;border:3px solid #fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:bold}
-.pin{width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:24px solid #ffcc00;margin:0 auto}
-.btn{width:100%;background:linear-gradient(90deg,#8b5cf6,#3b82f6);color:#fff;border:0;padding:14px;border-radius:12px;font-size:16px;font-weight:bold;margin:10px 0;cursor:pointer}
-.btn-wallet{background:linear-gradient(90deg,#f59e0b,#ffcc00);color:#000}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
-.prod{background:#1e1e1e;border-radius:12px;padding:8px;border:1px solid #333;position:relative;cursor:pointer}
-.prod img{width:100%;height:140px;object-fit:cover;border-radius:8px;background:#222}
-.prod h4{font-size:11px;margin:6px 0;height:32px;overflow:hidden;line-height:1.3}
-.price{color:#00ff88;font-weight:bold;font-size:13px}
-.old{color:#777;font-size:10px;text-decoration:line-through;margin-left:4px}
-.discTag{font-size:8px;background:#003d1f;padding:4px;border-radius:4px;display:block;margin-top:4px;color:#00ff88;text-align:center;border:1px dashed #00ff88}
-.buy{background:#ffcc00;color:#000;border:0;width:100%;padding:7px;border-radius:6px;font-size:11px;font-weight:bold;margin-top:6px;cursor:pointer}
-.loader{text-align:center;padding:20px;color:#666;font-size:12px}
-.badge{position:absolute;top:6px;left:6px;font-size:8px;padding:3px 6px;border-radius:10px;font-weight:bold}
-.badge.amazon{background:#ff9900;color:#000}.badge.flipkart{background:#2874f0;color:#fff}
-.input-dark{width:100%;padding:12px;margin:6px 0;background:#0f172a;border:1px solid #334155;border-radius:10px;color:#fff;box-sizing:border-box}
 </style>
 </head>
 <body>
 
 <div class="app-bar">
-  <div style="color:#000;font-weight:bold;font-size:14px">📱 BestDeals App<br><span style="font-size:11px;font-weight:normal">33MB - Fast Download</span></div>
-  <a href="https://drive.usercontent.google.com/download?id=136JySWmaDJx17ylwS0RBMTxomRSFGmwc&export=download&confirm=t" style="background:#000;color:#ffcc00;padding:10px 18px;border-radius:20px;font-weight:bold;text-decoration:none;font-size:13px">📥 DOWNLOAD</a>
+  <div style="color:#000;font-weight:bold;font-size:13px">📱 BestDeals<br><span style="font-size:10px">Wheel: Monetag→Spin→Adsgram</span></div>
+  <a href="https://drive.usercontent.google.com/download?id=136JySWmaDJx17ylwS0RBMTxomRSFGmwc&export=download&confirm=t" style="background:#000;color:#ffcc00;padding:8px 14px;border-radius:16px;font-weight:bold;text-decoration:none;font-size:12px">📥 DOWNLOAD</a>
 </div>
 
-<h2 style="text-align:center">BestDeals Store</h2>
 <div class="wallet-card">
   <div style="display:flex;justify-content:space-between;align-items:center">
-    <div><div style="font-size:11px;color:#94a3b8">RECHARGE WALLET</div><div class="balance" id="walletBal">₹0</div><div style="font-size:10px;color:#aaa" id="profitText">Total Profit: ₹0.00</div></div>
-    <button onclick="addMoney()" style="background:#00ff88;color:#000;border:0;padding:10px 16px;border-radius:20px;font-weight:bold;font-size:12px">+ Add Money</button>
+    <div><div style="font-size:10px;color:#94a3b8">WALLET</div><div class="balance" id="walletBal">₹0</div></div>
+    <button onclick="addMoney()" style="background:#00ff88;color:#000;border:0;padding:8px 12px;border-radius:16px;font-weight:bold;font-size:11px">+ Add</button>
   </div>
-  <div style="margin-top:12px;border-top:1px dashed #334155;padding-top:10px">
-    <div style="font-size:12px;margin-bottom:6px;font-weight:bold">📱 Auto Recharge</div>
-    <input id="rcNum" class="input-dark" placeholder="Mobile Number" type="number">
-    <div style="display:flex;gap:6px"><select id="rcOp" class="input-dark" style="flex:1"><option>Jio</option><option>Airtel</option><option>Vi</option><option>BSNL</option></select><input id="rcAmt" class="input-dark" placeholder="Amount" type="number" style="flex:1"></div>
-    <button class="btn btn-wallet" onclick="doWalletRecharge()">⚡ Recharge Now - Auto</button>
-    <div id="rcStatus" style="font-size:11px;color:#38bdf8;text-align:center;margin-top:6px"></div>
-  </div>
+  <input id="rcNum" class="input-dark" placeholder="Mobile Number" type="number">
+  <div style="display:flex;gap:4px"><input id="rcAmt" class="input-dark" placeholder="Amount" type="number" style="flex:1"><select id="rcOp" class="input-dark" style="flex:1"><option>Jio</option><option>Airtel</option></select></div>
+  <button class="btn" style="background:#ffcc00;color:#000;margin:4px 0" onclick="doWalletRecharge()">⚡ Recharge</button>
+  <div id="rcStatus" style="font-size:10px;color:#38bdf8;text-align:center"></div>
 </div>
-<div class="info">Monetag 15s + Adsgram 15s + Spin Ads<br>Next: <span id="nextAd" style="color:#ffcc00;font-weight:bold">Click Any Button to Start 15s Timer</span></div>
+
+<div class="info">Wheel Flow: Monetag 15s → Spin → Adsgram<br>Auto: <span id="nextAd" style="color:#ffcc00;font-weight:bold">Ready</span> | Ads: <span id="adCount">0</span></div>
 <div class="pin"></div>
 <div style="position:relative"><div class="wheel" id="wheel"><div class="center">SPIN</div></div></div>
-<button class="btn" onclick="startSpin()">✨ Spin - Monetag + Adsgram (15s)</button>
-<div id="result" style="text-align:center;font-size:13px;margin:8px 0;min-height:18px"></div>
+<button class="btn" id="spinBtn" onclick="startSpin()">✨ Tap - Monetag 15s → Spin → Adsgram</button>
+<div id="result" style="text-align:center;font-size:12px;margin:6px 0;min-height:16px;color:#ffcc00">Tap pe pehle Monetag, Spin ke baad Adsgram</div>
 
-<div class="tabs">
-  <div class="tab active" onclick="filterCat('all', this)">All</div>
-  <div class="tab" onclick="filterCat('mens', this)">Mens Wear</div>
-  <div class="tab" onclick="filterCat('womens', this)">Womens Wear</div>
-  <div class="tab" onclick="filterCat('makeup', this)">Makeup</div>
-</div>
+<div class="tabs"><div class="tab active" onclick="filterCat('all', this)">All</div><div class="tab" onclick="filterCat('mens', this)">Mens</div><div class="tab" onclick="filterCat('womens', this)">Womens</div></div>
 <div id="productContainer"></div>
-<div class="loader">Products - Tap Image = Monetag Ad</div>
 
-<div id="pdfTool" style="margin:28px 0 16px;background:#1e293b;border:1px solid #ffcc00;border-radius:16px;padding:16px">
-  <h3 style="color:#ffcc00;margin:0 0 6px 0">📄 Pixel Document Maker</h3>
-  <div style="display:flex;gap:8px"><div style="flex:1"><label style="font-size:11px;color:#94a3b8">Width (px)</label><input type="number" id="docW" class="input-dark" value="800"></div><div style="flex:1"><label style="font-size:11px;color:#94a3b8">Height (px)</label><input type="number" id="docH" class="input-dark" value="1000"></div></div>
-  <input type="color" id="docBG" value="#ffffff" style="width:100%;height:44px;border-radius:10px;border:1px solid #334155">
+<div id="pdfTool" style="margin:20px 0 10px;background:#1e293b;border:1px solid #ffcc00;border-radius:12px;padding:12px">
+  <h3 style="color:#ffcc00;margin:0 0 4px 0;font-size:14px">📄 Pixel Doc Maker</h3>
+  <div style="display:flex;gap:6px"><div style="flex:1"><input type="number" id="docW" class="input-dark" value="800" placeholder="W"></div><div style="flex:1"><input type="number" id="docH" class="input-dark" value="1000" placeholder="H"></div></div>
   <input type="file" id="docImg" accept="image/*" class="input-dark">
-  <div id="docPreview" style="margin:14px auto;border:2px dashed #ffcc00;display:flex;align-items:center;justify-content:center;background:#fff;color:#000;font-weight:bold;overflow:hidden;max-width:100%;border-radius:8px;min-height:120px">Preview</div>
-  <div style="display:flex;gap:8px;margin-top:12px"><button id="btnImg" style="flex:1;background:#22c55e;border:0;color:#000;border-radius:10px;padding:14px;font-weight:800">🖼️ JPG</button><button id="btnPdf" style="flex:1;background:#ffcc00;border:0;color:#000;border-radius:10px;padding:14px;font-weight:800">📄 PDF</button></div>
-  <div id="docStatus" style="margin-top:10px;color:#38bdf8;font-size:12px;text-align:center"></div>
-  <div id="galleryLink" style="display:none;margin-top:10px"></div>
+  <div id="docPreview" style="margin:8px auto;border:1px dashed #ffcc00;display:flex;align-items:center;justify-content:center;background:#fff;color:#000;font-weight:bold;overflow:hidden;max-width:100%;border-radius:6px;min-height:100px;font-size:12px">Preview</div>
+  <div style="display:flex;gap:6px"><button id="btnImg" style="flex:1;background:#22c55e;border:0;color:#000;border-radius:8px;padding:10px;font-weight:800;font-size:12px">🖼️ JPG</button><button id="btnPdf" style="flex:1;background:#ffcc00;border:0;color:#000;border-radius:8px;padding:10px;font-weight:800;font-size:12px">📄 PDF</button></div>
+  <div id="docStatus" style="margin-top:6px;color:#38bdf8;font-size:11px;text-align:center"></div>
 </div>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="https://libtl.com/sdk.js" data-zone="11968926" data-sdk="show_11968926"></script>
+<script src="https://sad.adsgram.ai/js/sad.min.js"></script>
 
 <script>
-const CONFIG = { UPI_ID: "yashpalsingh9520@okhdfcbank", OWNER_NAME: "BestDeals", PROFIT_PERCENT: 3 };
+let AdsBlock=null, isAdRunning=false, nextSec=15, lastAd="adsgram", adCount=0, autoStarted=false;
+try{ AdsBlock=window.Adsgram.init({blockId:"int-52779"}); }catch(e){}
 
-// === 15 SEC ADS SYSTEM ===
-let AdsBlock=null;
-let isAdRunning=false;
-let autoStarted=false;
-let nextSec=15; // 15 SECOND FIX
-let lastAd="adsgram"; // pehle adsgram, fir monetag
+function updateCount(){ document.getElementById('adCount').innerText=adCount; }
 
-function initAdsgram(){
-  try{ if(window.Adsgram){ AdsBlock = window.Adsgram.init({blockId:"int-52779"}); } }catch(e){}
-}
-window.addEventListener('load', ()=>{ setTimeout(initAdsgram, 800); });
-
-async function showMonetag(){
-  if(isAdRunning) return false;
-  isAdRunning=true;
-  try{
-    for(let i=0;i<8;i++){
-      if(typeof window.show_11968926 === 'function'){
-        await window.show_11968926();
+// MONETAG OFFICIAL THEN CODE
+function showMonetag(){
+  return new Promise((resolve)=>{
+    if(isAdRunning){ resolve(false); return; }
+    isAdRunning=true;
+    document.getElementById('nextAd').innerText="Monetag 15s Loading...";
+    document.getElementById('result').innerText="🎬 Monetag Ad 15s...";
+    if(typeof show_11968926 === 'function'){
+      show_11968926().then(() => {
+        adCount++; updateCount();
         isAdRunning=false; nextSec=15; lastAd="monetag";
-        document.getElementById('nextAd').innerText="✅ Monetag Done - Next Adsgram in 15s";
-        return true;
-      }
-      await new Promise(r=>setTimeout(r,400));
-    }
-  }catch(e){}
-  isAdRunning=false; return false;
+        document.getElementById('nextAd').innerText="✅ Monetag Done - Now Spinning...";
+        resolve(true);
+      }).catch(()=>{ isAdRunning=false; resolve(false); });
+    }else{ isAdRunning=false; resolve(false); }
+  });
 }
 
-async function showAdsgram(){
-  if(isAdRunning) return false;
-  isAdRunning=true;
-  try{
-    if(!AdsBlock) initAdsgram();
-    if(AdsBlock){
-      await AdsBlock.show();
-      isAdRunning=false; nextSec=15; lastAd="adsgram";
-      document.getElementById('nextAd').innerText="✅ Adsgram Done - Next Monetag in 15s";
-      return true;
-    }
-  }catch(e){}
-  isAdRunning=false; return false;
+function showAdsgram(){
+  return new Promise((resolve)=>{
+    if(isAdRunning){ resolve(false); return; }
+    isAdRunning=true;
+    document.getElementById('nextAd').innerText="Adsgram 15s Loading...";
+    document.getElementById('result').innerText="🎬 Adsgram Ad 15s...";
+    try{
+      if(!AdsBlock) AdsBlock=window.Adsgram.init({blockId:"int-52779"});
+      AdsBlock.show().then(()=>{
+        adCount++; updateCount();
+        isAdRunning=false; nextSec=15; lastAd="adsgram";
+        document.getElementById('nextAd').innerText="✅ Adsgram Done - Next in 15s";
+        document.getElementById('result').innerText="✅ Spin Complete + Adsgram Done!";
+        resolve(true);
+      }).catch(()=>{ isAdRunning=false; resolve(false); });
+    }catch(e){ isAdRunning=false; resolve(false); }
+  });
 }
 
 function startAutoAdsSystem(){
-  if(autoStarted) return;
-  autoStarted=true;
-  nextSec=15;
+  if(autoStarted) return; autoStarted=true; nextSec=15;
   setInterval(async()=>{
     if(isAdRunning) return;
     nextSec--;
     if(nextSec>0){
-      document.getElementById('nextAd').innerText=`Next ${lastAd==="adsgram"?"Monetag":"Adsgram"} in ${nextSec}s`;
+      document.getElementById('nextAd').innerText=`Auto ${lastAd==="adsgram"?"Monetag":"Adsgram"} in ${nextSec}s`;
     }else{
-      // 15 sec complete
-      if(lastAd==="adsgram"){
-        let ok=await showMonetag();
-        if(!ok) await showAdsgram();
-      }else{
-        let ok=await showAdsgram();
-        if(!ok) await showMonetag();
-      }
+      if(lastAd==="adsgram"){ let ok=await showMonetag(); if(!ok) await showAdsgram(); }
+      else{ let ok=await showAdsgram(); if(!ok) await showMonetag(); }
       nextSec=15;
     }
   },1000);
 }
 
-const _t = "earningtadka8-21";
+window.addEventListener('load', ()=>{
+  try{ Telegram.WebApp.ready(); Telegram.WebApp.expand(); }catch(e){}
+  renderProducts();
+  setTimeout(()=>{ startAutoAdsSystem(); }, 1000);
+});
+
+const _t="earningtadka8-21";
 let allProducts=[
-{name:"Scott International Pack of 3 T-Shirt", price:399, old:1049, myCommission:10, cat:"mens", platform:"amazon", img:"https://m.media-amazon.com/images/I/41aQCWMtgdL._AC_.jpg", link:"https://www.amazon.in/s?k=Scott+International+Men+Tshirt&tag="+_t},
-{name:"Symbol Men Polo Shirt", price:399, old:1049, myCommission:8, cat:"mens", platform:"amazon", img:"https://m.media-amazon.com/images/I/31I80jMir0L._AC_.jpg", link:"https://www.amazon.in/s?k=Symbol+Men+Polo&tag="+_t},
-{name:"Boat Airdopes 141", price:999, old:2990, myCommission:15, cat:"mens", platform:"amazon", img:"https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400&h=400&fit=crop", link:"https://www.amazon.in/s?k=boat+airdopes&tag="+_t},
-{name:"Womens Kurti Set", price:599, old:1999, myCommission:12, cat:"womens", platform:"amazon", img:"https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400&h=400&fit=crop", link:"https://www.amazon.in/s?k=kurti+set+women&tag="+_t}
+{name:"Scott T-Shirt Pack 3", price:399, old:1049, cat:"mens", img:"https://m.media-amazon.com/images/I/41aQCWMtgdL._AC_.jpg", link:"https://www.amazon.in/s?k=Scott+International+Men+Tshirt&tag="+_t},
+{name:"Symbol Polo Shirt", price:399, old:1049, cat:"mens", img:"https://m.media-amazon.com/images/I/31I80jMir0L._AC_.jpg", link:"https://www.amazon.in/s?k=Symbol+Men+Polo&tag="+_t},
+{name:"Boat Airdopes 141", price:999, old:2990, cat:"mens", img:"https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=200&h=200&fit=crop", link:"https://www.amazon.in/s?k=boat+airdopes&tag="+_t},
+{name:"Womens Kurti Set", price:599, old:1999, cat:"womens", img:"https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=200&h=200&fit=crop", link:"https://www.amazon.in/s?k=kurti+set+women&tag="+_t}
 ];
 
-let walletBal=parseInt(localStorage.getItem('wallet_bal')||'0'); let totalProfit=parseFloat(localStorage.getItem('wallet_profit')||'0');
-let isSpinning=false, spinExtra=0, visibleCount=8, currentFilter='all';
-function updateWalletUI(){ document.getElementById('walletBal').innerText='₹'+walletBal; document.getElementById('profitText').innerText='Total Profit: ₹'+totalProfit.toFixed(2); }
+let walletBal=parseInt(localStorage.getItem('wallet_bal')||'0');
+let isSpinning=false, spinExtra=0, visibleCount=4, currentFilter='all';
+function updateWalletUI(){ document.getElementById('walletBal').innerText='₹'+walletBal; }
 updateWalletUI();
-
-async function addMoney(){
-  startAutoAdsSystem();
-  let amt=prompt("Kitna Add karna hai?"); if(!amt) return;
-  await showMonetag();
-  let upiLink=`upi://pay?pa=${CONFIG.UPI_ID}&pn=${CONFIG.OWNER_NAME}&am=${amt}&cu=INR&tn=Wallet Add`;
-  window.location.href=upiLink;
-  setTimeout(()=>{ if(confirm("Payment ho gaya?")){ walletBal+=parseInt(amt); localStorage.setItem('wallet_bal',walletBal); updateWalletUI(); showAdsgram(); } },2500);
-}
-async function doWalletRecharge(){
-  startAutoAdsSystem();
-  let num=document.getElementById('rcNum').value; let amt=parseInt(document.getElementById('rcAmt').value);
-  let status=document.getElementById('rcStatus');
-  if(num.length!=10||!amt){ alert("Number / Amount sahi dalo"); return; }
-  if(walletBal<amt){ alert("Wallet me balance kam hai"); return; }
-  status.innerText="⏳ Monetag 15s Ad...";
-  await showMonetag();
-  let profit=(amt*CONFIG.PROFIT_PERCENT/100);
-  status.innerHTML=`✅ Order Sent! ${num} pe ₹${amt} | Profit ₹${profit.toFixed(2)}`;
-  walletBal=walletBal-amt+profit; totalProfit+=profit;
-  localStorage.setItem('wallet_bal',walletBal); localStorage.setItem('wallet_profit',totalProfit);
-  updateWalletUI();
-  await new Promise(r=>setTimeout(r,600));
-  await showAdsgram();
-}
+async function addMoney(){ let amt=prompt("Kitna Add?"); if(!amt) return; await showMonetag(); let upiLink=`upi://pay?pa=yashpalsingh9520@okhdfcbank&pn=BestDeals&am=${amt}&cu=INR`; location.href=upiLink; setTimeout(()=>{ if(confirm("Payment ho gaya?")){ walletBal+=parseInt(amt); localStorage.setItem('wallet_bal',walletBal); updateWalletUI(); showAdsgram(); } },2000); }
+async function doWalletRecharge(){ let num=document.getElementById('rcNum').value; let amt=parseInt(document.getElementById('rcAmt').value); let status=document.getElementById('rcStatus'); if(num.length!=10||!amt){ alert("Number/Amount sahi dalo"); return; } if(walletBal<amt){ alert("Balance kam"); return; } status.innerText="Monetag Auto..."; await showMonetag(); status.innerHTML=`✅ ${num} pe ₹${amt} Sent`; walletBal-=amt; localStorage.setItem('wallet_bal',walletBal); updateWalletUI(); await showAdsgram(); }
 function getFiltered(){ return currentFilter==='all'? allProducts : allProducts.filter(p=>p.cat===currentFilter); }
-function renderProducts(){
-  let filtered=getFiltered();
-  let toShow=filtered.slice(0, visibleCount);
-  document.getElementById("productContainer").innerHTML=`<div class="grid">`+toShow.map(p=>{
-    let autoDisc=(p.myCommission*1)/100;
-    let finalPrice=p.price-autoDisc-spinExtra;
-    if(finalPrice < p.price-5) finalPrice=p.price-5;
-    let idx=allProducts.indexOf(p);
-    return `<div class="prod" onclick="buyProduct(${idx})"><span class="badge ${p.platform}">${p.platform.toUpperCase()}</span><img src="${p.img}" loading="lazy" onerror="this.src='https://via.placeholder.com/300?text=No+Image'"><h4>${p.name}</h4><div><span class="price">₹${finalPrice.toFixed(0)}</span><span class="old">₹${p.old}</span></div><span class="discTag">✓ ₹${autoDisc.toFixed(0)} Off</span><button class="buy">Get Offer</button></div>`;
-  }).join('')+`</div>`;
-}
-function filterCat(cat, el){
-  startAutoAdsSystem();
-  currentFilter=cat; visibleCount=8;
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  el.classList.add('active');
-  renderProducts();
-  showMonetag();
-}
-function getSpinDiscount(){ let r=Math.random()*100; if(r<70) return {label:"Try Again", value:0}; return {label:"₹5 Extra", value:5}; }
+function renderProducts(){ let filtered=getFiltered(); let toShow=filtered.slice(0, visibleCount); document.getElementById("productContainer").innerHTML=`<div class="grid">`+toShow.map(p=>{ let finalPrice=p.price-spinExtra; let idx=allProducts.indexOf(p); return `<div class="prod" onclick="buyProduct(${idx})"><img src="${p.img}" loading="lazy" onerror="this.src='https://via.placeholder.com/200?text=Deal'"><h4>${p.name}</h4><div><span class="price">₹${finalPrice}</span><span class="old">₹${p.old}</span></div><button class="buy">View Deal</button></div>`; }).join('')+`</div>`; }
+function filterCat(cat, el){ currentFilter=cat; document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active')); el.classList.add('active'); renderProducts(); showMonetag(); }
 
-// SPIN PE BHI 15 SEC LOGIC + MONETAG + ADSGRAM
+// === WHEEL FLOW: TAP -> MONETAG 15s -> SPIN -> ADSGRAM ===
 async function startSpin(){
   if(isSpinning) return;
   isSpinning=true;
   startAutoAdsSystem();
-  document.getElementById('result').innerText="🎬 Monetag (15s) Ad Loading...";
-  await showMonetag(); // SPIN PE PEHLE MONETAG
-  document.getElementById("wheel").style.transform=`rotate(${360*5+Math.random()*360}deg)`;
+  
+  // STEP 1: Pehle Monetag 15s Ad
+  document.getElementById('spinBtn').disabled=true;
+  document.getElementById('spinBtn').innerText="⏳ Monetag Ad 15s...";
+  let monetagOk = await showMonetag();
+  
+  // STEP 2: Wheel Spin
+  document.getElementById('result').innerText="🎡 Wheel Spinning...";
+  document.getElementById('spinBtn').innerText="🎡 Spinning...";
+  document.getElementById("wheel").style.transform=`rotate(${360*6+Math.random()*360}deg)`;
+  
   setTimeout(async()=>{
-    let res=getSpinDiscount();
+    // STEP 3: Spin Result
+    let res=Math.random()<0.7? {label:"Try Again - ₹0", value:0}:{label:"🎉 ₹5 Extra Discount Won!", value:5};
     spinExtra=res.value;
-    document.getElementById("result").innerHTML=res.value===0?`🎡 ${res.label} - Now Adsgram 15s...`:`🎉 ${res.label} Unlocked! Now Adsgram...`;
+    document.getElementById('result').innerText=res.label + " - Now Adsgram...";
     renderProducts();
+    
+    // STEP 4: Adsgram 15s Ad AFTER spin
+    document.getElementById('spinBtn').innerText="⏳ Adsgram Ad 15s After Spin...";
+    await showAdsgram();
+    
+    // Reset
     isSpinning=false;
-    await new Promise(r=>setTimeout(r,500));
-    await showAdsgram(); // SPIN KE BAAD ADSGRAM
-    nextSec=15; // TIMER RESET TO 15s
-  },3200);
+    document.getElementById('spinBtn').disabled=false;
+    document.getElementById('spinBtn').innerText="✨ Tap - Monetag 15s → Spin → Adsgram";
+    nextSec=15;
+  }, 4000); // 4 sec spin
 }
 
-async function buyProduct(idx){
-  startAutoAdsSystem();
-  let p=allProducts[idx];
-  document.getElementById('result').innerText="Product Click - Monetag Ad...";
-  await showMonetag();
-  if(window.Telegram&&Telegram.WebApp) Telegram.WebApp.openLink(p.link);
-  else window.open(p.link,"_blank");
-  nextSec=15;
-}
-renderProducts();
+async function buyProduct(idx){ let p=allProducts[idx]; await showMonetag(); if(window.Telegram&&Telegram.WebApp) Telegram.WebApp.openLink(p.link); else window.open(p.link,"_blank"); nextSec=15; }
 </script>
 
 <script>
-let docCanvas=document.createElement('canvas');
-let uploadedImg=null;
-document.getElementById('docImg').addEventListener('change', e=>{
-  const file=e.target.files[0]; if(!file) return;
-  const reader=new FileReader();
-  reader.onload=ev=>{ uploadedImg=new Image(); uploadedImg.onload=()=>drawDoc(); uploadedImg.src=ev.target.result; };
-  reader.readAsDataURL(file);
-});
-function drawDoc(){
-  const W=parseInt(document.getElementById('docW').value)||800;
-  const H=parseInt(document.getElementById('docH').value)||1000;
-  const bg=document.getElementById('docBG').value;
-  docCanvas.width=W; docCanvas.height=H;
-  const ctx=docCanvas.getContext('2d');
-  ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
-  if(uploadedImg){ ctx.drawImage(uploadedImg,0,0,W,H); }
-  const preview=document.getElementById('docPreview');
-  const scale=Math.min(1,300/W);
-  preview.style.width=(W*scale)+'px'; preview.style.height=(H*scale)+'px';
-  preview.style.backgroundImage=`url(${docCanvas.toDataURL('image/jpeg',0.6)})`;
-  preview.style.backgroundSize='cover'; preview.innerHTML='';
-  document.getElementById('docStatus').innerText=`Preview: ${W} x ${H} px Ready`;
-}
-document.getElementById('docW').addEventListener('input',drawDoc);
-document.getElementById('docH').addEventListener('input',drawDoc);
-document.getElementById('docBG').addEventListener('input',drawDoc);
-drawDoc();
-
-async function downloadAsImage(){
-  if(!uploadedImg){ alert("Pehle Image Upload Karo"); return; }
-  startAutoAdsSystem();
-  await showMonetag();
-  const W=parseInt(document.getElementById('docW').value);
-  const H=parseInt(document.getElementById('docH').value);
-  const dataUrl=docCanvas.toDataURL('image/jpeg',1.0);
-  const a=document.createElement('a'); a.href=dataUrl; a.download=`doc_${W}x${H}.jpg`;
-  document.body.appendChild(a); a.click(); document.body.removeChild(a);
-  const gl=document.getElementById('galleryLink');
-  gl.style.display='block';
-  gl.innerHTML=`<div style="background:#0f172a;padding:12px;border-radius:10px;border:1px solid #22c55e"><img src="${dataUrl}" style="max-width:100%;border-radius:10px"><a href="${dataUrl}" download="doc_${W}x${H}.jpg" style="display:block;background:#22c55e;color:#000;padding:14px;border-radius:10px;font-weight:bold;text-align:center;text-decoration:none;margin-top:8px">📥 Download JPG</a></div>`;
-  document.getElementById('docStatus').innerText=`✅ JPG Ready`;
-  await showAdsgram();
-}
-async function downloadAsPDF(){
-  if(!uploadedImg){ alert("Pehle Image Upload Karo"); return; }
-  startAutoAdsSystem();
-  await showMonetag();
-  const W=parseInt(document.getElementById('docW').value);
-  const H=parseInt(document.getElementById('docH').value);
-  const pxToMm=0.264583;
-  const {jsPDF}=window.jspdf;
-  const pdf=new jsPDF({orientation:W>H?'landscape':'portrait',unit:'mm',format:[W*pxToMm,H*pxToMm]});
-  pdf.addImage(docCanvas.toDataURL('image/jpeg',1.0),'JPEG',0,0,W*pxToMm,H*pxToMm);
-  pdf.save(`doc_${W}x${H}_px.pdf`);
-  document.getElementById('docStatus').innerText=`✅ PDF Done`;
-  await showAdsgram();
-}
-document.getElementById('btnImg').addEventListener('click',downloadAsImage);
-document.getElementById('btnPdf').addEventListener('click',downloadAsPDF);
+let docCanvas=document.createElement('canvas'); let uploadedImg=null; let jspdfLoaded=false;
+function ensureJspdf(cb){ if(jspdfLoaded){ cb(); return; } let s=document.createElement('script'); s.src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"; s.onload=()=>{ jspdfLoaded=true; cb(); }; document.head.appendChild(s); }
+document.getElementById('docImg').addEventListener('change', e=>{ const file=e.target.files[0]; if(!file) return; const reader=new FileReader(); reader.onload=ev=>{ uploadedImg=new Image(); uploadedImg.onload=()=>drawDoc(); uploadedImg.src=ev.target.result; }; reader.readAsDataURL(file); });
+function drawDoc(){ const W=parseInt(document.getElementById('docW').value)||800; const H=parseInt(document.getElementById('docH').value)||1000; docCanvas.width=W; docCanvas.height=H; const ctx=docCanvas.getContext('2d'); ctx.fillStyle="#fff"; ctx.fillRect(0,0,W,H); if(uploadedImg) ctx.drawImage(uploadedImg,0,0,W,H); const preview=document.getElementById('docPreview'); const scale=Math.min(1,300/W); preview.style.width=(W*scale)+'px'; preview.style.height=(H*scale)+'px'; preview.style.backgroundImage=`url(${docCanvas.toDataURL('image/jpeg',0.6)})`; preview.style.backgroundSize='cover'; preview.innerHTML=''; document.getElementById('docStatus').innerText=`Preview: ${W}x${H}px`; }
+document.getElementById('docW').addEventListener('input',drawDoc); document.getElementById('docH').addEventListener('input',drawDoc); drawDoc();
+async function downloadAsImage(){ if(!uploadedImg){ alert("Image Upload Karo"); return; } await showMonetag(); const dataUrl=docCanvas.toDataURL('image/jpeg',1.0); let a=document.createElement('a'); a.href=dataUrl; a.download=`doc.jpg`; document.body.appendChild(a); a.click(); document.body.removeChild(a); document.getElementById('docStatus').innerText=`✅ JPG Ready`; await showAdsgram(); }
+async function downloadAsPDF(){ if(!uploadedImg){ alert("Image Upload Karo"); return; } await showMonetag(); ensureJspdf(()=>{ const W=parseInt(document.getElementById('docW').value); const H=parseInt(document.getElementById('docH').value); const pxToMm=0.264583; const {jsPDF}=window.jspdf; const pdf=new jsPDF({orientation:W>H?'landscape':'portrait',unit:'mm',format:[W*pxToMm,H*pxToMm]}); pdf.addImage(docCanvas.toDataURL('image/jpeg',1.0),'JPEG',0,0,W*pxToMm,H*pxToMm); pdf.save(`doc.pdf`); document.getElementById('docStatus').innerText=`✅ PDF Done`; showAdsgram(); }); }
+document.getElementById('btnImg').addEventListener('click',downloadAsImage); document.getElementById('btnPdf').addEventListener('click',downloadAsPDF);
 </script>
 </body>
-  </html> 
+</html> 
