@@ -3,11 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<title>BestDeals - Shop + TON + Snake Auto Ads</title>
+<title>BestDeals - $10 Withdraw</title>
+<script src='https://libtl.com/sdk.js' data-zone='11968926' data-sdk='show_11968926'></script>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
-<script src="https://libtl.com/sdk.js" data-zone="11968926" data-sdk="show_11968926"></script>
 <style>
 body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-width:480px;margin:0 auto}
 .app-bar{background:linear-gradient(90deg,#ffcc00,#f59e0b);border-radius:12px;padding:14px;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;position:sticky;top:0;z-index:99;border:1px solid #ffcc00}
@@ -39,11 +38,11 @@ body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-w
 </div>
 
 <div class="coin-bar">🟡 COINS: <b id="coins">0</b> | 💎 POINTS: <b id="points">0.00</b> | TON: <b id="tonVal">0</b> | Auto: <b id="autoCount">0</b></div>
-<div class="info" id="infoBar">Shop Amazon / Flipkart / Meesho<br>Auto: All=15s | Snake=3min • Next: <span id="nextAd">Click Spin / Start Snake</span></div>
+<div class="info">Spin = 2 Coin Fix | 100 Coin = 0.001 TON<br>Withdraw Min = $10 (~3 TON) • Next: <span id="nextAd">Click Spin</span></div>
 
 <div class="pin"></div>
 <div style="position:relative"><div class="wheel" id="wheel"><div class="center">SPIN</div></div></div>
-<button class="btn" onclick="startSpin()">✨ Spin and Get Coins + Discount</button>
+<button class="btn" onclick="startSpin()">✨ Spin - 2 Coin + Ads (Unlimited)</button>
 <div id="result" style="text-align:center;font-size:13px;margin:8px 0;min-height:18px"></div>
 
 <div style="margin:16px 0;background:#1e293b;border:1px solid #22c55e;border-radius:16px;padding:14px">
@@ -56,8 +55,7 @@ body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-w
 </div>
 
 <div style="margin:18px 0 16px;background:#1e293b;border:1px solid #ffcc00;border-radius:16px;padding:14px">
-  <h3 style="color:#ffcc00;margin:0 0 8px 0">🛍️ Best Deals - Amazon / Flipkart / Meesho</h3>
-  <div style="font-size:11px;color:#94a3b8;margin-bottom:10px">Tag: earningtadka8-21 • Buy = +1 Coin</div>
+  <h3 style="color:#ffcc00;margin:0 0 8px 0">🛍️ Best Deals</h3>
   <div class="tabs">
     <div class="tab active" id="f-all" onclick="filterShop('all')">All</div>
     <div class="tab" id="f-amazon" onclick="filterShop('amazon')">Amazon</div>
@@ -68,174 +66,118 @@ body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-w
 </div>
 
 <div class="ton-card">
-  <h3 style="color:#38bdf8;margin:0 0 10px 0">💎 TON Wallet</h3>
-  <div style="font-size:12px;color:#94a3b8;margin-bottom:8px">100 Coins = 1 Point | 1 Point = 0.001 TON</div>
+  <h3 style="color:#38bdf8;margin:0 0 10px 0">💎 TON Withdraw - $10 Min</h3>
+  <div style="font-size:12px;color:#94a3b8;margin-bottom:8px">100 Coins = 1 Point = 0.001 TON | 1 TON ≈ $3.2 | Min $10 ≈ 3.12 TON</div>
   <input id="taddr" class="input-dark" placeholder="TON Address UQ...">
   <input id="tpts" type="number" class="input-dark" placeholder="Points withdraw" oninput="calcTON()">
-  <div id="tprev" style="font-weight:900;margin:10px 0;color:#38bdf8">You will get: 0 TON</div>
-  <button onclick="withdrawTON()" style="width:100%;background:#38bdf8;color:#000;border:0;padding:14px;border-radius:12px;font-weight:800">Withdraw TON</button>
+  <div id="tprev" style="font-weight:900;margin:10px 0;color:#38bdf8">You will get: 0 TON = $0</div>
+  <button onclick="withdrawTON()" style="width:100%;background:#38bdf8;color:#000;border:0;padding:14px;border-radius:12px;font-weight:800">Withdraw TON ($10 Min)</button>
   <div id="wstat" style="font-size:12px;margin-top:8px;color:#22c55e"></div>
 </div>
 
 <script>
-// === DONO ADS + SNAKE 3MIN FIX ===
-let AdsBlock=null; 
-try{ if(window.Adsgram) AdsBlock=window.Adsgram.init({blockId:"int-52779"}); }catch(e){}
-let isSpinning=false, curShop='all', monetagReady=false, isSnakePlaying=false, nextSec=15, isAdRunning=false, autoStarted=false;
-let coins=0, points=0, adsToday=0, autoCount=0;
-try{
-  coins=parseInt(localStorage.getItem('coins')||'0');
-  points=parseFloat(localStorage.getItem('points')||'0');
-  adsToday=parseInt(localStorage.getItem('ads_today')||'0');
-  autoCount=parseInt(localStorage.getItem('auto_count')||'0');
-}catch(e){}
+let AdsBlock=null; try{ if(window.Adsgram) AdsBlock=window.Adsgram.init({blockId:"int-52779"}); }catch(e){}
+let isSpinning=false, curShop='all', isSnakePlaying=false, nextSec=15, isAdRunning=false, autoStarted=false;
+let coins=0, points=0, autoCount=0;
+try{coins=parseInt(localStorage.getItem('coins')||'0');points=parseFloat(localStorage.getItem('points')||'0');autoCount=parseInt(localStorage.getItem('auto_count')||'0');}catch(e){}
 function saveCoins(){
   if(coins>=100){points+=Math.floor(coins/100);coins=coins%100;}
-  try{localStorage.setItem('coins',coins);localStorage.setItem('points',points);localStorage.setItem('ads_today',adsToday);localStorage.setItem('auto_count',autoCount);}catch(e){}
+  try{localStorage.setItem('coins',coins);localStorage.setItem('points',points);localStorage.setItem('auto_count',autoCount);}catch(e){}
   document.getElementById('coins').innerText=coins;
   document.getElementById('points').innerText=points.toFixed(2);
   document.getElementById('tonVal').innerText=(points*0.001).toFixed(4);
   document.getElementById('autoCount').innerText=autoCount;
+  calcTON();
 }
 saveCoins();
 
-function initMonetag(){ 
-  return new Promise((r)=>{ 
-    if(typeof show_11968926==='function'){monetagReady=true;r(true);return;} 
-    let s=document.createElement('script'); 
-    s.src="https://libtl.com/sdk.js"; 
-    s.dataset.zone="11968926"; 
-    s.dataset.sdk="show_11968926"; 
-    s.onload=()=>{setTimeout(()=>{monetagReady=typeof show_11968926==='function';r(monetagReady);},1000);}; 
-    s.onerror=()=>r(false); 
-    document.head.appendChild(s); 
-  }); 
-}
-async function showMonetag(){ 
-  try{ 
-    if(!monetagReady) await initMonetag(); 
-    if(typeof show_11968926==='function'){ 
-      await show_11968926(); 
-      return true; 
-    } 
-  }catch(e){} 
-  return false; 
-}
-async function showAdsgram(){ 
-  try{ 
-    if(!AdsBlock){ try{AdsBlock=window.Adsgram.init({blockId:"int-52779"});}catch(e){} } 
-    if(AdsBlock){ await AdsBlock.show(); return true; } 
-  }catch(e){} 
-  return false; 
-}
+async function showMonetag(){ try{ if(typeof show_11968926==='function'){ await show_11968926(); return true; } }catch(e){} return false; }
+async function showAdsgram(){ try{ if(!AdsBlock){ try{AdsBlock=window.Adsgram.init({blockId:"int-52779"});}catch(e){} } if(AdsBlock){ await AdsBlock.show(); return true; } }catch(e){} return false; }
 
 async function runAutoAds(){
   if(isAdRunning) return;
-  if(adsToday>=15){ document.getElementById('nextAd').innerText="15/day limit"; return; }
   isAdRunning=true;
   document.getElementById('nextAd').innerText="Loading Ads...";
-  let m=await showMonetag(); 
-  if(m){coins+=1;adsToday++;autoCount++;saveCoins();}
+  let m=await showMonetag(); if(m){coins+=1;autoCount++;saveCoins();}
   await new Promise(r=>setTimeout(r,800));
-  let a=await showAdsgram();
-  if(a){coins+=1;adsToday++;autoCount++;saveCoins();}
+  let a=await showAdsgram(); if(a){coins+=1;autoCount++;saveCoins();}
   isAdRunning=false;
   nextSec=isSnakePlaying?180:15;
 }
-
 function startAutoAdsSystem(){ 
-  if(autoStarted) return; 
-  autoStarted=true; 
-  setTimeout(runAutoAds, 1500);
-  setInterval(()=>{ 
-    nextSec--; 
-    if(nextSec<=0){ nextSec=isSnakePlaying?180:15; runAutoAds(); } 
-    let el=document.getElementById('nextAd');
-    let sEl=document.getElementById('snakeAdInfo');
-    if(el && !isAdRunning){
-      el.innerText=isSnakePlaying?Math.floor(nextSec/60)+'m '+nextSec%60+'s SNAKE (3min)':'Next: '+nextSec+'s ALL (15s)';
-    }
-    if(sEl){
-      sEl.innerText=isSnakePlaying?'Snake Playing - Auto Ad in: '+Math.floor(nextSec/60)+'m '+nextSec%60+'s':'Snake me har 3 min me auto ad ayega';
-    }
+  if(autoStarted) return; autoStarted=true; 
+  setInterval(()=>{ nextSec--; if(nextSec<=0){ nextSec=isSnakePlaying?180:15; runAutoAds(); } 
+    let el=document.getElementById('nextAd'); if(el && !isAdRunning){ el.innerText=isSnakePlaying?Math.floor(nextSec/60)+'m '+nextSec%60+'s SNAKE':'Next: '+nextSec+'s'; }
   },1000); 
 }
 
-function getSpinDiscount(){ let r=Math.random()*100; if(r<70) return {label:"Try Again", value:0, coins:1}; return {label:"5% Extra", value:1, coins:5}; }
+// SPIN = 2 COIN FIX + UNLIMITED ADS
 async function startSpin(){ 
-  startAutoAdsSystem(); 
-  if(isSpinning||isAdRunning) return; 
-  isSpinning=true; 
+  if(isSpinning) return; isSpinning=true; startAutoAdsSystem();
   let status=document.getElementById("result"); 
-  status.innerText="🎬 Monetag Before Spin..."; 
-  await showMonetag(); 
+  status.innerText="🎬 Monetag Ad...";
+  await showMonetag();
+  coins+=1; autoCount++; saveCoins();
   document.getElementById("wheel").style.transform=`rotate(${360*5+Math.random()*360}deg)`; 
   status.innerText="🎡 Spinning..."; 
   setTimeout(async()=>{ 
-    let res=getSpinDiscount(); 
-    coins+=res.coins; saveCoins(); 
-    status.innerHTML=`🎉 ${res.label} +${res.coins} Coins!`; 
-    isSpinning=false; 
-    status.innerText="🎬 Adsgram After..."; 
-    await showAdsgram(); 
-    status.innerText=`✅ +${res.coins} Coins Added!`; 
+    // HAR SPIN PE 2 COIN FIX
+    coins+=2; saveCoins(); 
+    status.innerHTML=`🎉 +2 Coins! Spin Done`;
+    status.innerText="🎬 Adsgram Ad...";
+    await showAdsgram();
+    coins+=1; autoCount++; saveCoins();
+    status.innerText=`✅ +4 Coins Total (2 Spin + 2 Ads)`;
+    isSpinning=false;
   },3000); 
 }
 
 const SHOP_PRODUCTS=[
-{n:"Scott International T-Shirt 3 Pack",p:399,old:1049,cat:"amazon",img:"https://m.media-amazon.com/images/I/41aQCWMtgdL._AC_.jpg",l:"https://www.amazon.in/s?k=Scott+International+Tshirt&tag=earningtadka8-21"},
-{n:"Symbol Men Polo T-Shirt",p:399,old:999,cat:"amazon",img:"https://m.media-amazon.com/images/I/31I80jMir0L._AC_.jpg",l:"https://www.amazon.in/s?k=Symbol+Men+Polo&tag=earningtadka8-21"},
+{n:"Scott T-Shirt 3 Pack",p:399,old:1049,cat:"amazon",img:"https://m.media-amazon.com/images/I/41aQCWMtgdL._AC_.jpg",l:"https://www.amazon.in/s?k=Scott+Tshirt&tag=earningtadka8-21"},
+{n:"Symbol Polo T-Shirt",p:399,old:999,cat:"amazon",img:"https://m.media-amazon.com/images/I/31I80jMir0L._AC_.jpg",l:"https://www.amazon.in/s?k=Symbol+Polo&tag=earningtadka8-21"},
 {n:"Boat Airdopes 141",p:999,old:2990,cat:"amazon",img:"https://m.media-amazon.com/images/I/51cRE26f2-L._AC_.jpg",l:"https://www.amazon.in/s?k=boat+airdopes&tag=earningtadka8-21"},
-{n:"Leriya Fashion Kurti Set",p:499,old:1999,cat:"amazon",img:"https://m.media-amazon.com/images/I/61xA2xLxZzL._AC_.jpg",l:"https://www.amazon.in/s?k=kurti+set&tag=earningtadka8-21"},
 {n:"Realme Narzo 70 Pro",p:19999,old:25999,cat:"flipkart",img:"https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/l/x/3/-original-imagyt8a8gxm5bmc.jpeg",l:"https://www.flipkart.com/search?q=realme+narzo+70+pro"},
-{n:"Nike Mens Sneaker",p:1999,old:4999,cat:"flipkart",img:"https://rukminim2.flixcart.com/image/832/832/xif0q/shoe/7/z/r/-original-imagh3tc5mxc3n5b.jpeg",l:"https://www.flipkart.com/search?q=nike+sneaker"},
-{n:"Saree Cotton Printed",p:699,old:1999,cat:"flipkart",img:"https://rukminim2.flixcart.com/image/832/832/xif0q/sari/3/r/a/free-1351-nis-hansh-unstitched-original-imagw6z7qj6p5hzk.jpeg",l:"https://www.flipkart.com/search?q=saree"},
+{n:"Nike Sneaker",p:1999,old:4999,cat:"flipkart",img:"https://rukminim2.flixcart.com/image/832/832/xif0q/shoe/7/z/r/-original-imagh3tc5mxc3n5b.jpeg",l:"https://www.flipkart.com/search?q=nike+sneaker"},
 {n:"Meesho Kurti Plazo",p:349,old:999,cat:"meesho",img:"https://images.meesho.com/images/products/1.jpg",l:"https://www.meesho.com/search?q=kurti+plazo"},
-{n:"Meesho Jewellery Set",p:299,old:999,cat:"meesho",img:"https://images.meesho.com/images/products/2.jpg",l:"https://www.meesho.com/search?q=jewellery+set"},
-{n:"Meesho Smart Watch",p:599,old:2999,cat:"meesho",img:"https://images.meesho.com/images/products/3.jpg",l:"https://www.meesho.com/search?q=smart+watch"},
 ];
 function filterShop(c){curShop=c;document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));let fb=document.getElementById('f-'+c);if(fb)fb.classList.add('active');renderShop();}
 function renderShop(){let list=curShop=='all'?SHOP_PRODUCTS:SHOP_PRODUCTS.filter(p=>p.cat==curShop);let cont=document.getElementById('shoppingContainer');let html='';for(let p of list){let badge=p.cat=='amazon'?'#ff9900':p.cat=='flipkart'?'#2874f0':'#f43397';html+=`<div class="prod"><span class="badge" style="background:${badge}">${p.cat}</span><img src="${p.img}" onerror="this.src='https://via.placeholder.com/140?text=${p.cat}'"><h4>${p.n}</h4><div><span class="price">₹${p.p}</span><span class="old">₹${p.old}</span></div><button onclick="buyShop('${p.l}')" style="width:100%;background:${badge};color:#fff;border:0;padding:8px;border-radius:8px;margin-top:6px;font-weight:700">Buy +1 Coin</button></div>`;}cont.innerHTML=html;}
 async function buyShop(l){coins+=1;saveCoins();startAutoAdsSystem();if(window.Telegram&&Telegram.WebApp)Telegram.WebApp.openLink(l);else window.open(l,'_blank'); await showMonetag(); }
 renderShop();
-function calcTON(){let pts=parseFloat(document.getElementById('tpts').value||0);document.getElementById('tprev').innerText='You will get: '+(pts*0.001).toFixed(4)+' TON';}
-function withdrawTON(){try{let addr=document.getElementById('taddr').value.trim();let pts=parseFloat(document.getElementById('tpts').value||0);if(!addr||addr.length<10){alert('TON Address daalo UQ...');return;}if(pts<10){alert('Min 10 Points');return;}if(pts>points){alert('Points kam hai');return;}document.getElementById('wstat').innerText='✅ Request Sent! '+pts+' Points → '+(pts*0.001)+' TON';points-=pts;localStorage.setItem('points',points);saveCoins();}catch(e){alert('Error');}}
+
+// TON CALC - 100 Coin = 0.001 TON, $10 Min
+const TON_PRICE = 3.2; // 1 TON = $3.2
+function calcTON(){
+  let pts=parseFloat(document.getElementById('tpts').value||0);
+  let ton = pts*0.001;
+  let usd = ton*TON_PRICE;
+  document.getElementById('tprev').innerText='You will get: '+ton.toFixed(4)+' TON = $'+usd.toFixed(2);
+  return {ton, usd};
+}
+function withdrawTON(){
+  try{
+    let addr=document.getElementById('taddr').value.trim();
+    let pts=parseFloat(document.getElementById('tpts').value||0);
+    let {ton, usd} = calcTON();
+    if(!addr||addr.length<10){alert('TON Address daalo UQ...');return;}
+    if(pts<=0){alert('Points daalo');return;}
+    if(pts>points){alert('Points kam hai - Wheel ghumao');return;}
+    if(usd < 10){ alert('Min $10 chahiye! Abhi $'+usd.toFixed(2)+' hai = '+ton.toFixed(4)+' TON. Aur coins kamao!\n100 Coin = 0.001 TON\n$10 ≈ 3.12 TON ≈ 3120 Points ≈ 312000 Coins'); return; }
+    document.getElementById('wstat').innerText='✅ Request Sent! '+pts+' Points → '+ton.toFixed(4)+' TON ($'+usd.toFixed(2)+') to '+addr.substring(0,12)+'...';
+    points-=pts; localStorage.setItem('points',points); saveCoins();
+  }catch(e){alert('Error: '+e.message);}
+}
 
 let snake=[],food={},dir={x:0,y:0},nextDir={x:0,y:0},score=0,high=0,gInt=null;
 try{high=parseInt(localStorage.getItem('snake_high')||'0');}catch(e){}
 function initSnake(){document.getElementById('snakeHigh').innerText=high;resetSnake();drawSnake();}
 function resetSnake(){snake=[{x:10,y:10}];food={x:15,y:10};dir={x:0,y:0};nextDir={x:0,y:0};score=0;document.getElementById('snakeScore').innerText=score;if(gInt){clearInterval(gInt);gInt=null;}}
-function startSnake(){
-  startAutoAdsSystem();
-  if(gInt) return;
-  dir={x:1,y:0};nextDir={x:1,y:0};
-  gInt=setInterval(loop,120);
-  isSnakePlaying=true;
-  nextSec=180;
-  document.getElementById('snakeAdInfo').innerText='🐍 Snake Started - 3min me auto ad ayega...';
-}
+function startSnake(){ startAutoAdsSystem(); if(gInt) return; dir={x:1,y:0};nextDir={x:1,y:0}; gInt=setInterval(loop,120); isSnakePlaying=true; nextSec=180; }
 function setDir(x,y){if(dir.x===-x&&dir.y===-y)return;nextDir={x:x,y:y};if(!gInt)startSnake();}
-function loop(){
-  dir=nextDir;
-  let h={x:snake[0].x+dir.x,y:snake[0].y+dir.y};
-  if(h.x<0)h.x=19;if(h.x>=20)h.x=0;if(h.y<0)h.y=19;if(h.y>=20)h.y=0;
-  if(snake.some(s=>s.x==h.x&&s.y==h.y)){gameOver();return;}
-  snake.unshift(h);
-  if(h.x==food.x&&h.y==food.y){
-    score+=10;document.getElementById('snakeScore').innerText=score;
-    food={x:Math.floor(Math.random()*20),y:Math.floor(Math.random()*20)};
-    if(score>high){high=score;localStorage.setItem('snake_high',high);document.getElementById('snakeHigh').innerText=high;}
-  }else snake.pop();
-  drawSnake();
-}
+function loop(){ dir=nextDir; let h={x:snake[0].x+dir.x,y:snake[0].y+dir.y}; if(h.x<0)h.x=19;if(h.x>=20)h.x=0;if(h.y<0)h.y=19;if(h.y>=20)h.y=0; if(snake.some(s=>s.x==h.x&&s.y==h.y)){gameOver();return;} snake.unshift(h); if(h.x==food.x&&h.y==food.y){ score+=10;document.getElementById('snakeScore').innerText=score; food={x:Math.floor(Math.random()*20),y:Math.floor(Math.random()*20)}; if(score>high){high=score;localStorage.setItem('snake_high',high);document.getElementById('snakeHigh').innerText=high;} }else snake.pop(); drawSnake(); }
 function drawSnake(){let c=document.getElementById('snakeCanvas');let ctx=c.getContext('2d');ctx.fillStyle='#0f172a';ctx.fillRect(0,0,300,300);ctx.fillStyle='#22c55e';snake.forEach(s=>ctx.fillRect(s.x*15,s.y*15,14,14));ctx.fillStyle='#ef4444';ctx.fillRect(food.x*15,food.y*15,14,14);}
-async function gameOver(){
-  clearInterval(gInt);gInt=null;isSnakePlaying=false;nextSec=15;
-  if(score>=20){let r=score>=50?10:5;coins+=r;saveCoins();alert('Score '+score+' +'+r+' Coins! Game Over Ads...'); await runAutoAds(); }
-  else { alert('Score '+score+' - 20+ pe Coins milega'); }
-  resetSnake();drawSnake();
-}
+async function gameOver(){ clearInterval(gInt);gInt=null;isSnakePlaying=false;nextSec=15; if(score>=20){let r=score>=50?10:5;coins+=r;saveCoins();alert('Score '+score+' +'+r+' Coins!'); await runAutoAds(); }else alert('Score '+score+' - 20+ pe Coins'); resetSnake();drawSnake(); }
 window.onload=()=>{initSnake(); if(window.Telegram&&Telegram.WebApp){try{Telegram.WebApp.ready();Telegram.WebApp.expand();}catch(e){}} };
 </script>
 </body>
-  </html> 
+    </html> 
