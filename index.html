@@ -1,187 +1,221 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>BestDeals - Fashion & Beauty</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>BestDeals Fixed</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
-<script src="https://libtl.com/sdk.js" data-zone="11968926" data-sdk="show_11968926"></script>
 <style>
-body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-width:480px;margin:0 auto;padding-bottom:90px}
-.app-bar{background:linear-gradient(90deg,#ffcc00,#f59e0b);border-radius:12px;padding:14px;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;position:sticky;top:0;z-index:99;border:1px solid #ffcc00}
-.tabs{display:flex;gap:8px;overflow-x:auto;padding:8px 0;position:sticky;top:70px;background:#0f0f12;z-index:10}
-.tab{background:#1e1e1e;border:1px solid #333;padding:8px 14px;border-radius:20px;font-size:12px;white-space:nowrap;cursor:pointer}
-.tab.active{background:#ffcc00;color:#000;font-weight:bold}
-.info{background:#1f1f3a;border:1px solid #6c5cff;border-radius:10px;padding:10px;font-size:12px;text-align:center;margin-bottom:10px}
-.wallet-card{background:linear-gradient(135deg,#1e293b,#0f172a);border:1px solid #ffcc00;border-radius:16px;padding:14px;margin-bottom:12px}
-.balance{font-size:28px;font-weight:bold;color:#00ff88}
-.wheel{width:220px;height:220px;border-radius:50%;margin:15px auto;position:relative;border:4px solid #6c5cff;background:conic-gradient(#6a4cff 0 70%, #333 70% 98%, #3b82f6 98% 99%, #22c55e 99% 99.5%, #06b6d4 99.5% 100%);transition:transform 4s cubic-bezier(.17,.67,.12,.99)}
-.center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;background:#000;border-radius:50%;border:3px solid #fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:bold}
-.pin{width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:24px solid #ffcc00;margin:0 auto}
-.btn{width:100%;background:linear-gradient(90deg,#8b5cf6,#3b82f6);color:#fff;border:0;padding:14px;border-radius:12px;font-size:16px;font-weight:bold;margin:10px 0}
-.btn-wallet{background:linear-gradient(90deg,#f59e0b,#ffcc00);color:#000}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
-.prod{background:#1e1e1e;border-radius:12px;padding:8px;border:1px solid #333;position:relative}
-.prod img{width:100%;height:140px;object-fit:cover;border-radius:8px;background:#222}
-.prod h4{font-size:11px;margin:6px 0;height:32px;overflow:hidden;line-height:1.3}
-.price{color:#00ff88;font-weight:bold;font-size:13px}
-.old{color:#777;font-size:10px;text-decoration:line-through;margin-left:4px}
-.discTag{font-size:8px;background:#003d1f;padding:4px;border-radius:4px;display:block;margin-top:4px;color:#00ff88;text-align:center;border:1px dashed #00ff88}
-.buy{background:#ffcc00;color:#000;border:0;width:100%;padding:7px;border-radius:6px;font-size:11px;font-weight:bold;margin-top:6px;cursor:pointer}
-.loader{text-align:center;padding:20px;color:#666;font-size:12px}
-.badge{position:absolute;top:6px;left:6px;font-size:8px;padding:3px 6px;border-radius:10px;font-weight:bold}
-.badge.amazon{background:#ff9900;color:#000}.badge.flipkart{background:#2874f0;color:#fff}.badge.meesho{background:#f43397;color:#fff}
-.input-dark{width:100%;padding:12px;margin:6px 0;background:#0f172a;border:1px solid #334155;border-radius:10px;color:#fff;box-sizing:border-box}
-.ton-card{background:linear-gradient(135deg,#0098ea,#00d4ff);border-radius:16px;padding:16px;margin:16px 0;color:#000}
+*{box-sizing:border-box}body{margin:0;background:#eef3ff;font-family:Arial;padding:12px;padding-bottom:95px;max-width:480px;margin:0 auto}
+.top{background:#fff;border-radius:18px;padding:12px;display:flex;align-items:center;gap:10px}
+.bal{background:#fff;border-radius:18px;padding:14px;display:flex;margin:12px 0}
+.bal div{flex:1;text-align:center}.bal div:first-child{border-right:1px solid #e2e8f0}
+.big{font-size:28px;font-weight:900;color:#0f172a}
+.tasks{background:#fff;border-radius:18px;padding:14px;margin:12px 0}
+.task{display:flex;justify-content:space-between;align-items:center;padding:12px;border:1px solid #e2e8f0;border-radius:14px;margin:8px 0;background:#fafbff}
+.icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:12px}
+.open{background:#2563eb;color:#fff;border:0;padding:10px 18px;border-radius:20px;font-weight:800}
+.nav{position:fixed;bottom:8px;left:12px;right:12px;max-width:456px;margin:0 auto;background:#fff;display:flex;justify-content:space-around;padding:8px 0;border-radius:24px;box-shadow:0 4px 20px rgba(0,0,0,0.15);z-index:99}
+.nav div{padding:6px 14px;border-radius:16px;text-align:center;font-size:10px;color:#64748b}
+.nav div.active{background:#2563eb;color:#fff}
+#snakeCanvas{background:#0f172a;border-radius:12px;display:block;margin:10px auto;border:2px solid #2563eb}
+.ctrl{display:flex;justify-content:center;gap:8px;margin-top:8px}
+.ctrl button{padding:10px 18px;border-radius:10px;border:0;background:#2563eb;color:#fff;font-weight:800}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.prod{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:8px;text-align:center}
+.badge{font-size:8px;padding:2px 6px;border-radius:10px;color:#fff;position:absolute;top:6px;left:6px}
+.input{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:10px;margin-top:8px}
 </style>
 </head>
 <body>
 
-<div class="app-bar">
-  <div style="color:#000;font-weight:bold;font-size:14px">📱 BestDeals App<br><span style="font-size:11px;font-weight:normal">33MB - Fast Download</span></div>
-  <a href="https://drive.usercontent.google.com/download?id=136JySWmaDJx17ylwS0RBMTxomRSFGmwc&export=download&confirm=t" style="background:#000;color:#ffcc00;padding:10px 18px;border-radius:20px;font-weight:bold;text-decoration:none;font-size:13px">📥 DOWNLOAD</a>
+<div class="top"><div style="width:38px;height:38px;border-radius:50%;background:#2563eb;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900">R</div><b>RAHUL</b></div>
+
+<div class="bal"><div><div style="font-size:11px;color:gray">🟡 COINS</div><div class="big" id="coins">20</div></div><div><div style="font-size:11px;color:gray">💎 POINTS</div><div class="big" id="points">0.00</div><div style="font-size:10px">≈ <span id="tonVal">0</span> TON</div></div></div>
+
+<!-- HOME -->
+<div id="sec-home">
+<div class="tasks">
+  <div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">Watch Ads (20)</h3><span style="background:#dcfce7;color:#15803d;padding:4px 8px;border-radius:10px;font-size:10px;font-weight:800">MANUAL ONLY</span></div>
+  <div style="font-size:11px;color:gray;margin:6px 0">Monetag → Adsgram | <span id="timer">2:00:00</span> | <span id="adsInfo">0/15</span></div>
+  <div id="taskList">Loading ads...</div>
+</div>
 </div>
 
-<h2 style="text-align:center">BestDeals Store</h2>
-<div class="wallet-card">
+<!-- GAMES -->
+<div id="sec-games" style="display:none">
+<div class="tasks">
   <div style="display:flex;justify-content:space-between;align-items:center">
-    <div><div style="font-size:11px;color:#94a3b8">RECHARGE WALLET</div><div class="balance" id="walletBal">₹0</div><div style="font-size:10px;color:#aaa" id="profitText">Total Profit: ₹0.00</div></div>
-    <button onclick="addMoney()" style="background:#00ff88;color:#000;border:0;padding:10px 16px;border-radius:20px;font-weight:bold;font-size:12px">+ Add Money</button>
+    <h3 style="margin:0">🎮 Games</h3>
+    <div style="display:flex;gap:6px">
+      <button onclick="showGame('snake')" id="g-snake" style="padding:6px 12px;border-radius:20px;border:0;background:#2563eb;color:#fff;font-weight:700">Snake</button>
+      <button onclick="showGame('wheel')" id="g-wheel" style="padding:6px 12px;border-radius:20px;border:1px solid #f59e0b;background:#fff;font-weight:700">Wheel</button>
+    </div>
   </div>
-  <div style="margin-top:12px;border-top:1px dashed #334155;padding-top:10px">
-    <div style="font-size:12px;margin-bottom:6px;font-weight:bold">📱 Auto Recharge</div>
-    <input id="rcNum" class="input-dark" placeholder="Mobile Number" type="number">
-    <div style="display:flex;gap:6px"><select id="rcOp" class="input-dark" style="flex:1"><option>Jio</option><option>Airtel</option><option>Vi</option><option>BSNL</option></select><input id="rcAmt" class="input-dark" placeholder="Amount" type="number" style="flex:1"></div>
-    <button class="btn btn-wallet" onclick="doWalletRecharge()">⚡ Recharge Now - Auto</button>
-    <div id="rcStatus" style="font-size:11px;color:#38bdf8;text-align:center;margin-top:6px"></div>
+  <div id="game-snake">
+    <div style="text-align:center;margin:8px 0">Score: <b id="snakeScore">0</b> | High: <b id="snakeHigh">0</b></div>
+    <canvas id="snakeCanvas" width="300" height="300"></canvas>
+    <div class="ctrl"><button onclick="setDir(0,-1)">↑</button></div>
+    <div class="ctrl"><button onclick="setDir(-1,0)">←</button><button onclick="startSnake()" style="background:#22c55e">▶ Start</button><button onclick="setDir(1,0)">→</button></div>
+    <div class="ctrl"><button onclick="setDir(0,1)">↓</button></div>
+  </div>
+  <div id="game-wheel" style="display:none;text-align:center">
+    <div style="margin:10px 0"><b>Coins: <span id="wheelCoins">20</span> | Spins: <span id="wheelSpins">3</span></b></div>
+    <canvas id="wheelCanvas" width="260" height="260" style="border-radius:50%;border:4px solid #f59e0b"></canvas>
+    <div><button onclick="spinWheel()" id="spinBtn" style="margin-top:12px;background:#f59e0b;color:#fff;border:0;padding:12px 30px;border-radius:30px;font-weight:900">🎡 SPIN</button></div>
+    <div id="wheelResult" style="margin-top:10px;font-weight:700;color:#0f172a"></div>
   </div>
 </div>
-
-<div class="info">Products ≤ ₹1000 • Max ₹5 Discount<br>Auto Ads: Monetag + Adsgram (Monetag First)</div>
-<div class="pin"></div>
-<div style="position:relative"><div class="wheel" id="wheel"><div class="center">SPIN</div></div></div>
-<button class="btn" id="spinBtn" onclick="startSpin()">✨ Spin and Get More Discount</button>
-<div id="result" style="text-align:center;font-size:13px;margin:8px 0;min-height:18px"></div>
-
-<!-- AMAZON / FLIPKART / MEESHO FILTER -->
-<div class="tabs">
-  <div class="tab active" onclick="filterCat('all', this)">All Store</div>
-  <div class="tab" onclick="filterCat('amazon', this)">Amazon</div>
-  <div class="tab" onclick="filterCat('flipkart', this)">Flipkart</div>
-  <div class="tab" onclick="filterCat('meesho', this)">Meesho</div>
-  <div class="tab" onclick="filterCat('mens', this)">Mens</div>
-  <div class="tab" onclick="filterCat('womens', this)">Womens</div>
 </div>
 
-<div id="productContainer"></div>
-<div class="loader" id="loader">↓ Niche scroll karo aur products load honge...</div>
-
-<!-- TON WALLET - NEW ADDITION -->
-<div class="ton-card">
-  <h3 style="margin:0 0 8px 0">💎 TON Wallet</h3>
-  <div style="font-size:11px;margin-bottom:8px">100 Coins = 1 Point = 0.001 TON | Min 10 TON Withdraw</div>
-  <div style="display:flex;gap:8px">
-    <div style="flex:1;background:rgba(255,255,255,0.2);padding:8px;border-radius:8px;text-align:center"><div style="font-size:10px">COINS</div><div style="font-weight:bold" id="tonCoins">20</div></div>
-    <div style="flex:1;background:rgba(255,255,255,0.2);padding:8px;border-radius:8px;text-align:center"><div style="font-size:10px">POINTS</div><div style="font-weight:bold" id="tonPoints">0</div></div>
-    <div style="flex:1;background:rgba(255,255,255,0.2);padding:8px;border-radius:8px;text-align:center"><div style="font-size:10px">TON</div><div style="font-weight:bold" id="tonBal">0</div></div>
+<!-- SHOP -->
+<div id="sec-shop" style="display:none">
+<div class="tasks">
+  <b>🛍️ Shopping</b> <span style="background:#ff9900;color:#fff;font-size:9px;padding:3px 6px;border-radius:8px">TAG: earningtadka8-21</span>
+  <div style="display:flex;gap:6px;margin:10px 0">
+    <button onclick="filterShop('all')" id="f-all" style="padding:6px 12px;border-radius:20px;background:#2563eb;color:#fff;border:0">All</button>
+    <button onclick="filterShop('amazon')" id="f-amazon" style="padding:6px 12px;border-radius:20px;background:#fff;border:1px solid #ff9900">Amazon</button>
+    <button onclick="filterShop('flipkart')" id="f-flipkart" style="padding:6px 12px;border-radius:20px;background:#fff;border:1px solid #2874f0">Flipkart</button>
+    <button onclick="filterShop('meesho')" id="f-meesho" style="padding:6px 12px;border-radius:20px;background:#fff;border:1px solid #f43397">Meesho</button>
   </div>
-  <input id="taddr" placeholder="TON Address (UQ... / EQ...)" class="input-dark" style="background:#fff;color:#000;margin-top:10px">
-  <input id="tpts" type="number" placeholder="Points (10000 = 10 TON)" class="input-dark" style="background:#fff;color:#000" oninput="calcTON()">
-  <div id="tprev" style="font-weight:bold;margin:8px 0;text-align:center">You will get: 0 TON</div>
-  <button onclick="withdrawTON()" style="width:100%;background:#000;color:#00d4ff;border:0;padding:14px;border-radius:12px;font-weight:bold">Withdraw TON</button>
-  <div id="wstat" style="font-size:11px;margin-top:6px;text-align:center"></div>
+  <div id="shoppingContainer" class="grid"></div>
+</div>
+</div>
+
+<!-- WALLET -->
+<div id="sec-wallet" style="display:none">
+<div class="tasks">
+  <h3>💎 TON Wallet</h3>
+  <div style="font-size:11px;color:gray">100 Coins = 1 Point = 0.001 TON</div>
+  <input id="taddr" class="input" placeholder="TON Address UQ...">
+  <input id="tpts" type="number" class="input" placeholder="Points" oninput="calcTON()">
+  <div id="tprev" style="font-weight:900;margin:10px 0">You will get: 0 TON</div>
+  <button onclick="withdrawTON()" style="width:100%;background:#0098ea;color:#fff;border:0;padding:14px;border-radius:12px;font-weight:800">Withdraw</button>
+  <div id="wstat" style="font-size:12px;margin-top:8px"></div>
+</div>
+</div>
+
+<div class="nav">
+  <div id="n-home" class="active" onclick="showSec('home')">🏠<br>Home</div>
+  <div id="n-games" onclick="showSec('games')">🎮<br>Games</div>
+  <div id="n-shop" onclick="showSec('shop')">🛍️<br>Shop</div>
+  <div id="n-wallet" onclick="showSec('wallet')">👛<br>Wallet</div>
 </div>
 
 <script>
-const CONFIG = { UPI_ID: "yashpalsingh9520@okhdfcbank", OWNER_NAME: "BestDeals", PROFIT_PERCENT: 3 };
-const AMAZON_TAG="earningtadka8-21";
-function withAmazonTag(url){ return url.includes("amazon")?(url.includes("?")?url+"&tag="+AMAZON_TAG:url+"?tag="+AMAZON_TAG):url; }
-
-let AdsBlock=null; try{ AdsBlock=window.Adsgram?window.Adsgram.init({blockId:"int-52779"}):null; }catch(e){}
-let isSpinning=false, lastAd="adsgram", spinExtra=0, visibleCount=8, currentFilter='all'; let monetagReady=false;
-function initMonetag(){ return new Promise((r)=>{ if(typeof show_11968926==='function'){monetagReady=true;r(true);return;} let s=document.createElement('script'); s.src="https://libtl.com/sdk.js"; s.dataset.zone="11968926"; s.dataset.sdk="show_11968926"; s.onload=()=>{setTimeout(()=>{monetagReady=typeof show_11968926==='function';r(monetagReady);},1200);}; s.onerror=()=>r(false); document.head.appendChild(s); }); }
-async function showMonetag(){ try{ if(!monetagReady) await initMonetag(); if(typeof show_11968926==='function'){ await show_11968926(); return true; } return false; }catch(e){return false;} }
-async function showAdsgram(){ try{ if(AdsBlock){ await AdsBlock.show(); return true; } }catch(e){} return false; }
-
-// AUTO ADS - MONETAG FIRST THEN ADSGRAM
-setTimeout(async()=>{ await showMonetag(); },3000);
-setInterval(async()=>{ if(isSpinning) return; if(lastAd==="adsgram"){ let ok=await showMonetag(); if(!ok) await showAdsgram(); lastAd="monetag"; } else { await showAdsgram(); lastAd="adsgram"; } },25000);
-
-let walletBal=parseInt(localStorage.getItem('wallet_bal')||'0'); let totalProfit=parseFloat(localStorage.getItem('wallet_profit')||'0');
-let coins=parseInt(localStorage.getItem('coins')||'20'); let points=parseFloat(localStorage.getItem('points')||'0');
-function updateWalletUI(){ 
-  document.getElementById('walletBal').innerText='₹'+walletBal; 
-  document.getElementById('profitText').innerText='Total Profit: ₹'+totalProfit.toFixed(2);
-  if(coins>=100){ points+=Math.floor(coins/100); coins=coins%100; localStorage.setItem('coins',coins); localStorage.setItem('points',points); }
-  document.getElementById('tonCoins').innerText=coins;
-  document.getElementById('tonPoints').innerText=points.toFixed(0);
-  document.getElementById('tonBal').innerText=(points*0.001).toFixed(4);
-}
-updateWalletUI();
-async function addMoney(){ let amt=prompt("Kitna Add karna hai? Ex: 100"); if(!amt) return; await showMonetag(); let upiLink=`upi://pay?pa=${CONFIG.UPI_ID}&pn=${CONFIG.OWNER_NAME}&am=${amt}&cu=INR&tn=Wallet Add`; window.location.href=upiLink; setTimeout(()=>{ if(confirm("Payment ho gaya? OK dabao")){ walletBal+=parseInt(amt); localStorage.setItem('wallet_bal',walletBal); updateWalletUI(); showAdsgram(); } },2500); }
-async function doWalletRecharge(){ let num=document.getElementById('rcNum').value; let amt=parseInt(document.getElementById('rcAmt').value); let status=document.getElementById('rcStatus'); if(num.length!=10||!amt){ alert("Number / Amount sahi dalo"); return; } if(walletBal<amt){ alert("Wallet me balance kam hai"); return; } status.innerText="⏳ Loading Ad..."; await showMonetag(); let profit=(amt*CONFIG.PROFIT_PERCENT/100); status.innerHTML=`✅ Order Sent! ${num} pe ₹${amt} 2 min me hoga. Profit ₹${profit.toFixed(2)}`; walletBal=walletBal-amt+profit; totalProfit+=profit; localStorage.setItem('wallet_bal',walletBal); localStorage.setItem('wallet_profit',totalProfit); updateWalletUI(); await showAdsgram(); }
-
-// PRODUCTS - AMAZON + FLIPKART + MEESHO WITH YOUR TAG
-let allProducts=[
- {name:"Scott International Pack of 3 T-Shirt", price:399, old:1049, myCommission:10, cat:"mens", platform:"amazon", img:"https://m.media-amazon.com/images/I/41aQCWMtgdL._AC_.jpg", link:"https://www.amazon.in/s?k=Scott+International+Men+Tshirt&tag=earningtadka8-21"},
- {name:"Symbol Men Polo Shirt Solid Regular", price:399, old:1049, myCommission:8, cat:"mens", platform:"amazon", img:"https://m.media-amazon.com/images/I/31I80jMir0L._AC_.jpg", link:"https://www.amazon.in/s?k=Symbol+Men+Polo&tag=earningtadka8-21"},
- {name:"Boat Airdopes 141 - Wireless Earbuds", price:999, old:2990, myCommission:15, cat:"mens", platform:"amazon", img:"https://m.media-amazon.com/images/I/51+vZ8E+0gL._AC_.jpg", link:"https://www.amazon.in/s?k=boat+airdopes&tag=earningtadka8-21"},
- {name:"Kurti Set for Women Cotton", price:499, old:1299, myCommission:10, cat:"womens", platform:"amazon", img:"https://m.media-amazon.com/images/I/61+3yQ-RpsL._AC_.jpg", link:"https://www.amazon.in/s?k=kurti+set+women&tag=earningtadka8-21"},
- {name:"Realme Narzo 70 Pro 5G", price:12999, old:17999, myCommission:20, cat:"mens", platform:"flipkart", img:"https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/k/3/r/-original-imagyngy4uyy4uv6.jpeg", link:"https://www.flipkart.com/search?q=realme+narzo"},
- {name:"Saree Cotton Daily Wear", price:699, old:1999, myCommission:12, cat:"womens", platform:"flipkart", img:"https://rukminim2.flixcart.com/image/612/612/xif0q/sari/s/b/o/free-1-0-2-5-m-saree-bollywood-saree-2023-saree-for-women-gajari-original-imagqf8yqzx8qzhy.jpeg", link:"https://www.flipkart.com/search?q=saree+cotton"},
- {name:"Lakme Eyeconic Kajal + Makeup Kit", price:299, old:599, myCommission:8, cat:"makeup", platform:"amazon", img:"https://m.media-amazon.com/images/I/51Q0rW4b8qL._AC_.jpg", link:"https://www.amazon.in/s?k=lakme+kajal&tag=earningtadka8-21"},
- {name:"Meesho Kurti Palazzo Set", price:299, old:899, myCommission:7, cat:"womens", platform:"meesho", img:"https://images.meesho.com/images/products/123456/1_512.jpg", link:"https://www.meesho.com/search?q=kurti+palazzo"},
- {name:"Meesho Jewellery Set Oxidised", price:199, old:499, myCommission:5, cat:"womens", platform:"meesho", img:"https://images.meesho.com/images/products/789/1_512.jpg", link:"https://www.meesho.com/search?q=jewellery+set"},
- {name:"Flipkart Smart Watch Noise", price:1499, old:3999, myCommission:15, cat:"mens", platform:"flipkart", img:"https://rukminim2.flixcart.com/image/612/612/xif0q/smartwatch/e/8/n/-original-imagupv4y3ghqvxz.jpeg", link:"https://www.flipkart.com/search?q=noise+smartwatch"},
+// DATA
+const ADS=[
+ {id:1,t:"Monetag Ad - 3 Coins",c:3,i:"M1",cl:"#ff9900"},
+ {id:2,t:"Adsgram Ad - 3 Coins",c:3,i:"A1",cl:"#2563eb"},
+ {id:3,t:"Monetag Video",c:3,i:"M2",cl:"#ff9900"},
+ {id:4,t:"Adsgram Video",c:3,i:"A2",cl:"#2563eb"},
+ {id:5,t:"Monetag Pop",c:3,i:"M3",cl:"#ff9900"},
+ {id:6,t:"Adsgram Inter",c:3,i:"A3",cl:"#2563eb"},
+ {id:7,t:"Monetag Reward",c:3,i:"M4",cl:"#ff9900"},
+ {id:8,t:"Adsgram Reward",c:3,i:"A4",cl:"#2563eb"},
+ {id:9,t:"Combo High Reward",c:10,i:"M+A",cl:"#22c55e"},
+ {id:10,t:"Dual 2x",c:5,i:"2X",cl:"#5b6cff"},
+ {id:11,t:"Monetag Special",c:5,i:"M5",cl:"#ff9900"},
+ {id:12,t:"Adsgram Special",c:3,i:"A5",cl:"#2563eb"},
+ {id:13,t:"Monetag High",c:15,i:"M6",cl:"#ef4444"},
+ {id:14,t:"Adsgram High",c:4,i:"A6",cl:"#2563eb"},
+ {id:15,t:"Monetag Flash",c:3,i:"M7",cl:"#ff9900"},
+ {id:16,t:"Adsgram Flash",c:3,i:"A7",cl:"#2563eb"},
+ {id:17,t:"Monetag Daily",c:2,i:"M8",cl:"#ff9900"},
+ {id:18,t:"Adsgram Daily",c:3,i:"A8",cl:"#2563eb"},
+ {id:19,t:"Monetag Big",c:5,i:"M9",cl:"#ff9900"},
+ {id:20,t:"Adsgram Big",c:4,i:"A9",cl:"#2563eb"}
 ];
+const TAG="earningtadka8-21";
+const PRODUCTS=[
+ {n:"T-Shirt Combo 3",p:399,img:"👕",cat:"amazon",l:"https://www.amazon.in/s?k=tshirt"},
+ {n:"Boat Airdopes",p:999,img:"🎧",cat:"amazon",l:"https://www.amazon.in/s?k=boat+airdopes"},
+ {n:"Kurti Set",p:499,img:"👗",cat:"amazon",l:"https://www.amazon.in/s?k=kurti+set"},
+ {n:"Realme Narzo",p:12999,img:"📱",cat:"flipkart",l:"https://www.flipkart.com/search?q=realme"},
+ {n:"Saree Cotton",p:699,img:"🥻",cat:"flipkart",l:"https://www.flipkart.com/search?q=saree"},
+ {n:"Meesho Kurti",p:299,img:"👚",cat:"meesho",l:"https://www.meesho.com/search?q=kurti"},
+ {n:"Jewellery Set",p:199,img:"💍",cat:"meesho",l:"https://www.meesho.com/search?q=jewellery"},
+];
+let coins=20,points=0,adsToday=0,adsLimit=15,resetTime=Date.now(),isAdRunning=false,curFil='all';
+coins=parseInt(localStorage.getItem('coins')||'20');points=parseFloat(localStorage.getItem('points')||'0');adsToday=parseInt(localStorage.getItem('ads_today')||'0');resetTime=parseInt(localStorage.getItem('ads_reset')||Date.now());
 
-function getFiltered(){ 
-  if(currentFilter==='all') return allProducts;
-  if(['amazon','flipkart','meesho'].includes(currentFilter)) return allProducts.filter(p=>p.platform===currentFilter);
-  return allProducts.filter(p=>p.cat===currentFilter); 
+function save(){
+ if(coins>=100){points+=Math.floor(coins/100);coins=coins%100;}
+ localStorage.setItem('coins',coins);localStorage.setItem('points',points);
+ document.getElementById('coins').innerText=coins;
+ document.getElementById('points').innerText=points.toFixed(2);
+ document.getElementById('tonVal').innerText=(points*0.001).toFixed(4);
+ document.getElementById('adsInfo').innerText=adsToday+'/'+adsLimit;
+ let wc=document.getElementById('wheelCoins'); if(wc) wc.innerText=coins;
 }
-function renderProducts(){ 
-  let filtered=getFiltered(); 
-  let toShow=filtered.slice(0, visibleCount); 
-  document.getElementById("productContainer").innerHTML=`<div class="grid">`+toShow.map(p=>{ 
-    let autoDisc=(p.myCommission*1)/100; 
-    let finalPrice=p.price-autoDisc-spinExtra; 
-    if(finalPrice < p.price-5) finalPrice=p.price-5; 
-    let idx=allProducts.indexOf(p);
-    let finalLink=withAmazonTag(p.link);
-    return `<div class="prod"><span class="badge ${p.platform}">${p.platform.toUpperCase()}</span><img src="${p.img}" onerror="this.src='https://via.placeholder.com/140'"><h4>${p.name}</h4><div><span class="price">₹${finalPrice.toFixed(0)}</span><span class="old">₹${p.old}</span></div><span class="discTag">✓ ₹${autoDisc.toFixed(0)} Off + Extra</span><button class="buy" onclick="buyProduct(${idx})">Get Offer</button></div>`; 
-  }).join('')+`</div>`; 
-  if(filtered.length>visibleCount){ document.getElementById('loader').style.display='block'; } else { document.getElementById('loader').style.display='none'; }
+function getTime(){
+ let diff=(resetTime+7200000)-Date.now();
+ if(diff<=0){adsToday=0;resetTime=Date.now();localStorage.setItem('ads_reset',resetTime);localStorage.setItem('ads_today','0');diff=7200000;renderTasks();}
+ let h=Math.floor(diff/3600000),m=Math.floor((diff%3600000)/60000),s=Math.floor((diff%60000)/1000);
+ return h+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
 }
-function filterCat(cat, el){ currentFilter=cat; visibleCount=8; document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active')); el.classList.add('active'); renderProducts(); }
-function getSpinDiscount(){ let r=Math.random()*100; if(r<70) return {label:"Try Again", value:0}; return {label:"₹5 Extra Off", value:5}; }
-async function startSpin(){ if(isSpinning) return; isSpinning=true; await showMonetag(); document.getElementById("wheel").style.transform=`rotate(${360*5+Math.random()*360}deg)`; setTimeout(async()=>{ let res=getSpinDiscount(); spinExtra=res.value; document.getElementById("result").innerHTML=res.value===0?`🎡 ${res.label}`:`🎉 ${res.label} Unlocked!`; renderProducts(); isSpinning=false; await showAdsgram(); },3000); }
-async function buyProduct(idx){ 
-  let p=allProducts[idx]; 
-  await showMonetag(); 
-  coins+=2; updateWalletUI(); // +2 coins per buy
-  let finalLink=withAmazonTag(p.link);
-  window.open(finalLink,"_blank"); 
-  setTimeout(async()=>{ await showAdsgram(); },1000);
+function renderTasks(){
+ let html='';
+ for(let a of ADS){
+  html+=`<div class="task" id="task-${a.id}"><div style="display:flex;gap:10px;align-items:center"><div class="icon" style="background:${a.cl}">${a.i}</div><div><b style="font-size:13px">${a.t}</b><div style="font-size:11px;color:#b45309">🟡 +${a.c}</div></div></div><button class="open" id="btn-${a.id}" onclick="watchAd(${a.id},${a.c})">Open</button></div>`;
+ }
+ document.getElementById('taskList').innerHTML=html;
+}
+function filterShop(c){curFil=c;document.querySelectorAll('[id^="f-"]').forEach(b=>{b.style.background='#fff';b.style.color='#000'});let fb=document.getElementById('f-'+c);if(fb){fb.style.background=c=='amazon'?'#ff9900':c=='flipkart'?'#2874f0':c=='meesho'?'#f43397':'#2563eb';fb.style.color='#fff'}renderShop();}
+function renderShop(){
+ let list=curFil=='all'?PRODUCTS:PRODUCTS.filter(p=>p.cat==curFil);
+ let html='';
+ for(let p of list){
+  let link=p.l.includes('amazon')?(p.l.includes('?')?p.l+'&tag='+TAG:p.l+'?tag='+TAG):p.l;
+  let badge=p.cat=='amazon'?'#ff9900':p.cat=='flipkart'?'#2874f0':'#f43397';
+  html+=`<div class="prod" style="position:relative"><span class="badge" style="background:${badge}">${p.cat}</span><div style="font-size:36px">${p.img}</div><div style="font-size:11px;font-weight:700">${p.n}</div><div style="font-weight:900">₹${p.p}</div><button onclick="buyProd('${link}')" style="width:100%;background:${badge};color:#fff;border:0;padding:6px;border-radius:8px;margin-top:4px;font-weight:700">Buy +1</button></div>`;
+ }
+ document.getElementById('shoppingContainer').innerHTML=html;
+}
+function buyProd(link){coins++;save();if(window.Telegram&&Telegram.WebApp) Telegram.WebApp.openLink(link); else window.open(link,'_blank');}
+function calcTON(){let pts=parseFloat(document.getElementById('tpts').value||0);document.getElementById('tprev').innerText='You will get: '+(pts*0.001).toFixed(4)+' TON';}
+function withdrawTON(){let addr=document.getElementById('taddr').value;let pts=parseFloat(document.getElementById('tpts').value||0);if(!addr){alert('TON Address daalo');return;}if(pts<10000){alert('Min 10000');return;}if(pts>points){alert('Balance kam');return;}document.getElementById('wstat').innerText='Request sent!';points-=pts;save();}
+function showSec(n){
+ document.getElementById('sec-home').style.display=n=='home'?'block':'none';
+ document.getElementById('sec-games').style.display=n=='games'?'block':'none';
+ document.getElementById('sec-shop').style.display=n=='shop'?'block':'none';
+ document.getElementById('sec-wallet').style.display=n=='wallet'?'block':'none';
+ document.querySelectorAll('.nav div').forEach(d=>d.classList.remove('active'));
+ document.getElementById('n-'+n).classList.add('active');
+ if(n=='shop') renderShop();
+ if(n=='games') showGame('snake');
 }
 
-// TON WALLET FUNCTIONS
-function calcTON(){ let pts=parseFloat(document.getElementById('tpts').value||0); document.getElementById('tprev').innerText='You will get: '+(pts*0.001).toFixed(4)+' TON'; }
-async function withdrawTON(){ 
-  let addr=document.getElementById('taddr').value; 
-  let pts=parseFloat(document.getElementById('tpts').value||0); 
-  if(!addr){ alert('TON Address daalo'); return; } 
-  if(pts<10000){ alert('Min 10000 Points = 10 TON'); return; } 
-  if(pts>points){ alert('Balance kam hai'); return; } 
-  await showMonetag();
-  document.getElementById('wstat').innerText='✅ Request Sent! Tx: '+addr.substring(0,12)+'...'; 
-  points-=pts; localStorage.setItem('points',points); updateWalletUI(); 
-  await showAdsgram();
+// ADS - MONETAG FIRST THEN ADSGRAM - SAFE
+let AdsBlock=null,monetagLoaded=false;
+try{AdsBlock=window.Adsgram?window.Adsgram.init({blockId:"int-52779"}):null;}catch(e){}
+function loadMonetag(){
+ return new Promise((res)=>{
+  if(typeof show_11968926==='function'){monetagLoaded=true;res(true);return;}
+  let s=document.createElement('script');s.src='https://libtl.com/sdk.js';s.dataset.zone='11968926';s.dataset.sdk='show_11968926';
+  s.onload=()=>{let t=0;let iv=setInterval(()=>{t++;if(typeof show_11968926==='function'){monetagLoaded=true;clearInterval(iv);res(true);}if(t>20){clearInterval(iv);res(false);}},300);};
+  s.onerror=()=>res(false);document.head.appendChild(s);
+ });
+}
+async function showMonetag(){try{if(!monetagLoaded) await loadMonetag();if(typeof show_11968926==='function'){await show_11968926();return true;}}catch(e){}return false;}
+async function showAdsgram(){try{if(AdsBlock){await AdsBlock.show();return true;}}catch(e){}return false;}
+
+async function watchAd(id,reward){
+ if(isAdRunning) return;
+ if(adsToday>=adsLimit){alert('15 limit khatam '+getTime());return;}
+ isAdRunning=true;
+ let btn=document.getElementById('btn-'+id);let orig=btn.innerText;btn.innerText='Monetag...';btn.disabled=true;
+ let m=await showMonetag();
+ btn.innerText='Adsgram...';
+ await new Promise(r=>setTimeout(r,600));
+ let a=await showAdsgram();
+ if(m||a){coins+=reward;adsToday++;localStorage.setItem('ads_today',adsToday);save();btn.innerText='Done ✓';btn.style.background='#22c55e';}
+ else{btn.innerText=orig;btn.disabled=false;}
+ isAdRunning=false;save();
 }
 
-// SCROLL LOAD MORE
-window.addEventListener('scroll',()=>{ if(window.innerHeight+window.scrollY>=document.body.offsetHeight-500){ visibleCount+=4; renderProducts(); } });
-renderProducts();
-</script>
-</body>
-</html> 
+// SNAKE
+let snake=[],food={},dir={x:0,y:0},nextDir={x:0,y:0},score=0,high=parseInt(localStorage.getItem('snake_high')||'0'),gInt=null,canvas,ctx;
+function initSnake(){canvas=document.getElementById('snakeCanvas');if(!canvas) return;ctx=canvas.getContext('2d');document.getElementById('snakeHigh').innerText=high;resetSnake();drawSnake();}
+function 
