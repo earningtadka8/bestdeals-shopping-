@@ -2,8 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>BestDeals - Fixed Ads</title>
-<!-- Monetag ek hi baar HEAD me -->
+<title>BestDeals - 15 Sec Ads</title>
 <script src="https://libtl.com/sdk.js" data-zone="11968926" data-sdk="show_11968926"></script>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
@@ -57,11 +56,12 @@ body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-w
     <div id="rcStatus" style="font-size:11px;color:#38bdf8;text-align:center;margin-top:6px"></div>
   </div>
 </div>
-<div class="info">Products ≤ ₹1000 • Max ₹5 Discount<br>Auto Ads: Monetag + Adsgram • Next: <span id="nextAd">Ready - Click Any Button</span></div>
+<div class="info">Monetag 15s + Adsgram 15s + Spin Ads<br>Next: <span id="nextAd" style="color:#ffcc00;font-weight:bold">Click Any Button to Start 15s Timer</span></div>
 <div class="pin"></div>
 <div style="position:relative"><div class="wheel" id="wheel"><div class="center">SPIN</div></div></div>
-<button class="btn" id="spinBtn" onclick="startSpin()">✨ Spin and Get More Discount</button>
+<button class="btn" onclick="startSpin()">✨ Spin - Monetag + Adsgram (15s)</button>
 <div id="result" style="text-align:center;font-size:13px;margin:8px 0;min-height:18px"></div>
+
 <div class="tabs">
   <div class="tab active" onclick="filterCat('all', this)">All</div>
   <div class="tab" onclick="filterCat('mens', this)">Mens Wear</div>
@@ -69,24 +69,15 @@ body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-w
   <div class="tab" onclick="filterCat('makeup', this)">Makeup</div>
 </div>
 <div id="productContainer"></div>
-<div class="loader" id="loader">↓ Niche scroll karo...</div>
+<div class="loader">Products - Tap Image = Monetag Ad</div>
 
 <div id="pdfTool" style="margin:28px 0 16px;background:#1e293b;border:1px solid #ffcc00;border-radius:16px;padding:16px">
   <h3 style="color:#ffcc00;margin:0 0 6px 0">📄 Pixel Document Maker</h3>
-  <p style="color:#94a3b8;font-size:11px;margin:0 0 12px 0">Width / Height in Pixel - Exact Same Size</p>
-  <div style="display:flex;gap:8px">
-    <div style="flex:1"><label style="font-size:11px;color:#94a3b8">Width (px)</label><input type="number" id="docW" class="input-dark" value="800"></div>
-    <div style="flex:1"><label style="font-size:11px;color:#94a3b8">Height (px)</label><input type="number" id="docH" class="input-dark" value="1000"></div>
-  </div>
-  <label style="font-size:11px;color:#94a3b8">BG Color</label>
+  <div style="display:flex;gap:8px"><div style="flex:1"><label style="font-size:11px;color:#94a3b8">Width (px)</label><input type="number" id="docW" class="input-dark" value="800"></div><div style="flex:1"><label style="font-size:11px;color:#94a3b8">Height (px)</label><input type="number" id="docH" class="input-dark" value="1000"></div></div>
   <input type="color" id="docBG" value="#ffffff" style="width:100%;height:44px;border-radius:10px;border:1px solid #334155">
-  <label style="font-size:11px;color:#94a3b8">Upload Image</label>
   <input type="file" id="docImg" accept="image/*" class="input-dark">
-  <div id="docPreview" style="margin:14px auto;border:2px dashed #ffcc00;display:flex;align-items:center;justify-content:center;background:#fff;color:#000;font-weight:bold;text-align:center;overflow:hidden;max-width:100%;border-radius:8px;min-height:120px">Preview</div>
-  <div style="display:flex;gap:8px;margin-top:12px">
-    <button id="btnImg" style="flex:1;background:#22c55e;border:0;color:#000;border-radius:10px;padding:14px;font-weight:800">🖼️ JPG - Gallery Save</button>
-    <button id="btnPdf" style="flex:1;background:#ffcc00;border:0;color:#000;border-radius:10px;padding:14px;font-weight:800">📄 PDF Same Pixel</button>
-  </div>
+  <div id="docPreview" style="margin:14px auto;border:2px dashed #ffcc00;display:flex;align-items:center;justify-content:center;background:#fff;color:#000;font-weight:bold;overflow:hidden;max-width:100%;border-radius:8px;min-height:120px">Preview</div>
+  <div style="display:flex;gap:8px;margin-top:12px"><button id="btnImg" style="flex:1;background:#22c55e;border:0;color:#000;border-radius:10px;padding:14px;font-weight:800">🖼️ JPG</button><button id="btnPdf" style="flex:1;background:#ffcc00;border:0;color:#000;border-radius:10px;padding:14px;font-weight:800">📄 PDF</button></div>
   <div id="docStatus" style="margin-top:10px;color:#38bdf8;font-size:12px;text-align:center"></div>
   <div id="galleryLink" style="display:none;margin-top:10px"></div>
 </div>
@@ -94,92 +85,79 @@ body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-w
 <script>
 const CONFIG = { UPI_ID: "yashpalsingh9520@okhdfcbank", OWNER_NAME: "BestDeals", PROFIT_PERCENT: 3 };
 
-// ===== FIXED ADS SYSTEM =====
+// === 15 SEC ADS SYSTEM ===
 let AdsBlock=null;
-let monetagReady=false;
 let isAdRunning=false;
 let autoStarted=false;
-let nextSec=25;
-let lastAd="adsgram";
+let nextSec=15; // 15 SECOND FIX
+let lastAd="adsgram"; // pehle adsgram, fir monetag
 
 function initAdsgram(){
-  try{
-    if(window.Adsgram){
-      AdsBlock = window.Adsgram.init({blockId:"int-52779"});
-      console.log("Adsgram Ready");
-    }
-  }catch(e){ console.log("Adsgram Error",e); }
+  try{ if(window.Adsgram){ AdsBlock = window.Adsgram.init({blockId:"int-52779"}); } }catch(e){}
 }
-window.addEventListener('load', ()=>{ setTimeout(initAdsgram, 1000); });
+window.addEventListener('load', ()=>{ setTimeout(initAdsgram, 800); });
 
 async function showMonetag(){
   if(isAdRunning) return false;
   isAdRunning=true;
-  document.getElementById('nextAd').innerText="Monetag Loading...";
   try{
-    for(let i=0;i<10;i++){
+    for(let i=0;i<8;i++){
       if(typeof window.show_11968926 === 'function'){
         await window.show_11968926();
-        console.log("Monetag Show OK");
-        isAdRunning=false;
-        nextSec=25;
+        isAdRunning=false; nextSec=15; lastAd="monetag";
+        document.getElementById('nextAd').innerText="✅ Monetag Done - Next Adsgram in 15s";
         return true;
       }
-      await new Promise(r=>setTimeout(r,500));
+      await new Promise(r=>setTimeout(r,400));
     }
-    console.log("Monetag Not Ready");
-  }catch(e){ console.log("Monetag Error",e); }
-  isAdRunning=false;
-  return false;
+  }catch(e){}
+  isAdRunning=false; return false;
 }
 
 async function showAdsgram(){
   if(isAdRunning) return false;
   isAdRunning=true;
-  document.getElementById('nextAd').innerText="Adsgram Loading...";
   try{
     if(!AdsBlock) initAdsgram();
     if(AdsBlock){
       await AdsBlock.show();
-      console.log("Adsgram Show OK");
-      isAdRunning=false;
-      nextSec=25;
+      isAdRunning=false; nextSec=15; lastAd="adsgram";
+      document.getElementById('nextAd').innerText="✅ Adsgram Done - Next Monetag in 15s";
       return true;
     }
-  }catch(e){ console.log("Adsgram Error",e); }
-  isAdRunning=false;
-  return false;
+  }catch(e){}
+  isAdRunning=false; return false;
 }
 
 function startAutoAdsSystem(){
   if(autoStarted) return;
   autoStarted=true;
+  nextSec=15;
   setInterval(async()=>{
     if(isAdRunning) return;
     nextSec--;
-    document.getElementById('nextAd').innerText="Next Ads in: "+nextSec+"s ("+lastAd+")";
-    if(nextSec<=0){
-      nextSec=25;
+    if(nextSec>0){
+      document.getElementById('nextAd').innerText=`Next ${lastAd==="adsgram"?"Monetag":"Adsgram"} in ${nextSec}s`;
+    }else{
+      // 15 sec complete
       if(lastAd==="adsgram"){
         let ok=await showMonetag();
         if(!ok) await showAdsgram();
-        lastAd="monetag";
       }else{
         let ok=await showAdsgram();
         if(!ok) await showMonetag();
-        lastAd="adsgram";
       }
+      nextSec=15;
     }
   },1000);
 }
 
-const _t = "earningtadka8-21"; // TAG HIDDEN
-
+const _t = "earningtadka8-21";
 let allProducts=[
 {name:"Scott International Pack of 3 T-Shirt", price:399, old:1049, myCommission:10, cat:"mens", platform:"amazon", img:"https://m.media-amazon.com/images/I/41aQCWMtgdL._AC_.jpg", link:"https://www.amazon.in/s?k=Scott+International+Men+Tshirt&tag="+_t},
-{name:"Symbol Men Polo Shirt Solid Regular", price:399, old:1049, myCommission:8, cat:"mens", platform:"amazon", img:"https://m.media-amazon.com/images/I/31I80jMir0L._AC_.jpg", link:"https://www.amazon.in/s?k=Symbol+Men+Polo&tag="+_t},
-{name:"Boat Airdopes 141 Wireless Earbuds", price:999, old:2990, myCommission:15, cat:"mens", platform:"amazon", img:"https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400&h=400&fit=crop", link:"https://www.amazon.in/s?k=boat+airdopes&tag="+_t},
-{name:"Womens Kurti Set Festive", price:599, old:1999, myCommission:12, cat:"womens", platform:"amazon", img:"https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400&h=400&fit=crop", link:"https://www.amazon.in/s?k=kurti+set+women&tag="+_t}
+{name:"Symbol Men Polo Shirt", price:399, old:1049, myCommission:8, cat:"mens", platform:"amazon", img:"https://m.media-amazon.com/images/I/31I80jMir0L._AC_.jpg", link:"https://www.amazon.in/s?k=Symbol+Men+Polo&tag="+_t},
+{name:"Boat Airdopes 141", price:999, old:2990, myCommission:15, cat:"mens", platform:"amazon", img:"https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400&h=400&fit=crop", link:"https://www.amazon.in/s?k=boat+airdopes&tag="+_t},
+{name:"Womens Kurti Set", price:599, old:1999, myCommission:12, cat:"womens", platform:"amazon", img:"https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400&h=400&fit=crop", link:"https://www.amazon.in/s?k=kurti+set+women&tag="+_t}
 ];
 
 let walletBal=parseInt(localStorage.getItem('wallet_bal')||'0'); let totalProfit=parseFloat(localStorage.getItem('wallet_profit')||'0');
@@ -189,39 +167,29 @@ updateWalletUI();
 
 async function addMoney(){
   startAutoAdsSystem();
-  let amt=prompt("Kitna Add karna hai? Ex: 100"); if(!amt) return;
-  document.getElementById('rcStatus').innerText="Monetag Ad...";
+  let amt=prompt("Kitna Add karna hai?"); if(!amt) return;
   await showMonetag();
   let upiLink=`upi://pay?pa=${CONFIG.UPI_ID}&pn=${CONFIG.OWNER_NAME}&am=${amt}&cu=INR&tn=Wallet Add`;
   window.location.href=upiLink;
-  setTimeout(()=>{
-    if(confirm("Payment ho gaya? OK dabao")){
-      walletBal+=parseInt(amt); localStorage.setItem('wallet_bal',walletBal); updateWalletUI();
-      showAdsgram();
-    }
-  },2500);
+  setTimeout(()=>{ if(confirm("Payment ho gaya?")){ walletBal+=parseInt(amt); localStorage.setItem('wallet_bal',walletBal); updateWalletUI(); showAdsgram(); } },2500);
 }
-
 async function doWalletRecharge(){
   startAutoAdsSystem();
   let num=document.getElementById('rcNum').value; let amt=parseInt(document.getElementById('rcAmt').value);
   let status=document.getElementById('rcStatus');
   if(num.length!=10||!amt){ alert("Number / Amount sahi dalo"); return; }
   if(walletBal<amt){ alert("Wallet me balance kam hai"); return; }
-  status.innerText="⏳ Monetag Ad Loading...";
-  let ok = await showMonetag();
-  if(!ok) status.innerText="⏳ Adsgram Ad Loading... - Monetag no fill";
+  status.innerText="⏳ Monetag 15s Ad...";
+  await showMonetag();
   let profit=(amt*CONFIG.PROFIT_PERCENT/100);
-  status.innerHTML=`✅ Order Sent! ${num} pe ₹${amt} 2 min me hoga. Profit ₹${profit.toFixed(2)}`;
+  status.innerHTML=`✅ Order Sent! ${num} pe ₹${amt} | Profit ₹${profit.toFixed(2)}`;
   walletBal=walletBal-amt+profit; totalProfit+=profit;
   localStorage.setItem('wallet_bal',walletBal); localStorage.setItem('wallet_profit',totalProfit);
   updateWalletUI();
-  await new Promise(r=>setTimeout(r,500));
+  await new Promise(r=>setTimeout(r,600));
   await showAdsgram();
 }
-
 function getFiltered(){ return currentFilter==='all'? allProducts : allProducts.filter(p=>p.cat===currentFilter); }
-
 function renderProducts(){
   let filtered=getFiltered();
   let toShow=filtered.slice(0, visibleCount);
@@ -230,17 +198,9 @@ function renderProducts(){
     let finalPrice=p.price-autoDisc-spinExtra;
     if(finalPrice < p.price-5) finalPrice=p.price-5;
     let idx=allProducts.indexOf(p);
-    return `<div class="prod" onclick="buyProduct(${idx})">
-      <span class="badge ${p.platform}">${p.platform.toUpperCase()}</span>
-      <img src="${p.img}" loading="lazy" onerror="this.src='https://via.placeholder.com/300?text=No+Image'">
-      <h4>${p.name}</h4>
-      <div><span class="price">₹${finalPrice.toFixed(0)}</span><span class="old">₹${p.old}</span></div>
-      <span class="discTag">✓ ₹${autoDisc.toFixed(0)} Off + Coin</span>
-      <button class="buy">Get Offer</button>
-    </div>`;
+    return `<div class="prod" onclick="buyProduct(${idx})"><span class="badge ${p.platform}">${p.platform.toUpperCase()}</span><img src="${p.img}" loading="lazy" onerror="this.src='https://via.placeholder.com/300?text=No+Image'"><h4>${p.name}</h4><div><span class="price">₹${finalPrice.toFixed(0)}</span><span class="old">₹${p.old}</span></div><span class="discTag">✓ ₹${autoDisc.toFixed(0)} Off</span><button class="buy">Get Offer</button></div>`;
   }).join('')+`</div>`;
 }
-
 function filterCat(cat, el){
   startAutoAdsSystem();
   currentFilter=cat; visibleCount=8;
@@ -249,41 +209,37 @@ function filterCat(cat, el){
   renderProducts();
   showMonetag();
 }
+function getSpinDiscount(){ let r=Math.random()*100; if(r<70) return {label:"Try Again", value:0}; return {label:"₹5 Extra", value:5}; }
 
-function getSpinDiscount(){
-  let r=Math.random()*100;
-  if(r<70) return {label:"Try Again", value:0};
-  return {label:"₹5 Extra Discount", value:5};
-}
-
+// SPIN PE BHI 15 SEC LOGIC + MONETAG + ADSGRAM
 async function startSpin(){
   if(isSpinning) return;
   isSpinning=true;
   startAutoAdsSystem();
-  document.getElementById('result').innerText="🎬 Monetag Ad Loading...";
-  let m = await showMonetag();
+  document.getElementById('result').innerText="🎬 Monetag (15s) Ad Loading...";
+  await showMonetag(); // SPIN PE PEHLE MONETAG
   document.getElementById("wheel").style.transform=`rotate(${360*5+Math.random()*360}deg)`;
   setTimeout(async()=>{
     let res=getSpinDiscount();
     spinExtra=res.value;
-    document.getElementById("result").innerHTML=res.value===0?`🎡 ${res.label} - Adsgram...`:`🎉 ${res.label} Unlocked!`;
+    document.getElementById("result").innerHTML=res.value===0?`🎡 ${res.label} - Now Adsgram 15s...`:`🎉 ${res.label} Unlocked! Now Adsgram...`;
     renderProducts();
     isSpinning=false;
-    await showAdsgram();
-  },3500);
+    await new Promise(r=>setTimeout(r,500));
+    await showAdsgram(); // SPIN KE BAAD ADSGRAM
+    nextSec=15; // TIMER RESET TO 15s
+  },3200);
 }
 
-// PRODUCT CLICK = MONETAG FIRST
 async function buyProduct(idx){
   startAutoAdsSystem();
   let p=allProducts[idx];
-  document.getElementById('result').innerText="Product Ad Loading...";
-  let ok = await showMonetag(); // PEHLE AD
-  if(!ok) await showAdsgram();
+  document.getElementById('result').innerText="Product Click - Monetag Ad...";
+  await showMonetag();
   if(window.Telegram&&Telegram.WebApp) Telegram.WebApp.openLink(p.link);
   else window.open(p.link,"_blank");
+  nextSec=15;
 }
-
 renderProducts();
 </script>
 
@@ -319,22 +275,16 @@ drawDoc();
 async function downloadAsImage(){
   if(!uploadedImg){ alert("Pehle Image Upload Karo"); return; }
   startAutoAdsSystem();
-  document.getElementById('docStatus').innerText="⏳ Monetag Ad...";
   await showMonetag();
   const W=parseInt(document.getElementById('docW').value);
   const H=parseInt(document.getElementById('docH').value);
   const dataUrl=docCanvas.toDataURL('image/jpeg',1.0);
-  const a=document.createElement('a');
-  a.href=dataUrl; a.download=`doc_${W}x${H}.jpg`;
+  const a=document.createElement('a'); a.href=dataUrl; a.download=`doc_${W}x${H}.jpg`;
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
   const gl=document.getElementById('galleryLink');
   gl.style.display='block';
-  gl.innerHTML=`<div style="background:#0f172a;padding:12px;border-radius:10px;border:1px solid #22c55e">
-  <img src="${dataUrl}" style="max-width:100%;border-radius:10px;border:2px solid #22c55e">
-  <p style="font-size:12px;color:#94a3b8;margin:8px 0">👇 Long Press > Save Image</p>
-  <a href="${dataUrl}" download="doc_${W}x${H}.jpg" style="display:block;background:#22c55e;color:#000;padding:14px;border-radius:10px;font-weight:bold;text-align:center;text-decoration:none">📥 Download JPG</a>
-  </div>`;
-  document.getElementById('docStatus').innerText=`✅ JPG Ready: ${W}x${H}px`;
+  gl.innerHTML=`<div style="background:#0f172a;padding:12px;border-radius:10px;border:1px solid #22c55e"><img src="${dataUrl}" style="max-width:100%;border-radius:10px"><a href="${dataUrl}" download="doc_${W}x${H}.jpg" style="display:block;background:#22c55e;color:#000;padding:14px;border-radius:10px;font-weight:bold;text-align:center;text-decoration:none;margin-top:8px">📥 Download JPG</a></div>`;
+  document.getElementById('docStatus').innerText=`✅ JPG Ready`;
   await showAdsgram();
 }
 async function downloadAsPDF(){
@@ -355,4 +305,4 @@ document.getElementById('btnImg').addEventListener('click',downloadAsImage);
 document.getElementById('btnPdf').addEventListener('click',downloadAsPDF);
 </script>
 </body>
-    </html> 
+  </html> 
