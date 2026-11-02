@@ -1,34 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>BestDeals - No Collision</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Fixed</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#0f0f12;color:#fff;font-family:system-ui;padding:10px;max-width:480px;margin:auto}
-.i{background:#1e1e2f;padding:6px;border-radius:8px;text-align:center;font-size:11px;border:1px solid #6c5cff}
-.w{width:160px;height:160px;border-radius:50%;margin:12px auto;border:4px solid #6c5cff;background:#222;display:flex;align-items:center;justify-content:center;transition:transform 4s}
-.btn{width:100%;background:#8b5cf6;color:#fff;border:0;padding:12px;border-radius:8px;font-weight:bold}
-.t{display:flex;gap:5px;overflow:auto;padding:8px 0}
-.tb{padding:6px 12px;background:#222;border-radius:20px;font-size:11px;white-space:nowrap;cursor:pointer}
+*{box-sizing:border-box}body{margin:0;background:#0f0f12;color:#fff;font-family:system-ui;padding:10px;padding-top:30px;max-width:480px;margin:auto}
+.i{background:#1e1e2f;padding:8px;border-radius:8px;text-align:center;font-size:12px;border:1px solid #6c5cff;position:relative;z-index:10}
+.w{width:180px;height:180px;border-radius:50%;margin:15px auto;border:5px solid #6c5cff;background:#222;display:flex;align-items:center;justify-content:center;transition:transform 4s}
+.btn{width:100%;background:#8b5cf6;color:#fff;border:0;padding:14px;border-radius:10px;font-weight:bold;font-size:14px;cursor:pointer}
+.btn:disabled{opacity:0.6}
+.t{display:flex;gap:6px;overflow:auto;padding:10px 0}
+.tb{padding:8px 14px;background:#222;border-radius:20px;font-size:12px;white-space:nowrap;cursor:pointer;border:1px solid #333}
 .tb.a{background:#ffcc00;color:#000;font-weight:bold}
-.g{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.p{background:#1e1e1e;border-radius:8px;padding:5px;border:1px solid #222}
-.p img{width:100%;height:110px;object-fit:cover;border-radius:5px;background:#111}
+.g{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.p{background:#1e1e1e;border-radius:10px;padding:6px;border:1px solid #333}
+.p img{width:100%;height:130px;object-fit:cover;border-radius:6px;background:#222;display:block}
 </style>
 </head>
 <body>
 
-<div class="i">NO COLLISION | <span id="s" style="color:#ffcc00;font-weight:bold">Ready</span> | Ads: <span id="c">0</span><br>Next: <span id="next" style="color:#00ff88">Monetag in 15s</span></div>
-<div style="width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-top:16px solid #ffcc00;margin:0 auto"></div>
-<div class="w" id="w"><b>SPIN</b></div>
-<button class="btn" id="b" onclick="spin()">✨ SPIN</button>
-<div id="m" style="text-align:center;color:#ffcc00;font-size:11px;margin:6px 0;min-height:14px">No Collision - Ek khatam tabhi dusra</div>
+<div class="i">AUTO 15s | <span id="s" style="color:#ffcc00">Ready</span> | Ads: <span id="c">0</span><br>Next: <span id="next" style="color:#00ff88">Monetag in 15s</span></div>
+<div style="width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:18px solid #ffcc00;margin:0 auto"></div>
+<div class="w" id="w"><b style="font-size:18px">SPIN</b></div>
+<button class="btn" id="b" onclick="spin()">✨ SPIN NOW</button>
+<div id="m" style="text-align:center;color:#ffcc00;font-size:11px;margin:8px 0;min-height:14px">Kahi bhi click = Monetag (15s gap) | No Collision</div>
 
 <div class="t">
 <div class="tb a" onclick="fil('all',this)">All 12</div>
-<div class="tb" onclick="fil('amazon',this)">Amazon 4</div>
-<div class="tb" onclick="fil('flipkart',this)">Flipkart 4</div>
-<div class="tb" onclick="fil('meesho',this)">Meesho 4</div>
+<div class="tb" onclick="fil('amazon',this)">Amazon</div>
+<div class="tb" onclick="fil('flipkart',this)">Flipkart</div>
+<div class="tb" onclick="fil('meesho',this)">Meesho</div>
 </div>
 
 <div id="pr"></div>
@@ -36,47 +37,45 @@
 <script>
 let adC=0,last=0,busy=false,queue=false,mon=false,ads=false,AB=null,sp=false,nextIsMonetag=true,countdown=15;
 
-function lM(){return new Promise(r=>{if(mon&&typeof show_11968926==='function'){r(1);return}let s=document.createElement('script');s.src='https://libtl.com/sdk.js';s.dataset.zone='11968926';s.dataset.sdk='show_11968926';s.onload=()=>{mon=true;r(1)};s.onerror=()=>r(0);document.head.appendChild(s)})}
-function lA(){return new Promise(r=>{if(ads&&AB){r(1);return}let s=document.createElement('script');s.src='https://sad.adsgram.ai/js/sad.min.js';s.onload=()=>{try{AB=Adsgram.init({blockId:"int-52779"});ads=true;r(1)}catch(e){r(0)}};s.onerror=()=>r(0);document.head.appendChild(s)})}
+function lM(){return new Promise(r=>{if(mon&&typeof show_11968926==='function'){r(true);return}let s=document.createElement('script');s.src='https://libtl.com/sdk.js';s.dataset.zone='11968926';s.dataset.sdk='show_11968926';s.onload=()=>{mon=true;r(true)};s.onerror=()=>r(true);document.head.appendChild(s)})}
+function lA(){return new Promise(r=>{if(ads&&AB){r(true);return}let s=document.createElement('script');s.src='https://sad.adsgram.ai/js/sad.min.js';s.onload=()=>{try{AB=window.Adsgram.init({blockId:"int-52779"});ads=true;r(true)}catch(e){r(true)}};s.onerror=()=>r(true);document.head.appendChild(s)})}
 
 async function mAd(src){
   if(busy||queue||sp) return false;
   queue=true;busy=true;
-  document.getElementById('s').innerText='Monetag '+src+'...';
-  if(!mon){await lM();await new Promise(z=>setTimeout(z,600))}
-  if(typeof show_11968926!=='function'){busy=false;queue=false;return false}
-  document.getElementById('m').innerText='🎬 Monetag '+src+'...';
+  document.getElementById('s').innerText='Monetag...';
+  await lM();
+  document.getElementById('m').innerText='🎬 Monetag '+src;
+  if(typeof show_11968926!=='function'){busy=false;queue=false;countdown=15;return false}
   return new Promise(r=>{
-    show_11968926().then(()=>{adC++;last=Date.now();busy=false;queue=false;countdown=15;document.getElementById('c').innerText=adC;document.getElementById('s').innerText='Done';r(true)}).catch(()=>{busy=false;queue=false;r(false)})
+    try{
+      show_11968926().then(()=>{adC++;last=Date.now();busy=false;queue=false;countdown=15;document.getElementById('c').innerText=adC;r(true)}).catch(()=>{busy=false;queue=false;countdown=15;r(false)})
+    }catch(e){busy=false;queue=false;r(false)}
   })
 }
 async function aAd(src){
   if(busy||queue||sp) return false;
   queue=true;busy=true;
-  document.getElementById('s').innerText='Adsgram '+src+'...';
-  if(!ads){await lA();await new Promise(z=>setTimeout(z,400))}
-  if(!AB){busy=false;queue=false;return false}
-  document.getElementById('m').innerText='🎬 Adsgram '+src+'...';
+  document.getElementById('s').innerText='Adsgram...';
+  await lA();
+  document.getElementById('m').innerText='🎬 Adsgram '+src;
+  if(!AB){busy=false;queue=false;countdown=15;return false}
   return new Promise(r=>{
-    AB.show().then(()=>{adC++;last=Date.now();busy=false;queue=false;countdown=15;document.getElementById('c').innerText=adC;document.getElementById('s').innerText='Done';r(true)}).catch(()=>{busy=false;queue=false;r(false)})
+    try{
+      AB.show().then(()=>{adC++;last=Date.now();busy=false;queue=false;countdown=15;document.getElementById('c').innerText=adC;r(true)}).catch(()=>{busy=false;queue=false;countdown=15;r(false)})
+    }catch(e){busy=false;queue=false;r(false)}
   })
 }
 
 function startAuto(){
   setInterval(async()=>{
-    if(busy||queue||sp) return; // TAKRAO BLOCK - KOI AD CHAL RAHA TO SKIP
+    if(busy||queue||sp) return;
     countdown--;
     if(countdown>0){
       document.getElementById('s').innerText='Next in '+countdown+'s';
       document.getElementById('next').innerText=(nextIsMonetag?'Monetag':'Adsgram')+' in '+countdown+'s';
-    } else {
-      if(nextIsMonetag){
-        let ok=await mAd('Auto');
-        if(ok){nextIsMonetag=false;document.getElementById('next').innerText='Adsgram in 15s'}
-      } else {
-        let ok=await aAd('Auto');
-        if(ok){nextIsMonetag=true;document.getElementById('next').innerText='Monetag in 15s'}
-      }
+    }else{
+      if(nextIsMonetag){let ok=await mAd('Auto');if(ok){nextIsMonetag=false;document.getElementById('next').innerText='Adsgram in 15s'}}else{let ok=await aAd('Auto');if(ok){nextIsMonetag=true;document.getElementById('next').innerText='Monetag in 15s'}}
       countdown=15;
     }
   },1000);
@@ -90,19 +89,20 @@ document.addEventListener('click',async e=>{
 },true);
 
 const TAG='earningtadka8-21';
+// FIXED IMAGES - NO AMAZON BLOCK, ALL PLACEHOLDER WITH COLORS - 100% LOAD
 let all=[
-{name:"Scott Pack 3",price:399,cat:"amazon",img:"https://m.media-amazon.com/images/I/31I80jMir0L._SX180_.jpg",link:`https://www.amazon.in/s?k=Scott+Men+Tshirt+Pack&tag=${TAG}`},
-{name:"Boat 141",price:999,cat:"amazon",img:"https://m.media-amazon.com/images/I/31QGk5+2ZJL._SX180_.jpg",link:`https://www.amazon.in/dp/B09N3ZLB3W?tag=${TAG}`},
-{name:"Noise Watch",price:1499,cat:"amazon",img:"https://m.media-amazon.com/images/I/41d2IlY8r9L._SX180_.jpg",link:`https://www.amazon.in/s?k=noise+watch&tag=${TAG}`},
-{name:"Symbol Polo",price:499,cat:"amazon",img:"https://m.media-amazon.com/images/I/41K7vW2t5hL._SX180_.jpg",link:`https://www.amazon.in/s?k=symbol+polo&tag=${TAG}`},
-{name:"Sneakers White",price:599,cat:"flipkart",img:"https://via.placeholder.com/180/2874f0/fff?text=Sneakers",link:"https://www.flipkart.com/search?q=sneakers+men"},
-{name:"Boult Z20",price:899,cat:"flipkart",img:"https://via.placeholder.com/180/2874f0/fff?text=Boult",link:"https://www.flipkart.com/search?q=boult+z20"},
-{name:"Saree Silk",price:499,cat:"flipkart",img:"https://via.placeholder.com/180/2874f0/fff?text=Saree",link:"https://www.flipkart.com/search?q=saree+women"},
-{name:"Hoodie Winter",price:699,cat:"flipkart",img:"https://via.placeholder.com/180/2874f0/fff?text=Hoodie",link:"https://www.flipkart.com/search?q=hoodie+men+winter"},
-{name:"T-Shirt Combo",price:299,cat:"meesho",img:"https://via.placeholder.com/180/f43397/fff?text=T-Shirt",link:"https://www.meesho.com/search?q=tshirt+men"},
-{name:"Kurti Set",price:349,cat:"meesho",img:"https://via.placeholder.com/180/f43397/fff?text=Kurti",link:"https://www.meesho.com/search?q=kurti+women"},
-{name:"Jhumka Set",price:149,cat:"meesho",img:"https://via.placeholder.com/180/f43397/fff?text=Jhumka",link:"https://www.meesho.com/search?q=jhumka+earrings"},
-{name:"Kids Dress",price:399,cat:"meesho",img:"https://via.placeholder.com/180/f43397/fff?text=Kids",link:"https://www.meesho.com/search?q=kids+dress"},
+{name:"Men T-Shirt Pack 3",price:399,cat:"amazon",img:"https://via.placeholder.com/300x300/ff9900/ffffff?text=T-Shirt+Pack",link:`https://www.amazon.in/s?k=men+tshirt+pack+3&tag=${TAG}`},
+{name:"Boat Airdopes 141",price:999,cat:"amazon",img:"https://via.placeholder.com/300x300/ff9900/ffffff?text=Boat+141",link:`https://www.amazon.in/s?k=boat+airdopes+141&tag=${TAG}`},
+{name:"Noise Smartwatch",price:1499,cat:"amazon",img:"https://via.placeholder.com/300x300/ff9900/ffffff?text=Noise+Watch",link:`https://www.amazon.in/s?k=noise+smartwatch&tag=${TAG}`},
+{name:"Symbol Polo T-Shirt",price:499,cat:"amazon",img:"https://via.placeholder.com/300x300/ff9900/ffffff?text=Polo+T-Shirt",link:`https://www.amazon.in/s?k=symbol+polo+tshirt&tag=${TAG}`},
+{name:"Men Sneakers",price:599,cat:"flipkart",img:"https://via.placeholder.com/300x300/2874f0/ffffff?text=Sneakers",link:"https://www.flipkart.com/search?q=sneakers+men"},
+{name:"Boult Earbuds Z20",price:899,cat:"flipkart",img:"https://via.placeholder.com/300x300/2874f0/ffffff?text=Boult+Z20",link:"https://www.flipkart.com/search?q=boult+z20+earbuds"},
+{name:"Women Saree Silk",price:499,cat:"flipkart",img:"https://via.placeholder.com/300x300/2874f0/ffffff?text=Saree+Silk",link:"https://www.flipkart.com/search?q=saree+silk+women"},
+{name:"Men Hoodie Winter",price:699,cat:"flipkart",img:"https://via.placeholder.com/300x300/2874f0/ffffff?text=Hoodie",link:"https://www.flipkart.com/search?q=hoodie+men+winter"},
+{name:"Men T-Shirt Combo",price:299,cat:"meesho",img:"https://via.placeholder.com/300x300/f43397/ffffff?text=T-Shirt+Meesho",link:"https://www.meesho.com/search?q=men+tshirt+combo"},
+{name:"Women Kurti Set",price:349,cat:"meesho",img:"https://via.placeholder.com/300x300/f43397/ffffff?text=Kurti+Set",link:"https://www.meesho.com/search?q=kurti+set+women"},
+{name:"Jhumka Earrings Set",price:149,cat:"meesho",img:"https://via.placeholder.com/300x300/f43397/ffffff?text=Jhumka+Set",link:"https://www.meesho.com/search?q=jhumka+earrings"},
+{name:"Kids Dress Frock",price:399,cat:"meesho",img:"https://via.placeholder.com/300x300/f43397/ffffff?text=Kids+Dress",link:"https://www.meesho.com/search?q=kids+dress+girls"},
 ];
 
 let cur='all',ex=0;
@@ -111,9 +111,9 @@ function render(){
  let f=getF();
  document.getElementById('pr').innerHTML='<div class="g">'+f.map(p=>`
  <div class="p" onclick="go('${p.link}')">
- <img src="${p.img}" loading="lazy">
- <div style="font-size:10px;height:28px;overflow:hidden;margin:3px 0">${p.name}</div>
- <div style="color:#0f0;font-weight:bold">₹${p.price-ex} <span style="font-size:8px;background:${p.cat==='amazon'?'#f90':p.cat==='flipkart'?'#2874f0':'#f43397'};color:#fff;padding:1px 4px;border-radius:6px">${p.cat.toUpperCase()}</span></div>
+ <img src="${p.img}" loading="eager" onerror="this.src='https://via.placeholder.com/300?text=${p.cat}'">
+ <div style="font-size:11px;margin:4px 0;height:32px;overflow:hidden">${p.name}</div>
+ <div style="color:#00ff88;font-weight:bold">₹${p.price-ex} <span style="font-size:8px;background:${p.cat==='amazon'?'#ff9900':p.cat==='flipkart'?'#2874f0':'#f43397'};color:#fff;padding:2px 6px;border-radius:10px">${p.cat.toUpperCase()}</span></div>
  </div>`).join('')+'</div>';
 }
 function fil(c,el){cur=c;document.querySelectorAll('.tb').forEach(t=>t.classList.remove('a'));el.classList.add('a');render()}
@@ -130,13 +130,11 @@ async function spin(){
  document.getElementById('w').style.transform='rotate('+(360*6+Math.random()*360)+'deg)';
  setTimeout(async()=>{
    ex=Math.random()<0.3?5:0; render();
-   b.innerText='⏳ Adsgram...'; await aAd('Wheel End');
-   sp=false; b.disabled=false; b.innerText='✨ SPIN'; countdown=15;
+   b.innerText='⏳ Adsgram...'; await aAd('Wheel');
+   sp=false; b.disabled=false; b.innerText='✨ SPIN NOW'; countdown=15;
  },3500);
 }
-render();
-startAuto();
-setTimeout(()=>{let s=document.createElement('script');s.src='https://telegram.org/js/telegram-web-app.js';s.onload=()=>{try{Telegram.WebApp.ready();Telegram.WebApp.expand()}catch(e){}};document.head.appendChild(s)},1500);
+render(); startAuto();
 </script>
 </body>
-  </html> 
+</html> 
