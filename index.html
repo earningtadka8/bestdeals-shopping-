@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>BestDeals Fixed</title>
+<title>BestDeals Auto Ads</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
 <style>
@@ -13,9 +13,8 @@
 .bal div{flex:1;text-align:center}.bal div:first-child{border-right:1px solid #e2e8f0}
 .big{font-size:28px;font-weight:900;color:#0f172a}
 .tasks{background:#fff;border-radius:18px;padding:14px;margin:12px 0}
-.task{display:flex;justify-content:space-between;align-items:center;padding:12px;border:1px solid #e2e8f0;border-radius:14px;margin:8px 0;background:#fafbff}
-.icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:12px}
-.open{background:#2563eb;color:#fff;border:0;padding:10px 18px;border-radius:20px;font-weight:800}
+.auto-box{background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;border-radius:16px;padding:16px;text-align:center;margin:10px 0}
+.auto-status{background:#fff;color:#16a34a;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:900;display:inline-block;margin-top:8px}
 .nav{position:fixed;bottom:8px;left:12px;right:12px;max-width:456px;margin:0 auto;background:#fff;display:flex;justify-content:space-around;padding:8px 0;border-radius:24px;box-shadow:0 4px 20px rgba(0,0,0,0.15);z-index:99}
 .nav div{padding:6px 14px;border-radius:16px;text-align:center;font-size:10px;color:#64748b}
 .nav div.active{background:#2563eb;color:#fff}
@@ -23,23 +22,34 @@
 .ctrl{display:flex;justify-content:center;gap:8px;margin-top:8px}
 .ctrl button{padding:10px 18px;border-radius:10px;border:0;background:#2563eb;color:#fff;font-weight:800}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.prod{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:8px;text-align:center}
+.prod{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:8px;text-align:center;position:relative}
 .badge{font-size:8px;padding:2px 6px;border-radius:10px;color:#fff;position:absolute;top:6px;left:6px}
 .input{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:10px;margin-top:8px}
 </style>
 </head>
 <body>
 
-<div class="top"><div style="width:38px;height:38px;border-radius:50%;background:#2563eb;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900">R</div><b>RAHUL</b></div>
+<div class="top"><div style="width:38px;height:38px;border-radius:50%;background:#2563eb;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900">R</div><b>RAHUL - Auto Mode</b></div>
 
-<div class="bal"><div><div style="font-size:11px;color:gray">🟡 COINS</div><div class="big" id="coins">20</div></div><div><div style="font-size:11px;color:gray">💎 POINTS</div><div class="big" id="points">0.00</div><div style="font-size:10px">≈ <span id="tonVal">0</span> TON</div></div></div>
+<div class="bal"><div><div style="font-size:11px;color:gray">🟡 COINS</div><div class="big" id="coins">20</div></div><div><div style="font-size:11px;color:gray">💎 POINTS</div><div class="big" id="points">0.00</div><div style="font-size:10px">≈ <span id="tonVal">0</span> TON | Auto: <span id="autoCount">0</span></div></div></div>
 
-<!-- HOME -->
+<!-- HOME - AUTO ADS ONLY -->
 <div id="sec-home">
 <div class="tasks">
-  <div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">Watch Ads (20)</h3><span style="background:#dcfce7;color:#15803d;padding:4px 8px;border-radius:10px;font-size:10px;font-weight:800">MANUAL ONLY</span></div>
-  <div style="font-size:11px;color:gray;margin:6px 0">Monetag → Adsgram | <span id="timer">2:00:00</span> | <span id="adsInfo">0/15</span></div>
-  <div id="taskList">Loading ads...</div>
+  <h3 style="margin:0">🔥 Auto Ads Running</h3>
+  <div class="auto-box">
+    <div style="font-size:14px;font-weight:800">Monetag → Adsgram Queue</div>
+    <div style="font-size:11px;margin-top:6px;opacity:0.9">Har 25 sec me auto ad chalega, pehle Monetag fir Adsgram</div>
+    <div class="auto-status" id="autoStatus">🟢 Auto Ads ON - Monetag First</div>
+    <div style="margin-top:10px;font-size:12px">Next Ad in: <b id="nextAd">25s</b> | Today: <b id="adsInfo">0/15</b></div>
+  </div>
+  <div style="background:#f8fafc;border-radius:12px;padding:12px;font-size:12px;margin-top:10px">
+    <div>✅ No Manual Open - Sab Auto Chalega</div>
+    <div>✅ Pehle Monetag ka ad, fir Adsgram ka ad</div>
+    <div>✅ Har successful ad pe +1 Coin auto</div>
+    <div>✅ Wheel me bhi same Monetag → Adsgram</div>
+  </div>
+  <div id="adLog" style="margin-top:10px;font-size:11px;color:#64748b;max-height:120px;overflow-y:auto"></div>
 </div>
 </div>
 
@@ -47,23 +57,24 @@
 <div id="sec-games" style="display:none">
 <div class="tasks">
   <div style="display:flex;justify-content:space-between;align-items:center">
-    <h3 style="margin:0">🎮 Games</h3>
+    <h3 style="margin:0">🎮 Games - Auto Ads</h3>
     <div style="display:flex;gap:6px">
       <button onclick="showGame('snake')" id="g-snake" style="padding:6px 12px;border-radius:20px;border:0;background:#2563eb;color:#fff;font-weight:700">Snake</button>
       <button onclick="showGame('wheel')" id="g-wheel" style="padding:6px 12px;border-radius:20px;border:1px solid #f59e0b;background:#fff;font-weight:700">Wheel</button>
     </div>
   </div>
   <div id="game-snake">
-    <div style="text-align:center;margin:8px 0">Score: <b id="snakeScore">0</b> | High: <b id="snakeHigh">0</b></div>
+    <div style="text-align:center;margin:8px 0">Score: <b id="snakeScore">0</b> | High: <b id="snakeHigh">0</b> | Auto Ads: <span style="color:#22c55e">ON</span></div>
     <canvas id="snakeCanvas" width="300" height="300"></canvas>
     <div class="ctrl"><button onclick="setDir(0,-1)">↑</button></div>
     <div class="ctrl"><button onclick="setDir(-1,0)">←</button><button onclick="startSnake()" style="background:#22c55e">▶ Start</button><button onclick="setDir(1,0)">→</button></div>
     <div class="ctrl"><button onclick="setDir(0,1)">↓</button></div>
   </div>
   <div id="game-wheel" style="display:none;text-align:center">
+    <div class="auto-box" style="padding:10px;margin:0 0 10px 0"><div style="font-size:12px">🎡 Wheel - Auto Monetag → Adsgram for Extra Spin</div></div>
     <div style="margin:10px 0"><b>Coins: <span id="wheelCoins">20</span> | Spins: <span id="wheelSpins">3</span></b></div>
     <canvas id="wheelCanvas" width="260" height="260" style="border-radius:50%;border:4px solid #f59e0b"></canvas>
-    <div><button onclick="spinWheel()" id="spinBtn" style="margin-top:12px;background:#f59e0b;color:#fff;border:0;padding:12px 30px;border-radius:30px;font-weight:900">🎡 SPIN</button></div>
+    <div><button onclick="spinWheel()" id="spinBtn" style="margin-top:12px;background:#f59e0b;color:#fff;border:0;padding:12px 30px;border-radius:30px;font-weight:900">🎡 SPIN (Auto Ads)</button></div>
     <div id="wheelResult" style="margin-top:10px;font-weight:700;color:#0f172a"></div>
   </div>
 </div>
@@ -104,29 +115,6 @@
 </div>
 
 <script>
-// DATA
-const ADS=[
- {id:1,t:"Monetag Ad - 3 Coins",c:3,i:"M1",cl:"#ff9900"},
- {id:2,t:"Adsgram Ad - 3 Coins",c:3,i:"A1",cl:"#2563eb"},
- {id:3,t:"Monetag Video",c:3,i:"M2",cl:"#ff9900"},
- {id:4,t:"Adsgram Video",c:3,i:"A2",cl:"#2563eb"},
- {id:5,t:"Monetag Pop",c:3,i:"M3",cl:"#ff9900"},
- {id:6,t:"Adsgram Inter",c:3,i:"A3",cl:"#2563eb"},
- {id:7,t:"Monetag Reward",c:3,i:"M4",cl:"#ff9900"},
- {id:8,t:"Adsgram Reward",c:3,i:"A4",cl:"#2563eb"},
- {id:9,t:"Combo High Reward",c:10,i:"M+A",cl:"#22c55e"},
- {id:10,t:"Dual 2x",c:5,i:"2X",cl:"#5b6cff"},
- {id:11,t:"Monetag Special",c:5,i:"M5",cl:"#ff9900"},
- {id:12,t:"Adsgram Special",c:3,i:"A5",cl:"#2563eb"},
- {id:13,t:"Monetag High",c:15,i:"M6",cl:"#ef4444"},
- {id:14,t:"Adsgram High",c:4,i:"A6",cl:"#2563eb"},
- {id:15,t:"Monetag Flash",c:3,i:"M7",cl:"#ff9900"},
- {id:16,t:"Adsgram Flash",c:3,i:"A7",cl:"#2563eb"},
- {id:17,t:"Monetag Daily",c:2,i:"M8",cl:"#ff9900"},
- {id:18,t:"Adsgram Daily",c:3,i:"A8",cl:"#2563eb"},
- {id:19,t:"Monetag Big",c:5,i:"M9",cl:"#ff9900"},
- {id:20,t:"Adsgram Big",c:4,i:"A9",cl:"#2563eb"}
-];
 const TAG="earningtadka8-21";
 const PRODUCTS=[
  {n:"T-Shirt Combo 3",p:399,img:"👕",cat:"amazon",l:"https://www.amazon.in/s?k=tshirt"},
@@ -137,7 +125,7 @@ const PRODUCTS=[
  {n:"Meesho Kurti",p:299,img:"👚",cat:"meesho",l:"https://www.meesho.com/search?q=kurti"},
  {n:"Jewellery Set",p:199,img:"💍",cat:"meesho",l:"https://www.meesho.com/search?q=jewellery"},
 ];
-let coins=20,points=0,adsToday=0,adsLimit=15,resetTime=Date.now(),isAdRunning=false,curFil='all';
+let coins=20,points=0,adsToday=0,adsLimit=15,resetTime=Date.now(),isAdRunning=false,curFil='all',autoCount=0,nextSec=25;
 coins=parseInt(localStorage.getItem('coins')||'20');points=parseFloat(localStorage.getItem('points')||'0');adsToday=parseInt(localStorage.getItem('ads_today')||'0');resetTime=parseInt(localStorage.getItem('ads_reset')||Date.now());
 
 function save(){
@@ -147,21 +135,11 @@ function save(){
  document.getElementById('points').innerText=points.toFixed(2);
  document.getElementById('tonVal').innerText=(points*0.001).toFixed(4);
  document.getElementById('adsInfo').innerText=adsToday+'/'+adsLimit;
+ document.getElementById('autoCount').innerText=autoCount;
  let wc=document.getElementById('wheelCoins'); if(wc) wc.innerText=coins;
 }
-function getTime(){
- let diff=(resetTime+7200000)-Date.now();
- if(diff<=0){adsToday=0;resetTime=Date.now();localStorage.setItem('ads_reset',resetTime);localStorage.setItem('ads_today','0');diff=7200000;renderTasks();}
- let h=Math.floor(diff/3600000),m=Math.floor((diff%3600000)/60000),s=Math.floor((diff%60000)/1000);
- return h+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
-}
-function renderTasks(){
- let html='';
- for(let a of ADS){
-  html+=`<div class="task" id="task-${a.id}"><div style="display:flex;gap:10px;align-items:center"><div class="icon" style="background:${a.cl}">${a.i}</div><div><b style="font-size:13px">${a.t}</b><div style="font-size:11px;color:#b45309">🟡 +${a.c}</div></div></div><button class="open" id="btn-${a.id}" onclick="watchAd(${a.id},${a.c})">Open</button></div>`;
- }
- document.getElementById('taskList').innerHTML=html;
-}
+function log(msg){let el=document.getElementById('adLog');if(!el) return;let d=new Date().toLocaleTimeString();el.innerHTML='<div>['+d+'] '+msg+'</div>'+el.innerHTML;}
+
 function filterShop(c){curFil=c;document.querySelectorAll('[id^="f-"]').forEach(b=>{b.style.background='#fff';b.style.color='#000'});let fb=document.getElementById('f-'+c);if(fb){fb.style.background=c=='amazon'?'#ff9900':c=='flipkart'?'#2874f0':c=='meesho'?'#f43397':'#2563eb';fb.style.color='#fff'}renderShop();}
 function renderShop(){
  let list=curFil=='all'?PRODUCTS:PRODUCTS.filter(p=>p.cat==curFil);
@@ -169,13 +147,13 @@ function renderShop(){
  for(let p of list){
   let link=p.l.includes('amazon')?(p.l.includes('?')?p.l+'&tag='+TAG:p.l+'?tag='+TAG):p.l;
   let badge=p.cat=='amazon'?'#ff9900':p.cat=='flipkart'?'#2874f0':'#f43397';
-  html+=`<div class="prod" style="position:relative"><span class="badge" style="background:${badge}">${p.cat}</span><div style="font-size:36px">${p.img}</div><div style="font-size:11px;font-weight:700">${p.n}</div><div style="font-weight:900">₹${p.p}</div><button onclick="buyProd('${link}')" style="width:100%;background:${badge};color:#fff;border:0;padding:6px;border-radius:8px;margin-top:4px;font-weight:700">Buy +1</button></div>`;
+  html+=`<div class="prod"><span class="badge" style="background:${badge}">${p.cat}</span><div style="font-size:36px">${p.img}</div><div style="font-size:11px;font-weight:700">${p.n}</div><div style="font-weight:900">₹${p.p}</div><button onclick="buyProd('${link}')" style="width:100%;background:${badge};color:#fff;border:0;padding:6px;border-radius:8px;margin-top:4px;font-weight:700">Buy +1</button></div>`;
  }
  document.getElementById('shoppingContainer').innerHTML=html;
 }
-function buyProd(link){coins++;save();if(window.Telegram&&Telegram.WebApp) Telegram.WebApp.openLink(link); else window.open(link,'_blank');}
+function buyProd(link){coins++;save();log('🛒 Buy +1 Coin');if(window.Telegram&&Telegram.WebApp) Telegram.WebApp.openLink(link); else window.open(link,'_blank');}
 function calcTON(){let pts=parseFloat(document.getElementById('tpts').value||0);document.getElementById('tprev').innerText='You will get: '+(pts*0.001).toFixed(4)+' TON';}
-function withdrawTON(){let addr=document.getElementById('taddr').value;let pts=parseFloat(document.getElementById('tpts').value||0);if(!addr){alert('TON Address daalo');return;}if(pts<10000){alert('Min 10000');return;}if(pts>points){alert('Balance kam');return;}document.getElementById('wstat').innerText='Request sent!';points-=pts;save();}
+function withdrawTON(){let addr=document.getElementById('taddr').value;let pts=parseFloat(document.getElementById('tpts').value||0);if(!addr){alert('TON Address daalo');return;}if(pts<10000){alert('Min 10000');return;}if(pts>points){alert('Balance kam');return;}document.getElementById('wstat').innerText='Request sent!';points-=pts;save();log('💸 Withdraw '+pts+' points');}
 function showSec(n){
  document.getElementById('sec-home').style.display=n=='home'?'block':'none';
  document.getElementById('sec-games').style.display=n=='games'?'block':'none';
@@ -187,7 +165,7 @@ function showSec(n){
  if(n=='games') showGame('snake');
 }
 
-// ADS - MONETAG FIRST THEN ADSGRAM - SAFE
+// ADS - MONETAG FIRST THEN ADSGRAM - AUTO
 let AdsBlock=null,monetagLoaded=false;
 try{AdsBlock=window.Adsgram?window.Adsgram.init({blockId:"int-52779"}):null;}catch(e){}
 function loadMonetag(){
@@ -201,21 +179,76 @@ function loadMonetag(){
 async function showMonetag(){try{if(!monetagLoaded) await loadMonetag();if(typeof show_11968926==='function'){await show_11968926();return true;}}catch(e){}return false;}
 async function showAdsgram(){try{if(AdsBlock){await AdsBlock.show();return true;}}catch(e){}return false;}
 
-async function watchAd(id,reward){
+// AUTO ADS LOOP - MONETAG FIRST THEN ADSGRAM
+async function runAutoAds(){
  if(isAdRunning) return;
- if(adsToday>=adsLimit){alert('15 limit khatam '+getTime());return;}
+ if(adsToday>=adsLimit){document.getElementById('autoStatus').innerText='🔴 15 Ads Limit Done';return;}
  isAdRunning=true;
- let btn=document.getElementById('btn-'+id);let orig=btn.innerText;btn.innerText='Monetag...';btn.disabled=true;
+ document.getElementById('autoStatus').innerText='🟡 Running Monetag 1/2...';
+ log('▶️ Monetag Ad 1/2 starting...');
  let m=await showMonetag();
- btn.innerText='Adsgram...';
- await new Promise(r=>setTimeout(r,600));
+ log(m?'✅ Monetag Success':'❌ Monetag Fail');
+ document.getElementById('autoStatus').innerText='🟡 Running Adsgram 2/2...';
+ await new Promise(r=>setTimeout(r,800));
+ log('▶️ Adsgram Ad 2/2 starting...');
  let a=await showAdsgram();
- if(m||a){coins+=reward;adsToday++;localStorage.setItem('ads_today',adsToday);save();btn.innerText='Done ✓';btn.style.background='#22c55e';}
- else{btn.innerText=orig;btn.disabled=false;}
- isAdRunning=false;save();
+ log(a?'✅ Adsgram Success':'❌ Adsgram Fail');
+ if(m||a){
+   coins+=1;adsToday++;autoCount++;localStorage.setItem('ads_today',adsToday);save();
+   log('💰 +1 Coin Auto | Total: '+coins);
+   document.getElementById('autoStatus').innerText='🟢 Auto Ads ON - +1 Coin';
+ } else {
+   document.getElementById('autoStatus').innerText='🟡 Retry Next Cycle';
+   log('⚠️ Both Fail - Retry Next');
+ }
+ isAdRunning=false;
+ nextSec=25;
 }
+
+// COUNTDOWN + AUTO LOOP
+setInterval(()=>{
+ nextSec--;
+ if(nextSec<=0){nextSec=25;runAutoAds();}
+ let el=document.getElementById('nextAd');if(el) el.innerText=nextSec+'s';
+},1000);
+setTimeout(()=>{runAutoAds();},5000); // First ad after 5 sec
 
 // SNAKE
 let snake=[],food={},dir={x:0,y:0},nextDir={x:0,y:0},score=0,high=parseInt(localStorage.getItem('snake_high')||'0'),gInt=null,canvas,ctx;
 function initSnake(){canvas=document.getElementById('snakeCanvas');if(!canvas) return;ctx=canvas.getContext('2d');document.getElementById('snakeHigh').innerText=high;resetSnake();drawSnake();}
-function 
+function resetSnake(){snake=[{x:10,y:10}];food={x:15,y:10};dir={x:0,y:0};nextDir={x:0,y:0};score=0;document.getElementById('snakeScore').innerText=score;if(gInt){clearInterval(gInt);gInt=null;}}
+function startSnake(){if(gInt) return;dir={x:1,y:0};nextDir={x:1,y:0};gInt=setInterval(loop,120);}
+function setDir(x,y){if(dir.x===-x&&dir.y===-y) return;nextDir={x:x,y:y};if(!gInt) startSnake();}
+function loop(){dir=nextDir;let h={x:snake[0].x+dir.x,y:snake[0].y+dir.y};if(h.x<0)h.x=19;if(h.x>=20)h.x=0;if(h.y<0)h.y=19;if(h.y>=20)h.y=0;if(snake.some(s=>s.x==h.x&&s.y==h.y)){gameOver();return;}snake.unshift(h);if(h.x==food.x&&h.y==food.y){score+=10;document.getElementById('snakeScore').innerText=score;food={x:Math.floor(Math.random()*20),y:Math.floor(Math.random()*20)};if(score>high){high=score;localStorage.setItem('snake_high',high);document.getElementById('snakeHigh').innerText=high;}}else snake.pop();drawSnake();}
+function drawSnake(){ctx.fillStyle='#0f172a';ctx.fillRect(0,0,300,300);ctx.fillStyle='#22c55e';snake.forEach(s=>ctx.fillRect(s.x*15,s.y*15,14,14));ctx.fillStyle='#ef4444';ctx.fillRect(food.x*15,food.y*15,14,14);}
+function gameOver(){clearInterval(gInt);gInt=null;if(score>=50){let r=score>=100?15:5;coins+=r;save();log('🐍 Snake Score '+score+' +'+r+' coins');alert('Score '+score+' +'+r+' coins');}else alert('Score '+score);resetSnake();drawSnake();}
+
+// WHEEL - AUTO ADS MONETAG FIRST
+let wheelSpins=parseInt(localStorage.getItem('wheel_spins')||'3'),wheelAngle=0,isSpinning=false;
+const rewards=[1,5,2,10,1,5,20,2,10,1,5,3];
+const colors=["#fef3c7","#dcfce7","#dbeafe","#fee2e2","#f3e8ff","#ffedd5","#fef3c7","#dcfce7","#dbeafe","#fee2e2","#f3e8ff","#ffedd5"];
+function showGame(t){document.getElementById('game-snake').style.display=t=='snake'?'block':'none';document.getElementById('game-wheel').style.display=t=='wheel'?'block':'none';document.getElementById('g-snake').style.background=t=='snake'?'#2563eb':'#fff';document.getElementById('g-snake').style.color=t=='snake'?'#fff':'#000';document.getElementById('g-wheel').style.background=t=='wheel'?'#f59e0b':'#fff';document.getElementById('g-wheel').style.color=t=='wheel'?'#fff':'#000';if(t=='snake') initSnake();if(t=='wheel') drawWheel();}
+function drawWheel(){let c=document.getElementById('wheelCanvas');if(!c) return;let cx=c.getContext('2d');let ctr=130,rad=120;cx.clearRect(0,0,260,260);for(let i=0;i<12;i++){let s=(i*30+wheelAngle)*Math.PI/180,e=((i+1)*30+wheelAngle)*Math.PI/180;cx.beginPath();cx.moveTo(ctr,ctr);cx.arc(ctr,ctr,rad,s,e);cx.closePath();cx.fillStyle=colors[i];cx.fill();cx.strokeStyle='#fff';cx.lineWidth=2;cx.stroke();cx.save();cx.translate(ctr,ctr);cx.rotate((s+e)/2);cx.fillStyle='#0f172a';cx.font='bold 11px Arial';cx.fillText('+'+rewards[i],rad-12,4);cx.restore();}document.getElementById('wheelSpins').innerText=wheelSpins;document.getElementById('wheelCoins').innerText=coins;}
+async function spinWheel(){
+ if(isSpinning||isAdRunning) return;
+ if(wheelSpins<=0){
+  isAdRunning=true;
+  document.getElementById('wheelResult').innerText='🎡 Auto: Monetag 1/2...';
+  log('🎡 Wheel Extra Spin - Monetag 1/2');
+  let m=await showMonetag();
+  document.getElementById('wheelResult').innerText='🎡 Auto: Adsgram 2/2...';
+  await new Promise(r=>setTimeout(r,500));
+  let a=await showAdsgram();
+  isAdRunning=false;
+  if(m||a){wheelSpins++;localStorage.setItem('wheel_spins',wheelSpins);document.getElementById('wheelResult').innerText='✅ +1 Spin Auto!';log('🎡 Wheel +1 Spin Auto');drawWheel();}else document.getElementById('wheelResult').innerText='❌ Retry';
+  return;
+ }
+ isSpinning=true;wheelSpins--;localStorage.setItem('wheel_spins',wheelSpins);document.getElementById('spinBtn').disabled=true;document.getElementById('spinBtn').innerText='Spinning...';
+ let spins=5*360+Math.random()*360,target=wheelAngle+spins,start=Date.now(),dur=3000;
+ let anim=setInterval(()=>{let el=Date.now()-start,p=Math.min(el/dur,1),ease=1-Math.pow(1-p,3);wheelAngle+= (target-wheelAngle)*ease*0.08;if(p>=1){clearInterval(anim);wheelAngle=target%360;drawWheel();let norm=(360-(wheelAngle%360)+270)%360,idx=Math.floor(norm/30)%12,rw=rewards[idx];coins+=rw;save();document.getElementById('wheelResult').innerText='🎉 +'+rw+' Coins Auto!';log('🎡 Wheel Spin +'+rw+' coins');document.getElementById('spinBtn').disabled=false;document.getElementById('spinBtn').innerText='🎡 SPIN (Auto Ads)';isSpinning=false;drawWheel();}else drawWheel();},16);
+}
+
+window.onload=()=>{save();renderShop();showSec('home');showGame('snake');log('🚀 Auto Ads Started - Monetag First');};
+</script>
+</body>
+</html> 
