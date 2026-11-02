@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<title>BestDeals - Shop + TON + Snake</title>
+<title>BestDeals - Shop + TON + Snake Auto Ads</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
 <script src="https://libtl.com/sdk.js" data-zone="11968926" data-sdk="show_11968926"></script>
@@ -20,11 +20,10 @@ body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-w
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
 .prod{background:#1e1e1e;border-radius:12px;padding:8px;border:1px solid #333;position:relative}
 .prod img{width:100%;height:140px;object-fit:cover;border-radius:8px;background:#222}
-.prod h4{font-size:11px;margin:6px 0;height:32px;overflow:hidden;line-height:1.3}
+.prod h4{font-size:11px;margin:6px 0;height:32px;overflow:hidden}
 .price{color:#00ff88;font-weight:bold;font-size:13px}
 .old{color:#777;font-size:10px;text-decoration:line-through;margin-left:4px}
 .badge{position:absolute;top:6px;left:6px;font-size:8px;padding:3px 6px;border-radius:10px;font-weight:bold}
-.badge.amazon{background:#ff9900;color:#000}.badge.flipkart{background:#2874f0;color:#fff}.badge.meesho{background:#f43397;color:#fff}
 .input-dark{width:100%;padding:12px;margin:6px 0;background:#0f172a;border:1px solid #334155;border-radius:10px;color:#fff;box-sizing:border-box}
 .ton-card{background:linear-gradient(135deg,#0f172a,#1e293b);border:1px solid #38bdf8;border-radius:16px;padding:14px;margin:14px 0}
 .tabs{display:flex;gap:6px;margin:10px 0;overflow-x:auto}
@@ -35,13 +34,12 @@ body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-w
 <body>
 
 <div class="app-bar">
-  <div style="color:#000;font-weight:bold;font-size:14px">📱 BestDeals App<br><span style="font-size:11px;font-weight:normal">Shop + TON + Snake</span></div>
+  <div style="color:#000;font-weight:bold;font-size:14px">📱 BestDeals App<br><span style="font-size:11px">Shop + TON + Snake</span></div>
   <a href="https://drive.usercontent.google.com/download?id=136JySWmaDJx17ylwS0RBMTxomRSFGmwc&export=download&confirm=t" style="background:#000;color:#ffcc00;padding:10px 18px;border-radius:20px;font-weight:bold;text-decoration:none;font-size:13px">📥 DOWNLOAD</a>
 </div>
 
 <div class="coin-bar">🟡 COINS: <b id="coins">0</b> | 💎 POINTS: <b id="points">0.00</b> | TON: <b id="tonVal">0</b> | Auto: <b id="autoCount">0</b></div>
-
-<div class="info" id="infoBar">Shop Amazon / Flipkart / Meesho • Max ₹5 Discount<br>Auto Ads: Monetag + Adsgram • Next: <span id="nextAd">Click Spin to Start</span></div>
+<div class="info" id="infoBar">Shop Amazon / Flipkart / Meesho<br>Auto: All=15s | Snake=3min • Next: <span id="nextAd">Click Spin / Start Snake</span></div>
 
 <div class="pin"></div>
 <div style="position:relative"><div class="wheel" id="wheel"><div class="center">SPIN</div></div></div>
@@ -49,11 +47,12 @@ body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-w
 <div id="result" style="text-align:center;font-size:13px;margin:8px 0;min-height:18px"></div>
 
 <div style="margin:16px 0;background:#1e293b;border:1px solid #22c55e;border-radius:16px;padding:14px">
-  <div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0;color:#22c55e">🐍 Snake Game</h3><span style="font-size:11px;background:#0f172a;padding:4px 8px;border-radius:20px">Score: <b id="snakeScore">0</b> | High: <b id="snakeHigh">0</b></span></div>
+  <div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0;color:#22c55e">🐍 Snake Game (3min Auto Ads)</h3><span style="font-size:11px;background:#0f172a;padding:4px 8px;border-radius:20px">Score: <b id="snakeScore">0</b> | High: <b id="snakeHigh">0</b></span></div>
   <canvas id="snakeCanvas" width="300" height="300" style="background:#0f172a;border-radius:12px;display:block;margin:10px auto;border:2px solid #22c55e"></canvas>
-  <div style="display:flex;justify-content:center;gap:8px"><button onclick="setDir(0,-1)" style="padding:10px 18px;border-radius:10px;border:0;background:#334155;color:#fff;font-weight:800">↑</button></div>
+  <div style="display:flex;justify-content:center;gap:8px"><button onclick="setDir(0,-1)" style="padding:10px 18px;border-radius:10px;border:0;background:#334155;color:#fff">↑</button></div>
   <div style="display:flex;justify-content:center;gap:8px;margin-top:6px"><button onclick="setDir(-1,0)" style="padding:10px 18px;border-radius:10px;border:0;background:#334155;color:#fff">←</button><button onclick="startSnake()" style="padding:10px 18px;border-radius:10px;border:0;background:#22c55e;color:#000;font-weight:800">▶ Start (3min Auto)</button><button onclick="setDir(1,0)" style="padding:10px 18px;border-radius:10px;border:0;background:#334155;color:#fff">→</button></div>
   <div style="display:flex;justify-content:center;gap:8px;margin-top:6px"><button onclick="setDir(0,1)" style="padding:10px 18px;border-radius:10px;border:0;background:#334155;color:#fff">↓</button></div>
+  <div id="snakeAdInfo" style="text-align:center;font-size:11px;color:#22c55e;margin-top:8px">Snake me har 3 min me auto ad ayega</div>
 </div>
 
 <div style="margin:18px 0 16px;background:#1e293b;border:1px solid #ffcc00;border-radius:16px;padding:14px">
@@ -69,7 +68,7 @@ body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-w
 </div>
 
 <div class="ton-card">
-  <h3 style="color:#38bdf8;margin:0 0 10px 0">💎 TON Wallet - G1XMUV</h3>
+  <h3 style="color:#38bdf8;margin:0 0 10px 0">💎 TON Wallet</h3>
   <div style="font-size:12px;color:#94a3b8;margin-bottom:8px">100 Coins = 1 Point | 1 Point = 0.001 TON</div>
   <input id="taddr" class="input-dark" placeholder="TON Address UQ...">
   <input id="tpts" type="number" class="input-dark" placeholder="Points withdraw" oninput="calcTON()">
@@ -79,19 +78,50 @@ body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-w
 </div>
 
 <script>
-let AdsBlock=null; try{ AdsBlock=window.Adsgram?window.Adsgram.init({blockId:"int-52779"}):null; }catch(e){}
-let isSpinning=false, spinExtra=0, curShop='all', monetagReady=false, isSnakePlaying=false, nextSec=15, isAdRunning=false, autoStarted=false;
+// ADS SETUP - DONO RAKHA
+let AdsBlock=null; try{ if(window.Adsgram) AdsBlock=window.Adsgram.init({blockId:"int-52779"}); }catch(e){}
+let isSpinning=false, curShop='all', monetagReady=false, isSnakePlaying=false, nextSec=15, isAdRunning=false, autoStarted=false, snakeAdTimer=0;
 let coins=0, points=0, adsToday=0, autoCount=0;
 try{coins=parseInt(localStorage.getItem('coins')||'0');points=parseFloat(localStorage.getItem('points')||'0');adsToday=parseInt(localStorage.getItem('ads_today')||'0');autoCount=parseInt(localStorage.getItem('auto_count')||'0');}catch(e){}
 function saveCoins(){if(coins>=100){points+=Math.floor(coins/100);coins=coins%100;}try{localStorage.setItem('coins',coins);localStorage.setItem('points',points);localStorage.setItem('ads_today',adsToday);localStorage.setItem('auto_count',autoCount);}catch(e){}document.getElementById('coins').innerText=coins;document.getElementById('points').innerText=points.toFixed(2);document.getElementById('tonVal').innerText=(points*0.001).toFixed(4);document.getElementById('autoCount').innerText=autoCount;}
 saveCoins();
+
 function initMonetag(){ return new Promise((r)=>{ if(typeof show_11968926==='function'){monetagReady=true;r(true);return;} let s=document.createElement('script'); s.src="https://libtl.com/sdk.js"; s.dataset.zone="11968926"; s.dataset.sdk="show_11968926"; s.onload=()=>{setTimeout(()=>{monetagReady=typeof show_11968926==='function';r(monetagReady);},1000);}; s.onerror=()=>r(false); document.head.appendChild(s); }); }
-async function showMonetag(){ try{ if(!monetagReady) await initMonetag(); if(typeof show_11968926==='function'){ await show_11968926({type:'rewarded'}); return true; } }catch(e){ try{ if(typeof show_11968926==='function'){ await show_11968926(); return true; } }catch(e2){} } return false; }
+async function showMonetag(){ try{ if(!monetagReady) await initMonetag(); if(typeof show_11968926==='function'){ await show_11968926(); return true; } }catch(e){ try{ if(typeof show_11968926==='function'){ await show_11968926(); return true; } }catch(e2){} } return false; }
 async function showAdsgram(){ try{ if(!AdsBlock){ try{AdsBlock=window.Adsgram.init({blockId:"int-52779"});}catch(e){} } if(AdsBlock){ await AdsBlock.show(); return true; } }catch(e){} return false; }
-function startAutoAdsSystem(){ if(autoStarted) return; autoStarted=true; runAutoAds(); setInterval(()=>{ nextSec--; if(nextSec<=0){ nextSec=isSnakePlaying?180:15; runAutoAds(); } let el=document.getElementById('nextAd');if(el)el.innerText=isSnakePlaying?Math.floor(nextSec/60)+'m '+nextSec%60+'s':nextSec+'s'; },1000); }
-async function runAutoAds(){ if(isAdRunning) return; if(adsToday>=15) return; isAdRunning=true; let m=await showMonetag(); await new Promise(r=>setTimeout(r,600)); let a=await showAdsgram(); if(m||a){coins+=1;adsToday++;autoCount++;saveCoins();} isAdRunning=false; nextSec=isSnakePlaying?180:15; }
+
+// DONO ADS EK SATH - AUTO SYSTEM
+async function runAutoAds(){
+  if(isAdRunning) return;
+  if(adsToday>=15) return;
+  isAdRunning=true;
+  let m=await showMonetag(); 
+  await new Promise(r=>setTimeout(r,700));
+  let a=await showAdsgram();
+  if(m||a){coins+=1;adsToday++;autoCount++;saveCoins();}
+  isAdRunning=false;
+  nextSec=isSnakePlaying?180:15;
+  snakeAdTimer=0;
+}
+
+function startAutoAdsSystem(){ 
+  if(autoStarted) return; 
+  autoStarted=true; 
+  runAutoAds(); 
+  setInterval(()=>{ 
+    nextSec--; 
+    snakeAdTimer++;
+    if(nextSec<=0){ nextSec=isSnakePlaying?180:15; runAutoAds(); } 
+    let el=document.getElementById('nextAd');
+    let sEl=document.getElementById('snakeAdInfo');
+    if(el) el.innerText=isSnakePlaying?Math.floor(nextSec/60)+'m '+nextSec%60+'s - SNAKE 3min':'Next: '+nextSec+'s - ALL 15s';
+    if(sEl && isSnakePlaying) sEl.innerText='Snake Auto Ad in: '+Math.floor(nextSec/60)+'m '+nextSec%60+'s | Playing...';
+    else if(sEl) sEl.innerText='Snake me har 3 min me auto ad ayega';
+  },1000); 
+}
+
 function getSpinDiscount(){ let r=Math.random()*100; if(r<70) return {label:"Try Again", value:0, coins:1}; return {label:"5% Extra", value:1, coins:5}; }
-async function startSpin(){ startAutoAdsSystem(); if(isSpinning||isAdRunning) return; isSpinning=true; let status=document.getElementById("result"); status.innerText="🎬 Monetag Before Spin..."; await showMonetag(); document.getElementById("wheel").style.transform=`rotate(${360*5+Math.random()*360}deg)`; status.innerText="🎡 Spinning..."; setTimeout(async()=>{ let res=getSpinDiscount(); spinExtra=res.value; coins+=res.coins; saveCoins(); status.innerHTML=`🎉 ${res.label} +${res.coins} Coins!`; isSpinning=false; status.innerText="🎬 Adsgram After..."; await showAdsgram(); status.innerText=`✅ +${res.coins} Coins Added!`; renderShop(); },3000); }
+async function startSpin(){ startAutoAdsSystem(); if(isSpinning||isAdRunning) return; isSpinning=true; let status=document.getElementById("result"); status.innerText="🎬 Monetag Before Spin..."; await showMonetag(); document.getElementById("wheel").style.transform=`rotate(${360*5+Math.random()*360}deg)`; status.innerText="🎡 Spinning..."; setTimeout(async()=>{ let res=getSpinDiscount(); coins+=res.coins; saveCoins(); status.innerHTML=`🎉 ${res.label} +${res.coins} Coins!`; isSpinning=false; status.innerText="🎬 Adsgram After..."; await showAdsgram(); status.innerText=`✅ +${res.coins} Coins Added!`; },3000); }
 
 const SHOP_PRODUCTS=[
 {n:"Scott International T-Shirt 3 Pack",p:399,old:1049,cat:"amazon",img:"https://m.media-amazon.com/images/I/41aQCWMtgdL._AC_.jpg",l:"https://www.amazon.in/s?k=Scott+International+Tshirt&tag=earningtadka8-21"},
@@ -110,16 +140,44 @@ function renderShop(){let list=curShop=='all'?SHOP_PRODUCTS:SHOP_PRODUCTS.filter
 async function buyShop(l){coins+=1;saveCoins();startAutoAdsSystem();if(window.Telegram&&Telegram.WebApp)Telegram.WebApp.openLink(l);else window.open(l,'_blank'); await showMonetag(); }
 renderShop();
 function calcTON(){let pts=parseFloat(document.getElementById('tpts').value||0);document.getElementById('tprev').innerText='You will get: '+(pts*0.001).toFixed(4)+' TON';}
-function withdrawTON(){try{let addr=document.getElementById('taddr').value.trim();let pts=parseFloat(document.getElementById('tpts').value||0);if(!addr||addr.length<10){alert('TON Address daalo UQ...');return;}if(pts<10){alert('Min 10 Points');return;}if(pts>points){alert('Points kam hai, Wheel ghumao');return;}document.getElementById('wstat').innerText='✅ Request Sent! '+pts+' Points → '+(pts*0.001)+' TON to '+addr.substring(0,12)+'...';points-=pts;localStorage.setItem('points',points);saveCoins();}catch(e){alert('Error: '+e.message);}}
+function withdrawTON(){try{let addr=document.getElementById('taddr').value.trim();let pts=parseFloat(document.getElementById('tpts').value||0);if(!addr||addr.length<10){alert('TON Address daalo UQ...');return;}if(pts<10){alert('Min 10 Points');return;}if(pts>points){alert('Points kam hai');return;}document.getElementById('wstat').innerText='✅ Request Sent! '+pts+' Points → '+(pts*0.001)+' TON';points-=pts;localStorage.setItem('points',points);saveCoins();}catch(e){alert('Error');}}
+
+// SNAKE GAME + 3 MIN AUTO ADS
 let snake=[],food={},dir={x:0,y:0},nextDir={x:0,y:0},score=0,high=0,gInt=null;
 try{high=parseInt(localStorage.getItem('snake_high')||'0');}catch(e){}
 function initSnake(){document.getElementById('snakeHigh').innerText=high;resetSnake();drawSnake();}
 function resetSnake(){snake=[{x:10,y:10}];food={x:15,y:10};dir={x:0,y:0};nextDir={x:0,y:0};score=0;document.getElementById('snakeScore').innerText=score;if(gInt){clearInterval(gInt);gInt=null;}}
-function startSnake(){startAutoAdsSystem();if(gInt)return;dir={x:1,y:0};nextDir={x:1,y:0};gInt=setInterval(loop,120);isSnakePlaying=true;nextSec=180;}
+function startSnake(){
+  startAutoAdsSystem(); // YAHAN SE AUTO ADS ON HOGA
+  if(gInt) return;
+  dir={x:1,y:0};nextDir={x:1,y:0};
+  gInt=setInterval(loop,120);
+  isSnakePlaying=true;
+  nextSec=180; // 3 MIN SET
+  snakeAdTimer=0;
+  document.getElementById('snakeAdInfo').innerText='🐍 Snake Started - 3min me auto ad ayega...';
+}
 function setDir(x,y){if(dir.x===-x&&dir.y===-y)return;nextDir={x:x,y:y};if(!gInt)startSnake();}
-function loop(){dir=nextDir;let h={x:snake[0].x+dir.x,y:snake[0].y+dir.y};if(h.x<0)h.x=19;if(h.x>=20)h.x=0;if(h.y<0)h.y=19;if(h.y>=20)h.y=0;if(snake.some(s=>s.x==h.x&&s.y==h.y)){gameOver();return;}snake.unshift(h);if(h.x==food.x&&h.y==food.y){score+=10;document.getElementById('snakeScore').innerText=score;food={x:Math.floor(Math.random()*20),y:Math.floor(Math.random()*20)};if(score>high){high=score;localStorage.setItem('snake_high',high);document.getElementById('snakeHigh').innerText=high;}}else snake.pop();drawSnake();}
-function drawSnake(){let canvas=document.getElementById('snakeCanvas');let ctx=canvas.getContext('2d');ctx.fillStyle='#0f172a';ctx.fillRect(0,0,300,300);ctx.fillStyle='#22c55e';snake.forEach(s=>ctx.fillRect(s.x*15,s.y*15,14,14));ctx.fillStyle='#ef4444';ctx.fillRect(food.x*15,food.y*15,14,14);}
-function gameOver(){clearInterval(gInt);gInt=null;isSnakePlaying=false;nextSec=15;if(score>=20){let r=score>=50?10:5;coins+=r;saveCoins();alert('Score '+score+' +'+r+' Coins!');}else alert('Score '+score+' - 20+ pe Coins milega');resetSnake();drawSnake();}
+function loop(){
+  dir=nextDir;
+  let h={x:snake[0].x+dir.x,y:snake[0].y+dir.y};
+  if(h.x<0)h.x=19;if(h.x>=20)h.x=0;if(h.y<0)h.y=19;if(h.y>=20)h.y=0;
+  if(snake.some(s=>s.x==h.x&&s.y==h.y)){gameOver();return;}
+  snake.unshift(h);
+  if(h.x==food.x&&h.y==food.y){
+    score+=10;document.getElementById('snakeScore').innerText=score;
+    food={x:Math.floor(Math.random()*20),y:Math.floor(Math.random()*20)};
+    if(score>high){high=score;localStorage.setItem('snake_high',high);document.getElementById('snakeHigh').innerText=high;}
+  }else snake.pop();
+  drawSnake();
+}
+function drawSnake(){let c=document.getElementById('snakeCanvas');let ctx=c.getContext('2d');ctx.fillStyle='#0f172a';ctx.fillRect(0,0,300,300);ctx.fillStyle='#22c55e';snake.forEach(s=>ctx.fillRect(s.x*15,s.y*15,14,14));ctx.fillStyle='#ef4444';ctx.fillRect(food.x*15,food.y*15,14,14);}
+async function gameOver(){
+  clearInterval(gInt);gInt=null;isSnakePlaying=false;nextSec=15;
+  if(score>=20){let r=score>=50?10:5;coins+=r;saveCoins();alert('Score '+score+' +'+r+' Coins! Game Over Ads...'); await runAutoAds(); }
+  else { alert('Score '+score+' - 20+ pe Coins milega'); }
+  resetSnake();drawSnake();
+}
 window.onload=()=>{initSnake(); if(window.Telegram&&Telegram.WebApp){try{Telegram.WebApp.ready();Telegram.WebApp.expand();}catch(e){}} };
 </script>
 </body>
