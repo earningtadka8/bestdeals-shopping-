@@ -2,97 +2,121 @@
 <html>
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>BestDeals - 15s Gap</title>
+<title>BestDeals Final</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
-<script src="https://libtl.com/sdk.js" data-zone="11968926" data-sdk="show_11968926"></script>
-<script src="https://sad.adsgram.ai/js/sad.min.js"></script>
 <style>
-body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:12px;max-width:480px;margin:0 auto}
-.info{background:#1f1f3a;border:1px solid #6c5cff;border-radius:10px;padding:8px;font-size:11px;text-align:center;margin-bottom:8px}
-.wheel{width:200px;height:200px;border-radius:50%;margin:12px auto;border:4px solid #6c5cff;background:conic-gradient(#6a4cff 0 70%, #333 70% 100%);transition:transform 4s cubic-bezier(.17,.67,.12,.99)}
-.center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:50px;height:50px;background:#000;border-radius:50%;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:bold}
-.pin{width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-top:18px solid #ffcc00;margin:0 auto}
-.btn{width:100%;background:#8b5cf6;color:#fff;border:0;padding:12px;border-radius:10px;font-size:14px;font-weight:bold;margin:8px 0}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
-.prod{background:#1e1e1e;border-radius:10px;padding:6px;border:1px solid #333}
-.prod img{width:100%;height:120px;object-fit:cover;border-radius:6px;background:#222}
-.prod h4{font-size:10px;margin:4px 0;height:28px;overflow:hidden}
+body{margin:0;background:#0f0f12;color:#fff;font-family:Arial;padding:10px;max-width:480px;margin:auto}
+.info{background:#1e1e2f;padding:8px;border-radius:8px;text-align:center;font-size:12px;margin-bottom:10px;border:1px solid #6c5cff}
+.wheel{width:180px;height:180px;border-radius:50%;margin:15px auto;border:4px solid #6c5cff;background:conic-gradient(#6a4cff 0 25%,#333 25% 50%,#6a4cff 50% 75%,#333 75% 100%);transition:transform 4s}
+.btn{width:100%;background:#8b5cf6;color:#fff;border:0;padding:13px;border-radius:10px;font-weight:bold}
+.tabs{display:flex;gap:6px;overflow:auto;padding:8px 0}
+.tab{padding:7px 14px;background:#222;border-radius:20px;font-size:12px;white-space:nowrap}
+.tab.active{background:#ffcc00;color:#000;font-weight:bold}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.prod{background:#1e1e1e;border-radius:8px;padding:6px;border:1px solid #333}
+.prod img{width:100%;height:120px;object-fit:cover;border-radius:6px}
 </style>
 </head>
 <body>
 
-<div class="info" id="adInfo">15s Gap | Zone 11968926 | Site 7819768 ✅<br>Auto: <span id="nextAd" style="color:#ffcc00;font-weight:bold">Ready</span> | Count: <span id="adCount">0</span></div>
-<div class="pin"></div>
-<div style="position:relative"><div class="wheel" id="wheel"><div class="center">SPIN</div></div></div>
-<button class="btn" id="spinBtn" onclick="startSpin()">✨ Wheel - Monetag 15s → Spin → Adsgram</button>
-<div id="result" style="text-align:center;font-size:12px;margin:6px 0;color:#ffcc00">15s gap - Kahi click = Monetag</div>
-<div id="productContainer"></div>
+<div class="info" id="info">15s Gap | <span id="adStatus">Ready</span> | Ads: <span id="adCount">0</span></div>
+<div style="width:200px;height:200px;border-radius:50%;margin:10px auto;border:4px solid #6c5cff;position:relative;background:#222;display:flex;align-items:center;justify-content:center" id="wheel">SPIN</div>
+<button class="btn" id="spinBtn" onclick="startSpin()">✨ SPIN - Monetag → Spin → Adsgram</button>
+<div id="msg" style="text-align:center;color:#ffcc00;font-size:12px;margin:8px 0">Kahi bhi click = Monetag (15s gap)</div>
+
+<div class="tabs">
+<div class="tab active" onclick="filterCat('all',this)">All</div>
+<div class="tab" onclick="filterCat('amazon',this)">Amazon</div>
+<div class="tab" onclick="filterCat('flipkart',this)">Flipkart</div>
+<div class="tab" onclick="filterCat('meesho',this)">Meesho</div>
+</div>
+
+<div id="products"></div>
 
 <script>
-let AdsBlock=null, isAdRunning=false, adCount=0, lastGlobalClick=0, wheelSpinning=false;
-try{ AdsBlock=window.Adsgram.init({blockId:"int-52779"}); }catch(e){}
+let adCount=0, lastAd=0, isAd=false, monetagReady=false, adsgramReady=false, AdsBlock=null, spinning=false;
 
-function showMonetag(src="auto"){
-  return new Promise((resolve)=>{
-    if(isAdRunning){ resolve(false); return; }
-    if(typeof show_11968926 !== 'function'){ resolve(false); return; }
-    isAdRunning=true;
-    document.getElementById('nextAd').innerText=`Monetag ${src} Loading...`;
-    document.getElementById('result').innerText=`🎬 Monetag 15s (${src})...`;
-    show_11968926().then(() => {
-      adCount++; isAdRunning=false; lastGlobalClick=Date.now();
-      document.getElementById('adCount').innerText=adCount;
-      document.getElementById('nextAd').innerText=`✅ Done - Next in 15s`;
-      resolve(true);
-    }).catch(()=>{ isAdRunning=false; resolve(false); });
+function loadMonetag(){
+  return new Promise(r=>{
+    if(monetagReady && typeof show_11968926==='function'){ r(true); return; }
+    let s=document.createElement('script'); s.src='https://libtl.com/sdk.js'; s.dataset.zone='11968926'; s.dataset.sdk='show_11968926';
+    s.onload=()=>{ monetagReady=true; r(true); }; s.onerror=()=>r(false); document.head.appendChild(s);
   });
 }
-function showAdsgram(){
-  return new Promise((resolve)=>{
-    if(isAdRunning){ resolve(false); return; }
-    isAdRunning=true;
-    try{
-      AdsBlock.show().then(()=>{ adCount++; isAdRunning=false; lastGlobalClick=Date.now(); document.getElementById('adCount').innerText=adCount; resolve(true); }).catch(()=>{ isAdRunning=false; resolve(false); });
-    }catch(e){ isAdRunning=false; resolve(false); }
+function loadAdsgram(){
+  return new Promise(r=>{
+    if(adsgramReady && AdsBlock){ r(true); return; }
+    let s=document.createElement('script'); s.src='https://sad.adsgram.ai/js/sad.min.js';
+    s.onload=()=>{ try{ AdsBlock=window.Adsgram.init({blockId:"int-52779"}); adsgramReady=true; r(true); }catch(e){ r(false); } };
+    s.onerror=()=>r(false); document.head.appendChild(s);
   });
 }
+async function monetag(src){
+  if(isAd) return false;
+  if(!monetagReady){ await loadMonetag(); await new Promise(x=>setTimeout(x,800)); }
+  if(typeof show_11968926!=='function') return false;
+  isAd=true; document.getElementById('msg').innerText='🎬 Monetag 15s ('+src+')...';
+  return new Promise(res=>{
+    show_11968926().then(()=>{ adCount++; isAd=false; lastAd=Date.now(); document.getElementById('adCount').innerText=adCount; document.getElementById('adStatus').innerText='Next in 15s'; res(true); }).catch(()=>{ isAd=false; res(false); });
+  });
+}
+async function adsgram(){
+  if(isAd) return false;
+  if(!adsgramReady){ await loadAdsgram(); await new Promise(x=>setTimeout(x,500)); }
+  if(!AdsBlock) return false;
+  isAd=true; document.getElementById('msg').innerText='🎬 Adsgram 15s...';
+  return new Promise(res=>{ AdsBlock.show().then(()=>{ adCount++; isAd=false; lastAd=Date.now(); document.getElementById('adCount').innerText=adCount; res(true); }).catch(()=>{ isAd=false; res(false); }); });
+}
 
-// GLOBAL CLICK - 15 SECOND GAP
-document.addEventListener('click', async (e)=>{
+// GLOBAL CLICK 15s GAP
+document.addEventListener('click', async e=>{
   if(e.target.closest('#spinBtn')) return;
-  if(wheelSpinning || isAdRunning) return;
-  let now=Date.now();
-  if(now - lastGlobalClick < 15000){
-    let left=Math.ceil((15000-(now-lastGlobalClick))/1000);
-    document.getElementById('nextAd').innerText=`Next in ${left}s`;
-    return;
-  }
-  await showMonetag("Click");
+  if(spinning || isAd) return;
+  let now=Date.now(); if(now-lastAd<15000){ let l=Math.ceil((15000-(now-lastAd))/1000); document.getElementById('adStatus').innerText='Next in '+l+'s'; return; }
+  await monetag('Click');
 }, true);
 
-const _t="earningtadka8-21";
-let allProducts=[
-{name:"Scott T-Shirt Pack 3", price:399, old:1049, img:"https://m.media-amazon.com/images/I/41aQCWMtgdL._AC_.jpg", link:"https://www.amazon.in/s?k=Scott+International+Men+Tshirt&tag="+_t},
-{name:"Boat Airdopes 141", price:999, old:2990, img:"https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=200&h=200&fit=crop", link:"https://www.amazon.in/s?k=boat+airdopes&tag="+_t}
+// PRODUCTS - ORIGINAL LINKS
+const TAG='earningtadka8-21';
+let allProds=[
+{name:"Men T-Shirt Pack 3", price:399, cat:"amazon", img:"https://m.media-amazon.com/images/I/41aQCWMtgdL._AC_.jpg", link:`https://www.amazon.in/s?k=men+tshirt+combo+pack&tag=${TAG}`},
+{name:"Boat Airdopes 141", price:999, cat:"amazon", img:"https://m.media-amazon.com/images/I/51cQ8TCOYfL._AC_.jpg", link:`https://www.amazon.in/boAt-Airdopes-141-Bluetooth-Wireless/dp/B09N3ZLB3W?tag=${TAG}`},
+{name:"Noise Smartwatch", price:1499, cat:"amazon", img:"https://m.media-amazon.com/images/I/61SSVxTSs4L._AC_.jpg", link:`https://www.amazon.in/s?k=noise+smartwatch&tag=${TAG}`},
+{name:"Men Sneakers", price:599, cat:"flipkart", img:"https://rukminim2.flixcart.com/image/612/612/xif0q/shoe/3/4/f/8-8-shoes-8-sports-8-.../original.jpg", link:"https://www.flipkart.com/search?q=sneakers+for+men"},
+{name:"Boult Earbuds", price:899, cat:"flipkart", img:"https://rukminim2.flixcart.com/image/612/612/xif0q/headphone/d/q/r/-original.jpg", link:"https://www.flipkart.com/search?q=boult+earbuds"},
+{name:"Women Saree", price:499, cat:"flipkart", link:"https://www.flipkart.com/search?q=women+saree", img:"https://rukminim2.flixcart.com/image/612/612/xif0q/sari/3/3/0/free-.../original.jpg"},
+{name:"Men T-Shirt Meesho", price:299, cat:"meesho", link:"https://www.meesho.com/search?q=men+tshirt+combo", img:"https://images.meesho.com/images/products/123.../512.jpg"},
+{name:"Women Kurti Set", price:349, cat:"meesho", link:"https://www.meesho.com/search?q=women+kurti+set", img:"https://images.meesho.com/images/products/456.../512.jpg"},
+{name:"Jhumka Earrings", price:149, cat:"meesho", link:"https://www.meesho.com/search?q=jhumka+earrings", img:"https://images.meesho.com/images/products/321.../512.jpg"},
 ];
-let spinExtra=0;
-function renderProducts(){ document.getElementById("productContainer").innerHTML=`<div class="grid">`+allProducts.map(p=>{ let fp=p.price-spinExtra; let idx=allProducts.indexOf(p); return `<div class="prod" onclick="buyProduct(${idx})"><img src="${p.img}"><h4>${p.name}</h4><div style="color:#00ff88;font-weight:bold">₹${fp}</div></div>`; }).join('')+`</div>`; }
-async function buyProduct(idx){ await showMonetag("Product"); window.open(allProducts[idx].link,"_blank"); }
+
+let curCat='all', extra=0;
+function getF(){ return curCat==='all'? allProds : allProds.filter(p=>p.cat===curCat); }
+function render(){
+  let f=getF();
+  document.getElementById('products').innerHTML='<div class="grid">'+f.map(p=>`
+    <div class="prod" onclick="openLink('${p.link}')">
+      <img src="${p.img}" loading="lazy" onerror="this.src='https://via.placeholder.com/150?text=${p.cat}'">
+      <div style="font-size:11px;margin:4px 0;height:30px;overflow:hidden">${p.name}</div>
+      <div style="color:#0f0;font-weight:bold">₹${p.price-extra} <span style="font-size:9px;background:${p.cat==='amazon'?'#ff9900':p.cat==='flipkart'?'#2874f0':'#f43397'};color:#fff;padding:2px 6px;border-radius:10px">${p.cat.toUpperCase()}</span></div>
+    </div>`).join('')+'</div>';
+}
+function filterCat(c, el){ curCat=c; document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active')); el.classList.add('active'); render(); }
+async function openLink(link){ await monetag('Product'); if(window.Telegram?.WebApp) Telegram.WebApp.openLink(link); else window.open(link,'_blank'); }
 
 async function startSpin(){
-  if(wheelSpinning) return;
-  wheelSpinning=true; let btn=document.getElementById('spinBtn'); btn.disabled=true;
-  btn.innerText="⏳ Monetag 15s..."; await showMonetag("Wheel Start");
-  document.getElementById('result').innerText="🎡 Spinning..."; btn.innerText="🎡 Spinning...";
-  document.getElementById("wheel").style.transform=`rotate(${360*6+Math.random()*360}deg)`;
+  if(spinning) return; spinning=true; let b=document.getElementById('spinBtn'); b.disabled=true;
+  b.innerText='⏳ Monetag Loading...'; await monetag('Wheel Start');
+  document.getElementById('msg').innerText='🎡 Spinning...'; b.innerText='🎡 Spinning...';
+  document.getElementById('wheel').style.transform='rotate('+(360*6+Math.random()*360)+'deg)';
   setTimeout(async()=>{
-    let win=Math.random()<0.3; spinExtra=win?5:0;
-    document.getElementById('result').innerText=win?"🎉 ₹5 Won! - Adsgram...":"Try Again - Adsgram...";
-    renderProducts(); btn.innerText="⏳ Adsgram After Spin..."; await showAdsgram();
-    wheelSpinning=false; btn.disabled=false; btn.innerText="✨ Wheel - Monetag 15s → Spin → Adsgram";
-  }, 4000);
+    let win=Math.random()<0.3; extra=win?5:0; document.getElementById('msg').innerText=win?'🎉 ₹5 OFF Won! - Adsgram...':'Try Again - Adsgram...';
+    render(); b.innerText='⏳ Adsgram Loading...'; await adsgram();
+    spinning=false; b.disabled=false; b.innerText='✨ SPIN - Monetag → Spin → Adsgram';
+  },4000);
 }
-window.addEventListener('load', ()=>{ try{ Telegram.WebApp.ready(); }catch(e){} renderProducts(); });
+
+window.addEventListener('load',()=>{ try{ Telegram.WebApp.ready(); Telegram.WebApp.expand(); }catch(e){} render(); });
 </script>
 </body>
 </html> 
