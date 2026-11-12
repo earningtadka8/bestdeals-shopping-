@@ -5,7 +5,7 @@
 <title>Earning Tadka - TON App</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#0f0f12;color:#fff;font-family:system-ui;padding:10px;padding-top:10px;padding-bottom:80px;max-width:480px;margin:auto}
+*{box-sizing:border-box}body{margin:0;background:#0f0f12;color:#fff;font-family:system-ui;padding:10px;padding-top:10px;padding-bottom:90px;max-width:480px;margin:auto}
 .top{display:flex;justify-content:space-between;align-items:center;background:#1e1e2f;padding:10px;border-radius:10px;border:1px solid #6c5cff}
 .avatar{width:38px;height:38px;background:#ffcc00;color:#000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:18px}
 .i{background:#1e1e2f;padding:8px;border-radius:8px;text-align:center;font-size:11px;border:1px solid #6c5cff}
@@ -20,15 +20,15 @@
 .tb{padding:6px 12px;background:#222;border-radius:20px;font-size:11px;white-space:nowrap;cursor:pointer}
 .tb.a{background:#ffcc00;color:#000;font-weight:bold}
 .g{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.p{background:#1e1e1e;border-radius:10px;padding:5px;border:1px solid #333}
+.p{background:#1e1e1e;border-radius:10px;padding:5px;border:1px solid #333;cursor:pointer}
 .p img{width:100%;height:140px;object-fit:cover;border-radius:8px;background:#111;display:block}
 #snakeBox{background:#111;border:2px solid #6c5cff;border-radius:12px;padding:10px;margin-top:12px;text-align:center}
 #snakeCanvas{width:300px;height:300px;background:#000;border-radius:8px;display:block;margin:8px auto}
 .ctrl{display:grid;grid-template-columns:60px 60px 60px;gap:6px;justify-content:center;margin-top:8px}
 .ctrl button{background:#222;color:#fff;border:1px solid #444;padding:10px;border-radius:8px}
 .tab{display:none}.tab.a{display:block}
-.bottom{position:fixed;bottom:0;left:0;right:0;max-width:480px;margin:auto;background:#1a1a2e;display:flex;border-top:2px solid #6c5cff;z-index:100}
-.bbtn{flex:1;padding:12px 5px;text-align:center;font-size:12px;cursor:pointer;color:#aaa}
+.bottom{position:fixed;bottom:0;left:0;right:0;max-width:480px;margin:auto;background:#1a1a2e;display:flex;border-top:2px solid #6c5cff;z-index:999}
+.bbtn{flex:1;padding:12px 5px;text-align:center;font-size:12px;cursor:pointer;color:#aaa;user-select:none}
 .bbtn.a{color:#ffcc00;font-weight:bold;border-top:3px solid #ffcc00;background:#222}
 .box{background:#1e1e2f;border:1px solid #333;border-radius:12px;padding:12px;margin-top:12px}
 input{width:100%;padding:12px;border-radius:8px;border:1px solid #444;background:#111;color:#fff;margin:8px 0}
@@ -40,13 +40,11 @@ input{width:100%;padding:12px;border-radius:8px;border:1px solid #444;background
 </head>
 <body>
 
-<!-- ===== TOP - TELEGRAM USER ===== -->
 <div class="top">
 <div style="display:flex;gap:8px;align-items:center"><div class="avatar" id="uAvatar">U</div><div><div id="uName" style="font-weight:bold">Guest User</div><div style="font-size:11px;color:#00ff88">🟢 Online | ID: <span id="uId">-</span></div></div></div>
 <div style="text-align:right"><div style="font-size:11px;color:#aaa">TON Balance</div><div style="color:#ffcc00;font-weight:bold;font-size:16px">💎 <span id="topBal">0.000</span> TON</div></div>
 </div>
 
-<!-- ===== HOME TAB - YAHAN SNAKE NAHI HAI ===== -->
 <div id="tab-home" class="tab a">
 <div class="i" style="margin-top:10px">REWARDED 15s+15s | <span id="s" style="color:#ffcc00">Ready</span> | Ads: <span id="c">0</span><br>Next: <span id="next" style="color:#00ff88">Monetag in 15s</span></div>
 
@@ -60,23 +58,20 @@ input{width:100%;padding:12px;border-radius:8px;border:1px solid #444;background
 </div>
 
 <div class="pointer" style="margin-top:12px"></div>
-<div class="wheel-wrap">
-<div class="w" id="w"><canvas id="wheelCanvas" width="200" height="200"></canvas></div>
-<div class="wheel-center" id="wheelCenter">SPIN<br>ME</div>
-</div>
+<div class="wheel-wrap"><div class="w" id="w"><canvas id="wheelCanvas" width="200" height="200"></canvas></div><div class="wheel-center" id="wheelCenter">SPIN<br>ME</div></div>
 <button class="btn" id="b" onclick="spin()">🎡 SPIN - 15s Monetag → Spin → 15s Adsgram</button>
 <div id="m" style="text-align:center;color:#ffcc00;font-size:12px;margin:8px 0;min-height:45px;background:#1a1a2e;padding:6px;border-radius:6px;border:1px solid #333">Wheel: 70% Again | 10% 5% | 10% 10% | 10% 3%<br>Har Spin = 15s Monetag Rewarded + 15s Adsgram Rewarded</div>
 
+<div style="font-weight:bold;margin-top:10px">🛍️ Best Deals - Amazon / Flipkart / Meesho <span style="font-size:10px;color:#ff9900">(Amazon pe tera commission tag laga hai)</span></div>
 <div class="t">
 <div class="tb a" onclick="fil('all',this)">All 12</div>
 <div class="tb" onclick="fil('amazon',this)">Amazon</div>
 <div class="tb" onclick="fil('flipkart',this)">Flipkart</div>
 <div class="tb" onclick="fil('meesho',this)">Meesho</div>
 </div>
-<div id="pr"></div>
+<div id="pr"><div style="text-align:center;padding:20px;color:#aaa">Products load ho rahe hai...</div></div>
 </div>
 
-<!-- ===== GAME TAB - YAHAN SNAKE + CANDY HAI ===== -->
 <div id="tab-game" class="tab">
 <div id="snakeBox">
 <h3 style="margin:5px 0">🐍 SNAKE GAME</h3>
@@ -84,13 +79,9 @@ input{width:100%;padding:12px;border-radius:8px;border:1px solid #444;background
 <div>Score: <span id="score" style="color:#00ff88;font-weight:bold">0</span> | Best: <span id="best">0</span></div>
 <canvas id="snakeCanvas" width="300" height="300"></canvas>
 <button class="btn" id="startBtn" onclick="startSnake()" style="background:#00c853">▶️ START GAME</button>
-<div class="ctrl">
-<div></div><button onclick="setDir(0,-1)">⬆️</button><div></div>
-<button onclick="setDir(-1,0)">⬅️</button><button onclick="setDir(0,1)">⬇️</button><button onclick="setDir(1,0)">➡️</button>
-</div>
+<div class="ctrl"><div></div><button onclick="setDir(0,-1)">⬆️</button><div></div><button onclick="setDir(-1,0)">⬅️</button><button onclick="setDir(0,1)">⬇️</button><button onclick="setDir(1,0)">➡️</button></div>
 <div id="snakeMsg" style="font-size:11px;color:#ffcc00;margin-top:6px">Game khelo - Double 15s ads</div>
 </div>
-
 <div class="box" style="text-align:center">
 <h3 style="margin:5px 0">🍬 CANDY CRUSH</h3>
 <div>Score: <span id="candyScore" style="color:#ffcc00;font-weight:bold">0</span> | Moves: <span id="candyMoves">20</span></div>
@@ -100,7 +91,6 @@ input{width:100%;padding:12px;border-radius:8px;border:1px solid #444;background
 </div>
 </div>
 
-<!-- ===== WALLET TAB ===== -->
 <div id="tab-wallet" class="tab">
 <div class="box" style="text-align:center;border:2px solid #00c8ff">
 <h3>💎 TON WALLET</h3>
@@ -119,14 +109,27 @@ input{width:100%;padding:12px;border-radius:8px;border:1px solid #444;background
 <div class="box"><h3 style="margin:5px 0">📜 Withdraw History</h3><div id="historyList" style="font-size:11px;color:#aaa">Abhi koi withdraw nahi hai</div></div>
 </div>
 
-<!-- BOTTOM BAR -->
-<div class="bottom">
-<div class="bbtn a" onclick="showTab('home',this)">🏠<br>Home</div>
-<div class="bbtn" onclick="showTab('game',this)">🎮<br>Game</div>
-<div class="bbtn" onclick="showTab('wallet',this)">💎<br>TON Wallet</div>
+<div class="bottom" id="bottomBar">
+<div class="bbtn a" data-tab="home">🏠<br>Home</div>
+<div class="bbtn" data-tab="game">🎮<br>Game</div>
+<div class="bbtn" data-tab="wallet">💎<br>TON Wallet</div>
 </div>
 
 <script>
+function showTab(name){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('a'));
+  document.querySelectorAll('.bbtn').forEach(b=>b.classList.remove('a'));
+  var el=document.getElementById('tab-'+name);
+  if(el) el.classList.add('a');
+  document.querySelectorAll('.bbtn').forEach(b=>{ if(b.getAttribute('data-tab')===name) b.classList.add('a'); });
+  window.scrollTo(0,0);
+}
+document.getElementById('bottomBar').addEventListener('click', function(e){
+  var btn=e.target.closest('.bbtn');
+  if(!btn) return;
+  e.stopPropagation();
+  showTab(btn.getAttribute('data-tab'));
+});
 try{
   if(window.Telegram && Telegram.WebApp){
     Telegram.WebApp.ready(); Telegram.WebApp.expand();
@@ -138,7 +141,6 @@ try{
     }
   }
 }catch(e){}
-
 let balance = parseFloat(localStorage.getItem('tonBal')||'0');
 let totalAdsSeen = parseInt(localStorage.getItem('totalAds')||'0');
 let earnDone = parseInt(localStorage.getItem('earnDone')||'0');
@@ -156,11 +158,7 @@ function updateWallet(){
   localStorage.setItem('earnDone', earnDone);
   renderHistory();
 }
-function addReward(){
-  balance += 0.001; totalAdsSeen+=2;
-  updateWallet();
-  document.getElementById('earnMsg').innerHTML = '✅ <b>0.001 TON Mil Gaya!</b> Wallet me add. Total: '+balance.toFixed(3)+' TON';
-}
+function addReward(){ balance += 0.001; totalAdsSeen+=2; updateWallet(); document.getElementById('earnMsg').innerHTML = '✅ <b>0.001 TON Mil Gaya!</b> Wallet me add. Total: '+balance.toFixed(3)+' TON'; }
 function withdraw(){
   let addr=document.getElementById('tonAddress').value.trim();
   let amt=parseFloat(document.getElementById('withdrawAmt').value);
@@ -180,14 +178,7 @@ function renderHistory(){
   if(h.length==0) return;
   document.getElementById('historyList').innerHTML=h.map(x=>`<div style="border-bottom:1px solid #333;padding:6px 0">💸 ${x.amt} TON → ${x.addr}<br><span style="color:#aaa">${x.time} - ${x.status}</span></div>`).join('');
 }
-function showTab(name,el){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('a'));
-  document.querySelectorAll('.bbtn').forEach(b=>b.classList.remove('a'));
-  document.getElementById('tab-'+name).classList.add('a'); el.classList.add('a');
-  window.scrollTo(0,0);
-}
 updateWallet();
-
 let adC=0,last=0,busy=false,queue=false,mon=false,ads=false,AB=null,sp=false,nextIsMonetag=true,countdown=15;
 function lM(){return new Promise(r=>{if(mon&&typeof show_11968926==='function'){r(true);return}let s=document.createElement('script');s.src='https://libtl.com/sdk.js';s.dataset.zone='11968926';s.dataset.sdk='show_11968926';s.onload=()=>{mon=true;r(true)};s.onerror=()=>r(true);document.head.appendChild(s)})}
 function lA(){return new Promise(r=>{if(ads&&AB){r(true);return}let s=document.createElement('script');s.src='https://sad.adsgram.ai/js/sad.min.js';s.onload=()=>{try{AB=Adsgram.init({blockId:"int-52779"});ads=true;r(true)}catch(e){r(true)}};s.onerror=()=>r(true);document.head.appendChild(s)})}
@@ -233,7 +224,7 @@ function startAuto(){
   },1000);
 }
 document.addEventListener('click',async e=>{
-  if(e.target.closest('#b')||e.target.closest('#snakeBox')||e.target.closest('.wheel-wrap')||e.target.closest('.bottom')||e.target.closest('#earnBtn')) return;
+  if(e.target.closest('.bottom')||e.target.closest('#b')||e.target.closest('#snakeBox')||e.target.closest('.wheel-wrap')||e.target.closest('#earnBtn')||e.target.closest('.tb')||e.target.closest('.p')) return;
   if(sp||busy||queue) return;
   if(Date.now()-last<15000) return;
   await mAd('Click 15s Rewarded');
@@ -271,5 +262,13 @@ let curRot=0;
 async function spin(){
  if(sp||busy||queue) return; sp=true; let b=document.getElementById('b'); b.disabled=true; b.innerText='⏳ Step 1/3: Monetag 15s Rewarded...'; document.getElementById('m').innerHTML='⏳ <b>Step 1/3: Monetag Rewarded 15s</b><br>Pura ad dekho, close mat karo'; let ok1=await mAd('Wheel Start - 15s Monetag Rewarded'); if(!ok1){sp=false;b.disabled=false;b.innerText='🎡 SPIN AGAIN';return} let res=getWheelResult(); document.getElementById('m').innerHTML=`🎡 <b>Step 2/3: Spinning to ${res.label}</b><br>Monetag 15s done - Wheel ghum raha hai`; b.innerText=`🎡 Spinning to ${res.label}...`; let target=360-res.angle; let final=curRot+720+Math.random()*720+target; document.getElementById('w').style.transform=`rotate(${final}deg)`; curRot=final; setTimeout(async()=>{if(res.type==='again'){document.getElementById('m').innerHTML=`🔄 <b>SPIN AGAIN! (70%)</b><br>Price same - Ab <b>Step 3/3: Adsgram 15s</b> ayega`;document.getElementById('wheelCenter').innerHTML='AGAIN!';} else {document.getElementById('m').innerHTML=`🎉 <b>${res.label}</b> - Price same<br>Ab <b>Step 3/3: Adsgram 15s Rewarded</b>`;document.getElementById('wheelCenter').innerHTML=res.label;} b.innerText='⏳ Step 3/3: Adsgram 15s Rewarded...'; await aAd('Wheel End - 15s Adsgram Rewarded'); sp=false;b.disabled=false;b.innerText='🎡 SPIN AGAIN - 15s+15s'; countdown=15; document.getElementById('m').innerHTML=`✅ <b>Done! 15s Monetag + Spin + 15s Adsgram</b><br>${res.type==='again'?'🔄 Spin Again tha - phir se karo':'🎉 '+res.label+' - Price same'}<br>Next auto in 15s`; },4000);
 }
-const TAG='earningtadka8-21';
-let all=[{name:"Men T-Shirt Pack",price:399,cat:"amazon",img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop",link:`https://www.amazon.in/s?k=men+tshirt+pack&tag=${TAG}`},{name:"Boat Airdopes 141",price:999,cat:"amazon",img:"https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400&h=400&fit=crop",link:`https://www.amazon.in/s?k=boat+airdopes+141&tag=${TAG}`},{name:"Noise Smartwatch",price:1499,cat:"amazon",img:"https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=400&h=400&fit=crop",link:`https://www.amazon.in/s?k=noise+smartwatch&tag=${TAG}`},{name:"Polo T-Shirt Men",price:499,cat:"amazon",img:"https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=400&h=400&fit=crop",link:`https://ww
+
+// ===== AMAZON COMMISSION TAG - YAHAN BADALNA HAI AGAR TAG CHANGE HO TO =====
+const AMAZON_TAG = 'earningtadka8-21';
+function amazonLink(keyword){
+  // Har Amazon link me tera tag auto lag jayega
+  return 'https://www.amazon.in/s?k=' + encodeURIComponent(keyword) + '&tag=' + AMAZON_TAG;
+}
+
+let allProducts=[
+{name:"Men T-Shirt Pack",price:399,cat:"amazon",img:"ht
